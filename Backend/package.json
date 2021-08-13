@@ -19,15 +19,10 @@
   "main": "src/index.js",
   "scripts": {
     "dev": "nodemon ./src/index.js",
-    "test": "jest --env=node",
-    "test:ci:all": "jest --env=node",
-    "test:watch": "jest --watch",
-    "test:related": "jest --bail --findRelatedTests",
     "lint:js": "eslint . --ext .js",
     "lint:js:fix": "yarn run lint:js -- --fix",
     "lint:format": "prettier --write .",
     "lint:format:check": "prettier --check .",
-    "prepare": "husky install",
     "precommit": "lint-staged",
     "prepush": "npm run lint:js && npm run lint:format:check && npm run test"
   },
