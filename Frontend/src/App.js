@@ -1,23 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+
+import { Button } from "@material-ui/core";
+import ProductItem  from "./compenents/productItem";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <header></header>
+
+      <body>
+        <Button variant="contained" color="primary">
+          Testting
+        </Button>
+
+        <ProductItem
+        
+          productTitle="Violin"
+          description="Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat"
+          price="300E"
+          unitsInStock="units in stoK"
+               
+        ></ProductItem>
+
+      </body>
     </div>
   );
 }
