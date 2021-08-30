@@ -6,9 +6,9 @@
     width: 50%;
     height: 500px;
     border: 1px solid black;
-    animation-duration: 0.5s ; 
-    animation-timing-function: ease-out; 
+   transition:1s;
 }
+
 
 .productImage_hide{
  display:none;
@@ -21,8 +21,9 @@
     width: 50%;
     height: 500px;
     border: 1px solid black;
-    animation-name: backTheProduct;
-    animation-duration: 0.5s ; 
+    
+    /* animation-name: backTheProduct; */
+    animation-duration: 0.3s ; 
     animation-timing-function: ease-out; 
 }
 
@@ -42,16 +43,22 @@ h1.productDetails-data{
     grid-column:1/3 ;
     background-color: rgb(201, 198, 198);
 }
+.flip{
+   
+    animation-name: backTheProduct;
+    animation-duration: 0.5s ; 
+  
+}
 
 @keyframes backTheProduct{
     0% {
-    width:0%;
-   
-    transform: skewY(10deg);
+    width:30%;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    transform: rotateY(180deg);
+  
     }
     100%{
     width:50%;
-   
-
     }
 }

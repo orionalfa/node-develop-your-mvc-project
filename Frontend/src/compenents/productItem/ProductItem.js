@@ -13,10 +13,14 @@ function ProductItem({
     let productClass="productImage";
     let productData="productDetails_hide";
     let buttonText="Show details";
+    let containerFlip="noFlip";
+
     if(state==true){
+        containerFlip="flip";
          productClass="productImage_hide";
          productData="productDetails";
-         buttonText="Back to Image";     
+         buttonText="Back to Image";  
+
     }
     
     return(
@@ -36,20 +40,22 @@ function ProductItem({
             color="primary">
             {buttonText}
         </Button>
-        <div className={productClass}>
-       
-        </div>
-        <div className={productData}>
+        <div className={containerFlip}>
+            <div className={productClass}>
+        
+            </div>
+            <div className={productData}>
 
-            <h1 className='productDetails-data'>{productTitle}</h1>
-            <p className="productDetails-data">{description}</p>
-            <p className="productDetails-data">{price}</p>
-            <p className="productDetails-data">{unitsInStock}</p>
-            <Button variant="contained" color="primary">
-          Buy now
-            </Button>
+                <h1 className='productDetails-data'>{productTitle}</h1>
+                <p className="productDetails-data">{description}</p>
+                <p className="productDetails-data">{price}</p>
+                <p className="productDetails-data">{unitsInStock}</p>
+                <Button variant="contained" color="primary">
+                    Buy now
+                </Button>
 
 
+            </div>
         </div>
         </>
     )
