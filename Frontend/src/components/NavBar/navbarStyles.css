@@ -1,0 +1,17 @@
+.logo {
+  margin-right: 5.5rem;
+  margin-left: 0.5rem;
+}
+
+.navItem {
+  margin-right: 0.75rem;
+}
+
+.cartNavBar {
+  margin-right: 5.5rem;
+}
+
+.dropdown-menu {
+  position: absolute;
+  right: 0;
+}

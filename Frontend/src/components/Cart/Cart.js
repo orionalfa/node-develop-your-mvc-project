@@ -10,13 +10,12 @@ import CartItem from "../CartItem";
 
 // Render Cart items (mockCartItems to test Cart)
 // {handleRemove, handleChange}
-function renderCartItems(){
-
+function renderCartItems() {
   const mockCartItems = [];
 
-  for(let i = 0; i < 5; i++) {
+  for (let i = 0; i < 5; i++) {
     mockCartItems.push(
-      <CartItem 
+      <CartItem
         key={i}
         id={i}
         title={"product " + i}
@@ -26,42 +25,60 @@ function renderCartItems(){
         unitsInStock={3}
         // handleRemove={handleRemove}
         // handleChange={handleChange}
-      />
-    )
+      />,
+    );
   }
   return mockCartItems;
 }
 
-// Render function 
-function Cart({ cartItems, handleRemove, handleChange, ...props }){
-  
-    const mockCartItems = renderCartItems();
+// Render function
+function Cart() {
+// { cartItems, handleRemove, handleChange, ...props }
+  const mockCartItems = renderCartItems();
 
-    return(
-        
+  return (
+    <div>
+      <ul class="dropdown-menu" aria-labelledby="dropdownCart">
+        <li>
+          <a class="dropdown-item" href="#">
+            Action
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item" href="#">
+            Another action
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item" href="#">
+            Something
+          </a>
+        </li>
+      </ul>
 
-          {mockCartItems}
+      {/* {mockCartItems} */}
+    </div>
 
-        // {cartItems.length > 0 ? (
-        //   cartItems.map((item) => (
-        //     <ShoppingCartItem
-        //       key={item.id}
-        //       id={item.id}
-        //       title={item.title}
-        //       price={item.price}
-        //       img={item.img}
-        //       quantity={item.quantity}
-        //       unitsInStock={item.unitsInStock}
-        //       handleRemove={handleRemove}
-        //       handleChange={handleChange}
-        //     />
-        //   ))
-        // ) : (
-        //   <div className="col mb-4">
-        //     <h4>Your cart is empty</h4>
-        //   </div>
-        // )}
-      )
+    // {cartItems.length > 0 ? (
+    //   cartItems.map((item) => (
+    //     <ShoppingCartItem
+    //       key={item.id}
+    //       id={item.id}
+    //       title={item.title}
+    //       price={item.price}
+    //       img={item.img}
+    //       quantity={item.quantity}
+    //       unitsInStock={item.unitsInStock}
+    //       handleRemove={handleRemove}
+    //       handleChange={handleChange}
+    //     />
+    //   ))
+    // ) : (
+    //   <div className="col mb-4">
+    //     <h4>Your cart is empty</h4>
+    //   </div>
+    // )}
+  );
 }
 
 export default Cart;

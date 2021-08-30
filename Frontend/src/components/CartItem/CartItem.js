@@ -1,5 +1,6 @@
 import React from "react";
-import Button from "../Button";
+// import Button from "../../Button";
+import { Button } from "@material-ui/core";
 // import 'bootstrap/dist/css/bootstrap.css';
 
 function buildSelectOptions(unitsInStock) {
@@ -31,7 +32,8 @@ function CartItem({id,
     }
   
     return (
-      <div className="col">
+    <div>
+      <li className="col">
         <div className="row flex-column">
           <div className="col">
             <div className="row">
@@ -78,7 +80,8 @@ function CartItem({id,
             <hr />
           </div>
         </div>
-      </div>
+      </li>
+    </div>
     );
 }
 
