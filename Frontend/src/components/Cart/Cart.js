@@ -1,7 +1,5 @@
 import React from "react";
 import CartItem from "../CartItem";
-// import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
 
 // Cart total price (we will need to check props to adapt code)
 // function getCartTotal(cart) {
@@ -35,38 +33,14 @@ function renderCartItems(){
 }
 
 // Render function 
-function Cart({ cartItems, handleRemove, handleChange, open, ...props }){
+function Cart({ cartItems, handleRemove, handleChange, ...props }){
   
-    const [anchorEl, setAnchorEl] = React.useState(null);
     const mockCartItems = renderCartItems();
 
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
-
     return(
-        <Menu
-          id="menu-appbar"
-          anchorEl={anchorEl}
-          anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
-          keepMounted
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
-          open={open}
-          onClose={handleClose}
-        >
-
-          {/* <CartItem onClick={handleClose}>Profile</CartItem>
-          <CartItem onClick={handleClose}>My account</CartItem> */}
+        
 
           {mockCartItems}
-
-        </Menu>
 
         // {cartItems.length > 0 ? (
         //   cartItems.map((item) => (
