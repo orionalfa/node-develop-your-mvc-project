@@ -36,7 +36,7 @@ function ProductItem({
             {buttonText}
         </Button>
             <div className={productClass}>
-        
+              
             </div>
             <div className={productData}>
 

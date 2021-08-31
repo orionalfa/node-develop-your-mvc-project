@@ -44,6 +44,8 @@ h1.productDetails-data{
     width: 40%;
     max-width: 400px;
     border: 1px solid black;
+    /* animation-name: backTheProduct;
+    animation-duration: 0.3s ;  */
 }
 .flip{
     width: 40%;
