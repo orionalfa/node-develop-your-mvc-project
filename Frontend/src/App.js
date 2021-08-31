@@ -1,10 +1,14 @@
 import "./App.css";
 import React from 'react';
-// import ReactDOM from 'react-dom';
-// import 'bootstrap/dist/css/bootstrap.min.css';
-import ProductPage from "./Pages/Products";
-import NavBar from "./components/NavBar";
+
+
 import Home from "./components/Home"
+
+import NavBar from "./components/NavBar";
+import ProductPage from "./Pages/Products";
+import SignUpPage from "./Pages/SignUp";
+import ChangePasswordPage from "./Pages/ChangePwd";
+
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 function App() {
@@ -19,14 +23,25 @@ function App() {
       exact 
       component={Home}
       />
+
       <Route 
       path="/products"
       component={ProductPage}
       />
 
+      <Route
+       path="/sign-up" 
+       component={SignUpPage}     
+      />
+
+      <Route
+      path="/user-pwd-change" 
+      component={ChangePasswordPage}
+      />
+   
     </Switch>
   </BrowserRouter>
-  </>
+    </>
   );
 }
 
