@@ -19,7 +19,6 @@ function App() {
       exact 
       component={Home}
       />
-
       <Route 
       path="/products"
       component={ProductPage}
