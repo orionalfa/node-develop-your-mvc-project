@@ -2,7 +2,7 @@ import React from "react";
 
 import "./styles.css";
 import { Grid } from "@material-ui/core/";
-import ProductItem from "../../compenents/productItem";
+import ProductItem from "../../components/productItem";
 
 function ProductPage() {
   return (
