@@ -15,32 +15,26 @@ function ProductItem({
     let buttonText="Show details";
     let containerFlip="noFlip";
 
-    if(state==true){
-        containerFlip="flip";
-         productClass="productImage_hide";
-         productData="productDetails";
-         buttonText="Back to Image";  
-
+    if(state===true){
+            containerFlip="flip";
+            productClass="productImage_hide";
+            productData="productDetails";
+            buttonText="Back to Image"; 
     }
     
     return(
-        <>
-         <Button
+        
+        <div className={containerFlip}>
+        <Button
             
             onClick={()=>{
-                if(state==false){
-                    setClass(true);
-                    
-                }else{
-                    setClass(false);
-                }
-                
+                if(state===false){setClass(true);}
+                else{setClass(false);}    
             }}
             variant="contained" 
             color="primary">
             {buttonText}
         </Button>
-        <div className={containerFlip}>
             <div className={productClass}>
         
             </div>
@@ -57,7 +51,6 @@ function ProductItem({
 
             </div>
         </div>
-        </>
     )
 }
 export default ProductItem;
