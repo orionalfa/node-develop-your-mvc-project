@@ -2,6 +2,7 @@ import React from "react";
 
 import "./styles.css";
 import { Grid } from "@material-ui/core/";
+import ProductItem from "../../compenents/productItem";
 
 function ProductPage() {
   return (
@@ -16,10 +17,12 @@ function ProductPage() {
           key={index}
           className="product-page-product-container"
         >
-          <div className="product-page-product-box">
-            xs=12 sm=6 md=3 asdf asdf asdfasd fasdfasdfasdfasdfqwerqwerq wfaf
-            qwe fajknfja wnjfnaw nfañnw eñganwgn ño
-          </div>
+          <ProductItem
+            productTitle="Violin"
+            description="Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat"
+            price="300E"
+            unitsInStock="units in stoK"
+          ></ProductItem>
         </Grid>
       ))}
     </Grid>
