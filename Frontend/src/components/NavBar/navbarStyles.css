@@ -10,7 +10,12 @@
 .cartNavBar {
   margin-right: 5.5rem;
 }
-
+/* .navbar{
+  background-color: none;
+}
+.navbar-light .navbar-brand {
+  color: white;
+} */
 /* .dropdown-menu {
   position: absolute;
   right: 0;
