@@ -1,6 +1,6 @@
 import "./App.css";
 
-import Product from "./Pages/Products";
+import ProductPage from "./Pages/Products";
 
 function App() {
   return (
@@ -8,7 +8,7 @@ function App() {
       <header></header>
 
       <main>
-        <Product />
+        <ProductPage />
       </main>
     </div>
   );
