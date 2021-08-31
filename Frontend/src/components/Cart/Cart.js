@@ -33,24 +33,24 @@ function renderCartItems() {
 
 // Render function
 function Cart() {
-// { cartItems, handleRemove, handleChange, ...props }
+  // { cartItems, handleRemove, handleChange, ...props }
   const mockCartItems = renderCartItems();
 
   return (
     <div>
-      <ul class="dropdown-menu" aria-labelledby="dropdownCart">
+      <ul className="dropdown-menu" aria-labelledby="dropdownCart">
         <li>
-          <a class="dropdown-item" href="#">
+          <a className="dropdown-item" href="#">
             Action
           </a>
         </li>
         <li>
-          <a class="dropdown-item" href="#">
+          <a className="dropdown-item" href="#">
             Another action
           </a>
         </li>
         <li>
-          <a class="dropdown-item" href="#">
+          <a className="dropdown-item" href="#">
             Something
           </a>
         </li>
@@ -74,7 +74,7 @@ function Cart() {
     //     />
     //   ))
     // ) : (
-    //   <div className="col mb-4">
+    //   <div classNameName="col mb-4">
     //     <h4>Your cart is empty</h4>
     //   </div>
     // )}
