@@ -1,8 +1,10 @@
-import logo from "./logo.svg";
+
 import "./App.css";
 
-import { Button } from "@material-ui/core";
 import ProductItem  from "./compenents/productItem";
+
+
+import ProductPage from "./Pages/Products";
 
 function App() {
   return (
@@ -10,9 +12,7 @@ function App() {
       <header></header>
 
       <body>
-        <Button variant="contained" color="primary">
-          Testting
-        </Button>
+     
 
         <ProductItem
         
@@ -24,6 +24,9 @@ function App() {
         ></ProductItem>
 
       </body>
+      <main>
+        <ProductPage />
+      </main>
     </div>
   );
 }
