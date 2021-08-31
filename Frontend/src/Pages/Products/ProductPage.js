@@ -1,12 +1,16 @@
 import React from "react";
 
 import "./styles.css";
-import { Grid } from "@material-ui/core/";
-import ProductItem from "../../components/productItem";
 
-function ProductPage() {
+import { Grid } from "@material-ui/core/";
+
+import ProductItem from "../../components/productItem";
+import Cart from "../../components/Cart";
+
+function ProductPage({ showShoppingCart }) {
   return (
     <main>
+      <Cart showShoppingCart={showShoppingCart} />
       <Grid container>
         {Array.from(Array(12)).map((_, index) => (
           <Grid

@@ -1,15 +1,11 @@
 import React from "react";
+import $ from "jquery";
+
+import "./styles.css";
+import mockProduct from "../../img/mockProduct.JPG";
+
 import CartItem from "../CartItem";
 
-// Cart total price (we will need to check props to adapt code)
-// function getCartTotal(cart) {
-//     return cart.reduce((accum, item) => {
-//       return accum + item.price * item.quantity;
-//     }, 0);
-//   }
-
-// Render Cart items (mockCartItems to test Cart)
-// {handleRemove, handleChange}
 function renderCartItems() {
   const mockCartItems = [];
 
@@ -20,7 +16,7 @@ function renderCartItems() {
         id={i}
         title={"product " + i}
         price={100}
-        img={"../../img/mockProduct.jpg"}
+        img={mockProduct}
         quantity={5}
         unitsInStock={3}
         // handleRemove={handleRemove}
@@ -32,52 +28,21 @@ function renderCartItems() {
 }
 
 // Render function
-function Cart() {
-  // { cartItems, handleRemove, handleChange, ...props }
+function Cart({ showShoppingCart }) {
   const mockCartItems = renderCartItems();
 
+  if (showShoppingCart) {
+    console.log("mostrar");
+    $(".shopping-cart-list").css("right", "0");
+  } else {
+    console.log("ocultar");
+    $(".shopping-cart-list").css("right", "-400px");
+  }
+
   return (
-    <div>
-      <ul className="dropdown-menu" aria-labelledby="dropdownCart">
-        <li>
-          <a className="dropdown-item" href="#">
-            Action
-          </a>
-        </li>
-        <li>
-          <a className="dropdown-item" href="#">
-            Another action
-          </a>
-        </li>
-        <li>
-          <a className="dropdown-item" href="#">
-            Something
-          </a>
-        </li>
-      </ul>
-
-      {/* {mockCartItems} */}
+    <div className="shopping-cart-list">
+      <ul>{mockCartItems}</ul>
     </div>
-
-    // {cartItems.length > 0 ? (
-    //   cartItems.map((item) => (
-    //     <ShoppingCartItem
-    //       key={item.id}
-    //       id={item.id}
-    //       title={item.title}
-    //       price={item.price}
-    //       img={item.img}
-    //       quantity={item.quantity}
-    //       unitsInStock={item.unitsInStock}
-    //       handleRemove={handleRemove}
-    //       handleChange={handleChange}
-    //     />
-    //   ))
-    // ) : (
-    //   <div classNameName="col mb-4">
-    //     <h4>Your cart is empty</h4>
-    //   </div>
-    // )}
   );
 }
 
