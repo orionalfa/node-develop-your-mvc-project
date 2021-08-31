@@ -13,8 +13,8 @@ function App() {
   const [showShoppingCart, setShowShoppingCart] = useState(false);
   function showCart() {
     showShoppingCart ? setShowShoppingCart(false) : setShowShoppingCart(true);
-    // console.log(showShoppingCart);
   }
+  
   return (
     <>
       <header>
