@@ -5,7 +5,7 @@ import "./styles.css";
 function NavBar({ showCart }) {
   return (
     <div>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light border sticky-top">
+      <nav className="navbar navbar-expand-lg navbar-light bg-light border sticky-top personalized-navbar-style">
         <div className="container-fluid">
           <a className="navbar-brand logo" href="#">
             NotE
