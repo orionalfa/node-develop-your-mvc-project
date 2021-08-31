@@ -1,7 +1,8 @@
 import React from "react";
-// import Button from "../../Button";
+
+import "./styles.css";
+
 import { Button } from "@material-ui/core";
-// import 'bootstrap/dist/css/bootstrap.css';
 
 function buildSelectOptions(unitsInStock) {
   return Array.from({ length: unitsInStock }, (_value, index) => {

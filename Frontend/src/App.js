@@ -1,46 +1,42 @@
 import "./App.css";
-import React from 'react';
+import React, { useState } from "react";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 
-
-import Home from "./components/Home"
-
+import Home from "./components/Home";
 import NavBar from "./components/NavBar";
+
 import ProductPage from "./Pages/Products";
 import SignUpPage from "./Pages/SignUp";
 import ChangePasswordPage from "./Pages/ChangePwd";
 
-import { BrowserRouter, Switch, Route } from "react-router-dom";
-
 function App() {
+  const [showShoppingCart, setShowShoppingCart] = useState(false);
+  function showCart() {
+    showShoppingCart ? setShowShoppingCart(false) : setShowShoppingCart(true);
+    // console.log(showShoppingCart);
+  }
   return (
     <>
-  <header><NavBar/></header>
-     
-  <BrowserRouter>
-    <Switch>
-      <Route 
-      path="/" 
-      exact 
-      component={Home}
-      />
+      <header>
+        <NavBar showCart={showCart} />
+      </header>
 
-      <Route 
-      path="/products"
-      component={ProductPage}
-      />
+      <BrowserRouter>
+        <Switch>
+          <Route path="/" exact component={Home} />
 
-      <Route
-       path="/sign-up" 
-       component={SignUpPage}     
-      />
+          <Route
+            path="/products"
+            render={(props) => (
+              <ProductPage showShoppingCart={showShoppingCart} {...props} />
+            )}
+          />
 
-      <Route
-      path="/user-pwd-change" 
-      component={ChangePasswordPage}
-      />
-   
-    </Switch>
-  </BrowserRouter>
+          <Route path="/sign-up" component={SignUpPage} />
+
+          <Route path="/user-pwd-change" component={ChangePasswordPage} />
+        </Switch>
+      </BrowserRouter>
     </>
   );
 }
