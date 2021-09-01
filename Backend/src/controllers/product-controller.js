@@ -4,7 +4,7 @@ const { generateResponse } = require("../utils/generate-response");
 
 async function getAllProducts(req, res, next) {
   try {
-    const dbResponse = await db.User.find();
+    const dbResponse = await db.Products.find();
 
     if (dbResponse.error) {
       res.status(400).send(
@@ -25,13 +25,10 @@ async function getAllProducts(req, res, next) {
 }
 
 async function getProductById(req, res, next) {
-  const {
-    params: { id: userId },
-    query: { fullFetch },
-  } = req;
+  const { id: productId } = req.params;
 
   try {
-    const dbResponse = await db.User.findById(userId);
+    const dbResponse = await db.Products.findById(productId);
 
     if (dbResponse.error) {
       res.status(400).send(
