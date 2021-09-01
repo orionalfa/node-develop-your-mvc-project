@@ -1,13 +1,16 @@
 .productImage {
   max-width: 400px;
-  background-image: url("../../img/violin.jpg");
+  /* background-image: url("../../img/violin.jpg");
   background-position: center;
   background-size: contain;
-  background-repeat: no-repeat;
+  background-repeat: no-repeat; */
   height: 500px;
   transition: 1s;
 }
-
+.imageInstrument{
+  width: 100%;
+  max-width: 400px;
+}
 .productImage_hide {
   display: none;
 }

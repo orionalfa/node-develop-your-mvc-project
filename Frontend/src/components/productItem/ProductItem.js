@@ -1,8 +1,9 @@
 import "./styles.css";
 import { Button } from "@material-ui/core";
 import React, { useState } from "react";
+// import image from "../../img/violin.jpg";
 
-function ProductItem({ productTitle, description, price, unitsInStock }) {
+function ProductItem({ productTitle, description, price, unitsInStock, image}) {
   const [state, setClass] = useState(false);
   let productClass = "productImage";
   let productData = "productDetails_hide";
@@ -31,12 +32,14 @@ function ProductItem({ productTitle, description, price, unitsInStock }) {
       >
         {buttonText}
       </Button>
-      <div className={productClass}></div>
+      <div className={productClass}>
+        <img className="imageInstrument" alt={image} src={image}></img>
+      </div>
       <div className={productData}>
         <h1 className="productDetails-data">{productTitle}</h1>
         <p className="productDetails-data">{description}</p>
-        <p className="productDetails-data">{price}</p>
-        <p className="productDetails-data">{unitsInStock}</p>
+        <p className="productDetails-data">{price} $</p>
+        <p className="productDetails-data">{unitsInStock} U</p>
         <Button variant="contained" color="primary">
           Buy now
         </Button>
