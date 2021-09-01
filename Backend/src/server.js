@@ -6,11 +6,11 @@ const { json } = require("body-parser");
 // const { errorMiddleware } = require("./middlewares");
 const {
   productRouter,
+  userRouter,
   //   personRouter,
   //   movieRouter,
   //   movieGenreRouter,
   //   accountRouter,
-  //   userRouter,
 } = require("./routes");
 
 const app = express();
@@ -20,8 +20,8 @@ app.use(helmet());
 app.use(json());
 
 app.use("/products", productRouter);
+app.use("/users", userRouter);
 // app.use("/account", accountRouter);
-// app.use("/users", userRouter);
 // app.use("/genres/movie", movieGenreRouter);
 // app.use("/persons", personRouter);
 // app.use("/movies", movieRouter);
