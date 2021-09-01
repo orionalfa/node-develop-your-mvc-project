@@ -3,7 +3,7 @@ import { Button } from "@material-ui/core";
 import React, { useState } from "react";
 import image from "../../img/violin.jpg";
 
-function ProductItem({ productTitle, description, price, unitsInStock, image }) {
+function ProductItem({ productTitle, description, price, unitsInStock}) {
   const [state, setClass] = useState(false);
   let productClass = "productImage";
   let productData = "productDetails_hide";
@@ -33,7 +33,7 @@ function ProductItem({ productTitle, description, price, unitsInStock, image }) 
         {buttonText}
       </Button>
       <div className={productClass}>
-        <img alt="instrumentPicture" src={image}></img>
+        <img className="imageInstrument" alt="instrumentPicture" src={image}></img>
       </div>
       <div className={productData}>
         <h1 className="productDetails-data">{productTitle}</h1>
