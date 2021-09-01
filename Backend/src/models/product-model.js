@@ -13,9 +13,8 @@ const ProductSchema = new Schema({
   description: String,
   models: [
     {
-      ref: "models",
-
       type: Schema.Types.ObjectId,
+      ref: "models",
     },
   ],
 });
