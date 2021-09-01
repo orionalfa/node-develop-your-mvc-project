@@ -1,6 +1,7 @@
 import "./App.css";
 import React, { useState } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
+import musicContext from "./context";
 
 import NavBar from "./components/NavBar";
 
@@ -14,30 +15,33 @@ function App() {
   function showCart() {
     showShoppingCart ? setShowShoppingCart(false) : setShowShoppingCart(true);
   }
-
+  
   return (
-    <>
-      <header>
+  <>
+    <header>
         <NavBar showCart={showCart} />
       </header>
-
+    <musicContext.Provider
+    value={{
+      showShoppingCart:showShoppingCart,
+      hola:"holaketal"
+  }}
+    >
       <BrowserRouter>
         <Switch>
           <Route path="/" exact component={Home} />
-
           <Route
             path="/products"
-            render={(props) => (
-              <ProductPage showShoppingCart={showShoppingCart} {...props} />
+            render={() => (
+              <ProductPage />
             )}
           />
-
           <Route path="/sign-up" component={SignUpPage} />
-
           <Route path="/user-pwd-change" component={ChangePasswordPage} />
         </Switch>
       </BrowserRouter>
-    </>
+    </musicContext.Provider>
+  </>
   );
 }
 

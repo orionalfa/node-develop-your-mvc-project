@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import $ from "jquery";
 import "./styles.css";
 
@@ -7,9 +7,12 @@ import { Grid } from "@material-ui/core/";
 import ProductItem from "../../components/productItem";
 import Cart from "../../components/Cart";
 import { product } from "prelude-ls";
+import musicContext from "../../context";
 
 
-function ProductPage({ showShoppingCart }) {
+function ProductPage() {
+  const {hola}=useContext(musicContext)
+  console.log(hola);
   const [products, setProducts]=useState([]);
   const [isLoaded, setIsLoaded]=useState(false);
   useEffect(()=>{
@@ -26,7 +29,7 @@ function ProductPage({ showShoppingCart }) {
   return (
     <main>
 
-      <Cart showShoppingCart={showShoppingCart} />
+      <Cart />
       <Grid container className="product-page-grid">
       {/* {isLoaded ? ( */}
         {products.map((product, index) => (
