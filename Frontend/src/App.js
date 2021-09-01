@@ -26,7 +26,13 @@ function App() {
       <main>
         <BrowserRouter>
           <Switch>
-            <Route path="/" exact component={Home} />
+            <Route
+              path="/"
+              exact
+              render={(props) => (
+                <Home showShoppingCart={showShoppingCart} {...props} />
+              )}
+            />
 
             <Route
               path="/products"
@@ -35,7 +41,12 @@ function App() {
               )}
             />
 
-            <Route path="/sign-up" component={SignUpPage} />
+            <Route
+              path="/sign-up"
+              render={(props) => (
+                <SignUpPage showShoppingCart={showShoppingCart} {...props} />
+              )}
+            />
 
             <Route path="/user-pwd-change" component={ChangePasswordPage} />
 

@@ -1,13 +1,17 @@
 import React from "react";
-import logo from "../../img/logotype.png";
+
 import "./styles.css";
+import logo from "../../img/logotype.png";
+
+//Components
+import LogIn from "../LogIn";
 
 function NavBar({ showCart }) {
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-light border sticky-top personalized-navbar-style">
         <div className="container-fluid">
-          <img className="logotype-Invert" src={logo}></img>
+          <img className="logotype-Invert" src={logo} alt="logo"></img>
           <a className="navbar-brand logo" href="#">
             NotE
           </a>
@@ -45,6 +49,7 @@ function NavBar({ showCart }) {
                 </a>
               </li>
             </ul>
+            <LogIn />
             <button
               className="btn btn-secondary dropdown-toggle"
               type="button"

@@ -1,50 +1,50 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
 
 import "./styles.css";
 
-export default function ProductDashboard() {
-  const products = [
-    {
-      title: "Violin",
-      description: "asdfa sdfasd fqwerqwer asdf",
-      name: "Molitor Stradivarius",
-      price: "3000000€",
-      modelDescription: "Oak",
-      unitsStock: "1",
-      images:
-        "https://tarisio.com/content/uploads/2010/07/l22161top-Molitor-e1558015014811.jpg",
-    },
-    {
-      title: "Violin",
-      description: "asdfa sdfasd fqwerqwer asdf",
-      name: "Molitor Stradivarius",
-      price: "3000000€",
-      modelDescription: "Oak",
-      unitsStock: "1",
-      images:
-        "https://tarisio.com/content/uploads/2010/07/l22161top-Molitor-e1558015014811.jpg",
-    },
-    {
-      title: "Violin",
-      description: "asdfa sdfasd fqwerqwer asdf",
-      name: "Molitor Stradivarius",
-      price: "3000000€",
-      modelDescription: "Oak",
-      unitsStock: "1",
-      images:
-        "https://tarisio.com/content/uploads/2010/07/l22161top-Molitor-e1558015014811.jpg",
-    },
-  ];
+async function updateProduct(product) {
+  console.log(product._id);
+  console.log(product.title);
+}
 
-  const listProducts = products.map((product) => (
-    <tr>
-      <td>{product.title}</td>
-      <td>{product.description}</td>
-      <td>{product.name}</td>
-      <td>{product.price}</td>
-      <td>{product.modelDescription}</td>
-      <td>{product.unitsStock}</td>
-      <td>{product.images}</td>
+async function removeProduct(product) {
+  console.log(product._id);
+}
+
+export default function ProductDashboard() {
+  const [products, setProducts] = useState(null);
+
+  useEffect(() => {
+    axios.get("http://localhost:4000/products").then((response) => {
+      setProducts(response.data);
+    });
+  }, []);
+
+  if (!products) return null;
+
+  const productList = products.data.map((product, index) => (
+    <tr key={uuidv4()}>
+      <td key={uuidv4()}>
+        <input
+          type="text"
+          value={product.title}
+          onChange={() => updateProduct(product)}
+        />
+      </td>
+      <td key={uuidv4()}>{product.description}</td>
+      <td key={uuidv4()}>{product.name}</td>
+      <td key={uuidv4()}>{product.price}</td>
+      <td key={uuidv4()}>{product.modelDescription}</td>
+      <td key={uuidv4()}>{product.unitsStock}</td>
+      <td key={uuidv4()}>{product.images}</td>
+      <td key={uuidv4()}>
+        <button onClick={() => updateProduct(product)}>Update</button>
+      </td>
+      <td key={uuidv4()}>
+        <button onClick={() => removeProduct(product)}>Remove</button>
+      </td>
     </tr>
   ));
 
@@ -62,7 +62,7 @@ export default function ProductDashboard() {
             <th>Images</th>
           </tr>
         </thead>
-        <tbody>{listProducts}</tbody>
+        <tbody>{productList}</tbody>
       </table>
     </div>
   );
