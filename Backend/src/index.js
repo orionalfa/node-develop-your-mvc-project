@@ -9,19 +9,19 @@ const connect = require("./db/connect");
 connect().then(async function onServerInit() {
   console.log(`DB connected`);
 
-  //   const { _id } = await db.Models.create({
-  //     name: "Flying Microtonal Banana",
-  //     price: 2000,
-  //     modelDescription: "this banana will make you fly",
-  //     unitsStock: 10,
-  //     images: ["imageUrl"],
-  //   });
+  // const { _id } = await db.Models.create({
+  //   name: "Flying Microtonal Banana",
+  //   price: 2000,
+  //   modelDescription: "this banana will make you fly",
+  //   unitsStock: 10,
+  //   images: ["imageUrl"],
+  // });
 
-  //   await db.Products.create({
-  //     title: "Microtonal Banana",
-  //     description: "The Banana from KGLW",
-  //     models: [_id],
-  //   });
+  // await db.Products.create({
+  //   title: "Microtonal Banana",
+  //   description: "The Banana from KGLW",
+  //   models: [_id],
+  // });
 
   // await seedMovieGenres();
   // await seedMovies();
