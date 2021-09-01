@@ -6,7 +6,10 @@ function generateResponse({ data = null, error = null }) {
       error: error,
     };
   } else {
-    return { ...data };
+    return {
+      isSuccessful: true,
+      data: data,
+    };
   }
 }
 

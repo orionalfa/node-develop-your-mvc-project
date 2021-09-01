@@ -16,7 +16,7 @@ async function getAllProducts(req, res, next) {
 
     res.status(200).send(
       generateResponse({
-        data: dbResponse.data,
+        data: dbResponse,
       }),
     );
   } catch (error) {
@@ -40,7 +40,7 @@ async function getProductById(req, res, next) {
 
     res.status(200).send(
       generateResponse({
-        data: dbResponse.data,
+        data: dbResponse,
       }),
     );
   } catch (error) {

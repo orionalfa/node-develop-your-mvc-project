@@ -8,5 +8,5 @@ productRouter.get("/", productController.getAllProducts);
 productRouter.get("/:id", productController.getProductById);
 
 module.exports = {
-  accountRouter: accountRouter,
+  productRouter: productRouter,
 };
