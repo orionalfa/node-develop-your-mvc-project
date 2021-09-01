@@ -19,3 +19,7 @@
   position: fixed;
   width: 100%;
 }
+.logotype-Invert{
+  max-width: 2%;
+  filter: invert(100%);
+}

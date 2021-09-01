@@ -1,9 +1,10 @@
-import "./homeStyles.css"
-
+import "./homeStyles.css";
+import logo from "../../img/logotype.png";
 function Home(){
 return(
     <main className="first_image">
-    <h1>That's HomePage</h1>
+    <img className="logotype" src={logo}></img>
+    
   </main>
 )
 }
