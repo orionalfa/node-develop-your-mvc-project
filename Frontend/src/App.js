@@ -2,9 +2,9 @@ import "./App.css";
 import React, { useState } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
-import Home from "./components/Home";
 import NavBar from "./components/NavBar";
 
+import Home from "./Pages/Home";
 import ProductPage from "./Pages/Products";
 import SignUpPage from "./Pages/SignUp";
 import ChangePasswordPage from "./Pages/ChangePwd";
@@ -14,7 +14,7 @@ function App() {
   function showCart() {
     showShoppingCart ? setShowShoppingCart(false) : setShowShoppingCart(true);
   }
-  
+
   return (
     <>
       <header>
