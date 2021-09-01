@@ -38,8 +38,8 @@ function ProductItem({ productTitle, description, price, unitsInStock, image}) {
       <div className={productData}>
         <h1 className="productDetails-data">{productTitle}</h1>
         <p className="productDetails-data">{description}</p>
-        <p className="productDetails-data">{price}</p>
-        <p className="productDetails-data">{unitsInStock}</p>
+        <p className="productDetails-data">{price} $</p>
+        <p className="productDetails-data">{unitsInStock} U</p>
         <Button variant="contained" color="primary">
           Buy now
         </Button>
