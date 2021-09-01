@@ -1,6 +1,6 @@
 const app = require("./server");
 const { config } = require("./config");
-const db = require("./models/product-model");
+const db = require("./models");
 
 const connect = require("./db/connect");
 
@@ -22,6 +22,15 @@ connect().then(async function onServerInit() {
   //   description: "The Banana from KGLW",
   //   models: [_id],
   // });
+
+  await db.Users.create({
+    name: "Jimmy Hendrix",
+    email: "j.hendrix@guiter.com",
+    pass: "pwwd",
+    shippingAddress: "oklahoma 4",
+    role: "admin",
+    cart: [],
+  });
 
   // await seedMovieGenres();
   // await seedMovies();
