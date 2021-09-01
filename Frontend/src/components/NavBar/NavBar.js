@@ -34,8 +34,8 @@ function NavBar({ showCart }) {
                 </a>
               </li>
               <li className="nav-item navItem">
-                <a className="nav-link" href="#">
-                  Contact Us
+                <a className="nav-link" href="/product-dashboard">
+                  ProductDashboard
                 </a>
               </li>
               <li className="nav-item navItem">
