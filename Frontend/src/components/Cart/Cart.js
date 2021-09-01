@@ -2,7 +2,7 @@ import React from "react";
 import $ from "jquery";
 
 import "./styles.css";
-import mockProduct from "../../img/mockProduct.JPG";
+// import mockProduct from "./img/mockProduct.JPG";
 
 import CartItem from "../CartItem";
 
@@ -16,7 +16,7 @@ function renderCartItems() {
         id={i}
         title={"product " + i}
         price={100}
-        img={mockProduct}
+        img="./img/mockProduct.JPG"
         quantity={5}
         unitsInStock={3}
         // handleRemove={handleRemove}

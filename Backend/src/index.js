@@ -14,7 +14,7 @@ connect().then(async function onServerInit() {
   //   price: 2000,
   //   modelDescription: "this banana will make you fly",
   //   unitsStock: 10,
-  //   images: ["imageUrl"],
+  //   images: ["https://cdna.artstation.com/p/assets/video_clips/images/025/166/784/large/marius-k-thumb.jpg?1584876869"],
   // });
 
   // await db.Products.create({
@@ -23,14 +23,14 @@ connect().then(async function onServerInit() {
   //   models: [_id],
   // });
 
-  await db.Users.create({
-    name: "Jimmy Hendrix",
-    email: "j.hendrix@guiter.com",
-    pass: "pwwd",
-    shippingAddress: "oklahoma 4",
-    role: "admin",
-    cart: [],
-  });
+  // await db.Users.create({
+  //   name: "Jimmy Hendrix",
+  //   email: "j.hendrix@guiter.com",
+  //   pass: "pwwd",
+  //   shippingAddress: "oklahoma 4",
+  //   role: "admin",
+  //   cart: [],
+  // });
 
   // await seedMovieGenres();
   // await seedMovies();

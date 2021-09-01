@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../../img/logotype.png";
+// import logo from "./img/logotype.png";
 import "./styles.css";
 
 function NavBar({ showCart }) {
@@ -7,7 +7,7 @@ function NavBar({ showCart }) {
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-light border sticky-top personalized-navbar-style">
         <div className="container-fluid">
-          <img className="logotype-Invert" src={logo}></img>
+          <img className="logotype-Invert" src="./img/logotype.png"></img>
           <a className="navbar-brand logo" href="#">
             NotE
           </a>
