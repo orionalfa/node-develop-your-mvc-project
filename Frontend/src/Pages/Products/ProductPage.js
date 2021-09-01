@@ -11,7 +11,7 @@ function ProductPage({ showShoppingCart }) {
   return (
     <main>
       <Cart showShoppingCart={showShoppingCart} />
-      <Grid container>
+      <Grid container className="product-page-grid">
         {Array.from(Array(12)).map((_, index) => (
           <Grid
             item

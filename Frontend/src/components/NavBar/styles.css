@@ -15,6 +15,7 @@
   margin-right: 1rem;
 }
 
-.sticky {
-  position: sticky;
+.personalized-navbar-style {
+  position: fixed;
+  width: 100%;
 }
