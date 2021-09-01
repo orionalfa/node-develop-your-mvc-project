@@ -4,13 +4,14 @@ const morgan = require("morgan");
 const { json } = require("body-parser");
 
 // const { errorMiddleware } = require("./middlewares");
-// const {
-//   personRouter,
-//   movieRouter,
-//   movieGenreRouter,
-//   accountRouter,
-//   userRouter,
-// } = require("./routes");
+const {
+  productRouter,
+  //   personRouter,
+  //   movieRouter,
+  //   movieGenreRouter,
+  //   accountRouter,
+  //   userRouter,
+} = require("./routes");
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use(morgan("dev"));
 app.use(helmet());
 app.use(json());
 
+app.use("/products", productRouter);
 // app.use("/account", accountRouter);
 // app.use("/users", userRouter);
 // app.use("/genres/movie", movieGenreRouter);
