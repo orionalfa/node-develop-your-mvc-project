@@ -7,15 +7,7 @@ import { Grid } from "@material-ui/core/";
 import ProductItem from "../../components/productItem";
 import Cart from "../../components/Cart";
 import { product } from "prelude-ls";
- function getProducts(){
-  $.ajax({
-    url:"http://localhost:4000/products",
-    type:"GET",
-    success:(res)=>{
-      return res.data;
-    }
-  })
-}
+
 
 function ProductPage({ showShoppingCart }) {
   const [products, setProducts]=useState([]);
@@ -48,10 +40,12 @@ function ProductPage({ showShoppingCart }) {
             className="product-page-product-container"
           >
             <ProductItem
+              
+              image={product.models[0].images[0]}
               productTitle={product.title}
               description={product.description}
-              price="300E"
-              unitsInStock="units in stoK"
+              price={product.models[0].price}
+              unitsInStock={product.models[0].unitsStock}
             ></ProductItem>
           
           </Grid>
