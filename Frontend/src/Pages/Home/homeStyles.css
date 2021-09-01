@@ -10,5 +10,7 @@
 
   .logotype{
     position: absolute;
-    bottom:50%;
+    bottom:20%;
+    max-width: 5%;
   }
+ 
