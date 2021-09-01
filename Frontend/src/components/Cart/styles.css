@@ -1,0 +1,17 @@
+.shopping-cart-list {
+  display: block;
+  position: fixed;
+  top: 7vh;
+  right: -400px;
+  background-color: white;
+  border: 1px solid black;
+  width: 400px;
+  height: 93vh;
+  z-index: 100;
+  transition: all 1s ease-in-out;
+}
+
+.shopping-cart-list > ul {
+  margin-top: 1rem;
+  list-style: none;
+}
