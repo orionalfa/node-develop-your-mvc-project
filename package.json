@@ -17,7 +17,6 @@
   },
   "homepage": "https://github.com/orionalfa/node-develop-your-mvc-project#readme",
   "dependencies": {
-    "bootstrap": "^5.1.0",
     "concurrently": "^6.2.1",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.1.0",
