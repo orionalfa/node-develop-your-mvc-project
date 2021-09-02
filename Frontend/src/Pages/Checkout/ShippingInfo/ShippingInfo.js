@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid } from "@material-ui/core/";
 
-import "./styles.css";
+import "../styles.css";
 
 import CheckoutFooter from "../../../components/CheckoutFooter";
 
@@ -9,16 +9,9 @@ export default function ShippingInfo() {
   return (
     <main>
       <form>
-        <div className="shipping-info-container">
+        <div className="form-container">
           <Grid container>
-            <Grid
-              item
-              p={10}
-              xs={12}
-              sm={12}
-              md={9}
-              className="shipping-info-form"
-            >
+            <Grid item p={10} xs={12} sm={12} md={9} className="left-container">
               <h1>SHIPPING INFO</h1>
               <div>
                 <h5>Name:</h5>
@@ -55,8 +48,10 @@ export default function ShippingInfo() {
               xs={12}
               sm={12}
               md={3}
-              className="shipping-info-resume"
-            ></Grid>
+              className="right-container"
+            >
+              <div>Resume</div>
+            </Grid>
             <CheckoutFooter back="products" next="shipping-method" />
           </Grid>
         </div>
