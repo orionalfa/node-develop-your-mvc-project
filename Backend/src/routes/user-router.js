@@ -7,6 +7,8 @@ const userRouter = Router();
 userRouter.get("/", userController.getAllUsers);
 userRouter.get("/:id", userController.getUserById);
 userRouter.post("/", userController.createUser);
+userRouter.delete("/:id", userController.deleteUser);
+userRouter.patch("/:id", userController.updateUser);
 
 module.exports = {
   userRouter: userRouter,
