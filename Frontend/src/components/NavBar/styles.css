@@ -18,8 +18,10 @@
 .personalized-navbar-style {
   position: fixed;
   width: 100%;
+  background-color: transparent;
 }
-.logotype-Invert{
+
+.logotype-Invert {
   max-width: 2%;
   filter: invert(100%);
 }
