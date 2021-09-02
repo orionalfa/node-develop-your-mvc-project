@@ -51,6 +51,29 @@ function App() {
       },
     });
   }
+
+  async function removeProduct(product) {
+    $.ajax({
+      url: `http://localhost:4000/products/${product._id}`,
+      type: "DELETE",
+      success: (res) => {
+        console.log(res);
+        window.location.reload();
+      },
+    });  
+  }
+
+  async function updateProduct(product) {
+    $.ajax({
+      url: `http://localhost:4000/products/${product._id}`,
+      type: "PATCH",
+      success: (res) => {
+        console.log(res);
+        window.location.reload();
+      },
+    });  
+  }
+
   return (
     <>
       <header>
@@ -62,6 +85,8 @@ function App() {
           hola: "holaketal",
           products: products,
           isLoaded: isLoaded,
+          removeProduct:removeProduct,
+          updateProduct:updateProduct
         }}
       >
         <BrowserRouter>

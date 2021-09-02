@@ -1,21 +1,18 @@
 import React, { useContext } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Grid } from "@material-ui/core/";
-
+import $ from "jquery";
 import "./styles.css";
 import musicContext from "../../context";
 
-async function updateProduct(product) {
-  console.log(product._id);
-  console.log(product.title);
-}
+// async function updateProduct(product) {
+//   console.log(product._id);
+//   console.log(product.title);
+// }
 
-async function removeProduct(product) {
-  console.log(product._id);
-}
 
 export default function ProductDashboard() {
-  const { products } = useContext(musicContext);
+  const { products, removeProduct, updateProduct } = useContext(musicContext);
 
   if (!products) return null;
 
