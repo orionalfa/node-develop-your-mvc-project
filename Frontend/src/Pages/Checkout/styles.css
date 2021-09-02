@@ -9,6 +9,13 @@
   display: flex;
 }
 
+.one-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .left-container {
   width: 60%;
   display: flex;

@@ -12,6 +12,8 @@ import { useCardForm } from "reactjs-credit-card";
 
 import "./styles.css";
 
+import CheckoutFooter from "../../../components/CheckoutFooter";
+
 export default function PaymentMethod() {
   const getFormData = useCardForm();
   const [numberValid, setNumberValid] = useState(true);
@@ -40,37 +42,27 @@ export default function PaymentMethod() {
   return (
     <main>
       <div className="form-container">
-        <Grid container>
-          <Grid item p={10} xs={12} sm={12} md={9} className="left-container">
-            <Card fixClass="fix-new" cardClass="card-new" />
-            <form onSubmit={handleSubmit}>
-              <CardNumber
-                placeholder="Card Number"
-                className={`input-text${!numberValid ? " error" : ""}`}
-                onFocus={handleFocus}
-              />
-              <CardHolder placeholder="Card Holder" className="input-text" />
-              <div className="flex-wrapper">
-                <div className="semi flex-wrapper">
-                  <ValidThruMonth className="input-text semi" />
-                  <ValidThruYear className="input-text semi" />
-                </div>
-                <CardSecurityCode
-                  placeholder="CVV"
-                  className="input-text semi"
-                />
+        <Grid item p={10} xs={12} sm={12} md={12} className="one-container">
+          <h1>PAYMENT METHOD</h1>
+          <br />
+          <Card fixClass="fix-new" cardClass="card-new" />
+          <form onSubmit={handleSubmit}>
+            <CardNumber
+              placeholder="Card Number"
+              className={`input-text${!numberValid ? " error" : ""}`}
+              onFocus={handleFocus}
+            />
+            <CardHolder placeholder="Card Holder" className="input-text" />
+            <div className="flex-wrapper">
+              <div className="semi flex-wrapper">
+                <ValidThruMonth className="input-text semi" />
+                <ValidThruYear className="input-text semi" />
               </div>
-              <button className="card-btn">Submit</button>
-            </form>
-          </Grid>
-          <Grid
-            item
-            p={10}
-            xs={12}
-            sm={12}
-            md={3}
-            className="right-container"
-          ></Grid>
+              <CardSecurityCode placeholder="CVV" className="input-text semi" />
+            </div>
+            <button className="card-btn">Submit</button>
+          </form>
+          <CheckoutFooter back="shipping-method" next="preview-order" />
         </Grid>
       </div>
     </main>
