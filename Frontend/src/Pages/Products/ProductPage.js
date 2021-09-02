@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import $ from "jquery";
+
 import "./styles.css";
 
 import { Grid } from "@material-ui/core/";
@@ -11,27 +11,17 @@ import musicContext from "../../context";
 
 
 function ProductPage() {
-  const {hola}=useContext(musicContext)
+  const {hola, products,isLoaded}=useContext(musicContext)
   console.log(hola);
-  const [products, setProducts]=useState([]);
-  const [isLoaded, setIsLoaded]=useState(false);
-  useEffect(()=>{
-   $.ajax({
-    url:"http://localhost:4000/products",
-    type:"GET",
-    success:(res)=>{
-      setProducts(res.data);
-      setIsLoaded(true);
-    }
-  })
-  },[])
-  console.log(products)
+  
+  // console.log(products)
   return (
+   isLoaded ?(
     <main>
 
       <Cart />
       <Grid container className="product-page-grid">
-      {/* {isLoaded ? ( */}
+      
         {products.map((product, index) => (
           <Grid
             item
@@ -53,10 +43,16 @@ function ProductPage() {
           
           </Grid>
         ))}
-      {/* )} */}
+   
       </Grid>
-    </main>
-  );
+    </main> )
+    :
+    <h1>
+      Our store it's empty
+    </h1>
+  
+    );
+  
 }
 
 export default ProductPage;
