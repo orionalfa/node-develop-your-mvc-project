@@ -9,7 +9,7 @@ function SignUpPage() {
   return (
     <main>
       <Cart />
-      <section className="container">
+      <section className="containerOmega">
         <div className="headerPage mt-3">
           <h2>Create User Account</h2>
         </div>
