@@ -58,18 +58,23 @@ function App() {
       type: "DELETE",
       success: (res) => {
         console.log(res);
-        window.location.reload();
+        //getAllProducts();
+        //window.location.reload();
       },
     });  
   }
 
   async function updateProduct(product) {
+    
     $.ajax({
       url: `http://localhost:4000/products/${product._id}`,
       type: "PATCH",
+      data:{
+        title:product.title
+      },
       success: (res) => {
         console.log(res);
-        window.location.reload();
+        //window.location.reload();
       },
     });  
   }
@@ -86,7 +91,8 @@ function App() {
           products: products,
           isLoaded: isLoaded,
           removeProduct:removeProduct,
-          updateProduct:updateProduct
+          updateProduct:updateProduct,
+          getAllProducts:getAllProducts
         }}
       >
         <BrowserRouter>
