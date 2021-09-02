@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import { v4 as uuidv4 } from "uuid";
-import $ from "jquery";
+import { Grid } from "@material-ui/core/";
+
 import "./styles.css";
 import musicContext from "../../context";
 
@@ -14,8 +15,7 @@ async function removeProduct(product) {
 }
 
 export default function ProductDashboard() {
-
-  const { products }=useContext(musicContext)
+  const { products } = useContext(musicContext);
 
   if (!products) return null;
 
@@ -45,22 +45,24 @@ export default function ProductDashboard() {
 
   return (
     <main>
-    <div className="grid-container">
-      <table>
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Model description</th>
-            <th>Units in stock</th>
-            <th>Images</th>
-          </tr>
-        </thead>
-        <tbody>{productList}</tbody>
-      </table>
-    </div>
+      <Grid container xs={12} sm={12} md={12}>
+        <div className="grid-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Model description</th>
+                <th>Units in stock</th>
+                <th>Images</th>
+              </tr>
+            </thead>
+            <tbody>{productList}</tbody>
+          </table>
+        </div>
+      </Grid>
     </main>
   );
 }
