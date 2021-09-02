@@ -14,6 +14,7 @@ import ProductDashboard from "./Pages/ProductDashboard";
 
 function App() {
   const [showShoppingCart, setShowShoppingCart] = useState(false);
+
   function showCart() {
     showShoppingCart ? setShowShoppingCart(false) : setShowShoppingCart(true);
   }
@@ -33,23 +34,19 @@ function App() {
                 <Home showShoppingCart={showShoppingCart} {...props} />
               )}
             />
-
             <Route
               path="/products"
               render={(props) => (
                 <ProductPage showShoppingCart={showShoppingCart} {...props} />
               )}
             />
-
             <Route
               path="/sign-up"
               render={(props) => (
                 <SignUpPage showShoppingCart={showShoppingCart} {...props} />
               )}
             />
-
             <Route path="/user-pwd-change" component={ChangePasswordPage} />
-
             <Route path="/product-dashboard" component={ProductDashboard} />
           </Switch>
         </BrowserRouter>
