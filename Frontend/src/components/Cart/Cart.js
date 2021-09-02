@@ -1,4 +1,4 @@
-import React,{useContext} from "react";
+import React, { useContext } from "react";
 import $ from "jquery";
 import musicContext from "../../context";
 import "./styles.css";
@@ -29,14 +29,12 @@ function renderCartItems() {
 
 // Render function
 function Cart() {
-  const {showShoppingCart}=useContext(musicContext)
+  const { showShoppingCart } = useContext(musicContext);
   const mockCartItems = renderCartItems();
-  console.log()
+
   if (showShoppingCart) {
-    console.log("mostrar");
     $(".shopping-cart-list").css("right", "0");
   } else {
-    console.log("ocultar");
     $(".shopping-cart-list").css("right", "-400px");
   }
 

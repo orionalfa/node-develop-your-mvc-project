@@ -15,3 +15,23 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.button {
+  border: 1px solid black;
+  border-radius: 0.2rem;
+  margin-right: 1rem;
+  min-height: 100%;
+  padding: 0.3rem;
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+  background-color: rgb(121, 129, 129);
+  color: white;
+  text-decoration: none;
+  padding: 0.35rem 1rem;
+}
+
+.button:hover {
+  background-color: rgb(107, 107, 107);
+  color: white;
+}
