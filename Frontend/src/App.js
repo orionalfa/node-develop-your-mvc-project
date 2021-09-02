@@ -68,7 +68,6 @@ function App() {
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/products" render={() => <ProductPage />} />
-
             <Route path="/user-pwd-change" component={ChangePasswordPage} />
             <Route path="/sign-up" render={() => <SignUpPage />} />
             <Route path="/product-dashboard" component={ProductDashboard} />
