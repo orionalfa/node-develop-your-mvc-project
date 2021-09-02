@@ -1,0 +1,72 @@
+.login-main-container {
+  display: flex;
+}
+
+.login-button {
+  border: 1px solid black;
+  border-radius: 0.2rem;
+  margin-right: 1rem;
+  min-height: 100%;
+  padding: 0.3rem;
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+  background-color: rgb(121, 129, 129);
+  color: white;
+  text-decoration: none;
+  padding: 0.35rem 1rem;
+}
+
+.login-button:hover {
+  background-color: rgb(107, 107, 107);
+  color: white;
+}
+
+#login-button {
+}
+
+#login-modal {
+  display: flex;
+  flex-direction: column;
+  display: none;
+  position: absolute;
+  top: 4rem;
+  right: 5rem;
+  background-color: white;
+  border: 1px solid black;
+  width: 0px;
+  min-width: 20rem;
+  padding: 1rem;
+  z-index: 100;
+  transition: all 1s ease-in-out;
+}
+
+.login-field {
+  width: 100%;
+}
+
+.login-field > * {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.login-buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.login-buttons > a {
+  border: 1px solid black;
+  border-radius: 0.3rem;
+  background-color: rgb(121, 129, 129);
+  padding: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-decoration: none;
+}
+
+.login-buttons > a:hover {
+  background-color: rgb(107, 107, 107);
+}
