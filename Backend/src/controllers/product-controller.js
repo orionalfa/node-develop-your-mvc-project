@@ -88,7 +88,7 @@ async function addNewProduct(req, res, next) {
 async function updateProduct(req, res, next) {
   const { id: productId } = req.params;
   const productBody = req.body;
-
+  console.log(req.body);
   try {
     const productDoc = await db.Products.findOne({ _id: productId });
 
