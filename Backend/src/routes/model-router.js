@@ -4,11 +4,11 @@ const { modelController } = require("../controllers");
 
 const modelRouter = Router();
 
-// modelRouter.get("/", modelController.getAllProducts);
-// modelRouter.get("/:id", productController.getProductById);
-// modelRouter.patch("/:id", productController.updateProduct);
-// modelRouter.delete("/:id", productController.deleteProduct);
-// modelRouter.post("/add", productController.addNewProduct);
+modelRouter.get("/", modelController.getAllModels);
+modelRouter.get("/:id", modelController.getModelById);
+modelRouter.patch("/:id", modelController.updateModel);
+modelRouter.delete("/:id", modelController.deleteModel);
+modelRouter.post("/add/:id", modelController.addNewModel);
 
 module.exports = {
   modelRouter: modelRouter,

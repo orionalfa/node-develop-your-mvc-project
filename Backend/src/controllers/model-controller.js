@@ -2,154 +2,147 @@ const db = require("../models");
 
 const { generateResponse } = require("../utils/generate-response");
 
-// async function getAllModels(req, res, next) {
-//   try {
-//     const dbResponse = await db.Products.find().populate("models");
+async function getAllModels(req, res, next) {
+  try {
+    const dbResponse = await db.Models.find();
 
-//     // if (dbResponse.error) {
-//     //   res.status(400).send(
-//     //     generateResponse({
-//     //       error: dbResponse.error,
-//     //     }),
-//     //   );
-//     // }
+    res.status(200).send(
+      generateResponse({
+        data: dbResponse,
+      }),
+    );
+  } catch (error) {
+    res.status(500).send(
+      generateResponse({
+        error: error,
+      }),
+    );
+    next(error);
+  }
+}
 
-//     res.status(200).send(
-//       generateResponse({
-//         data: dbResponse,
-//       }),
-//     );
-//   } catch (error) {
-//     res.status(500).send(
-//       generateResponse({
-//         error: error,
-//       }),
-//     );
-//     next(error);
-//   }
-// }
+async function getModelById(req, res, next) {
+  const { id: modelId } = req.params;
 
-// async function getProductById(req, res, next) {
-//   const { id: productId } = req.params;
+  try {
+    const dbResponse = await db.Models.findById(modelId);
 
-//   try {
-//     const dbResponse = await db.Products.findById(productId).populate("models");
+    res.status(200).send(
+      generateResponse({
+        data: dbResponse,
+      }),
+    );
+  } catch (error) {
+    res.status(500).send(
+      generateResponse({
+        error: error,
+      }),
+    );
+    next(error);
+  }
+}
 
-//     res.status(200).send(
-//       generateResponse({
-//         data: dbResponse,
-//       }),
-//     );
-//   } catch (error) {
-//     res.status(500).send(
-//       generateResponse({
-//         error: error,
-//       }),
-//     );
-//     next(error);
-//   }
-// }
+async function addNewModel(req, res, next) {
+  const { id: productId } = req.params;
+  const modelBody = req.body;
 
-// async function addNewProduct(req, res, next) {
-//   const productBody = req.body;
+  try {
+    const { _id } = await db.Models.create(modelBody);
 
-//   try {
-//     modelsId = await Promise.all(
-//       productBody.models.map(async (model) => {
-//         const { _id } = await db.Models.create(model);
-//         return _id;
-//       }),
-//     );
+    const productDoc = await db.Products.findById(productId);
 
-//     const { _id: productId } = await db.Products.create({
-//       title: productBody.title,
-//       description: productBody.description,
-//       models: modelsId,
-//     });
+    productDoc.models.push(_id);
 
-//     res.status(200).send(
-//       generateResponse({
-//         data: {
-//           message: "Product added correctly",
-//           productId: productId,
-//         },
-//       }),
-//     );
-//   } catch (error) {
-//     res.status(500).send(
-//       generateResponse({
-//         error: error,
-//       }),
-//     );
-//     next(error);
-//   }
-// }
+    productDoc.save();
 
-// async function updateProduct(req, res, next) {
-//   const { id: productId } = req.params;
-//   const productBody = req.body;
+    res.status(200).send(
+      generateResponse({
+        data: {
+          message: "Model added correctly and related with the product",
+          productId: productId,
+          modelId: _id,
+        },
+      }),
+    );
+  } catch (error) {
+    res.status(500).send(
+      generateResponse({
+        error: error,
+      }),
+    );
+    next(error);
+  }
+}
 
-//   try {
-//     const productDoc = await db.Products.findOne({ _id: productId });
+async function updateModel(req, res, next) {
+  const { id: modelId } = req.params;
+  const modelBody = req.body;
 
-//     const productToSave = { ...productDoc._doc, ...productBody };
+  try {
+    const { _id: productId } = await db.Products.findOne({ models: modelId });
 
-//     productDoc.set(productToSave);
+    const modelDoc = await db.Models.findOne({ _id: modelId });
 
-//     await productDoc.save();
+    const modelToSave = { ...modelDoc._doc, ...modelBody };
 
-//     res.status(200).send(
-//       generateResponse({
-//         data: {
-//           message: "Product updated correctly",
-//           productId: productId,
-//         },
-//       }),
-//     );
-//   } catch (error) {
-//     res.status(500).send(
-//       generateResponse({
-//         error: error,
-//       }),
-//     );
-//     next(error);
-//   }
-// }
+    modelDoc.set(modelToSave);
 
-// async function deleteProduct(req, res, next) {
-//   const { id: productId } = req.params;
+    await modelDoc.save();
 
-//   try {
-//     const productDoc = await db.Products.findOne({ _id: productId });
+    res.status(200).send(
+      generateResponse({
+        data: {
+          message: "Model updated correctly",
+          productId: productId,
+          modelId: modelId,
+        },
+      }),
+    );
+  } catch (error) {
+    res.status(500).send(
+      generateResponse({
+        error: error,
+      }),
+    );
+    next(error);
+  }
+}
 
-//     productDoc.models.forEach(async (modelId) => {
-//       await db.Models.deleteOne({ _id: modelId });
-//     });
+async function deleteModel(req, res, next) {
+  const { id: modelId } = req.params;
 
-//     await db.Products.deleteOne({ _id: productId });
+  try {
+    const productDoc = await db.Products.findOne({ models: modelId });
 
-//     res.status(200).send(
-//       generateResponse({
-//         data: {
-//           message: "Product eliminated correctly",
-//           productId: productId,
-//         },
-//       }),
-//     );
-//   } catch (error) {
-//     res.status(500).send(
-//       generateResponse({
-//         error: error,
-//       }),
-//     );
-//     next(error);
-//   }
-// }
+    await db.Models.deleteOne({ _id: modelId });
+
+    productDoc.models = productDoc.models.filter((model) => model != modelId);
+
+    productDoc.save();
+
+    res.status(200).send(
+      generateResponse({
+        data: {
+          message: "Model eliminated correctly",
+          productId: productDoc._id,
+          modelId: modelId,
+        },
+      }),
+    );
+  } catch (error) {
+    res.status(500).send(
+      generateResponse({
+        error: error,
+      }),
+    );
+    next(error);
+  }
+}
 
 module.exports = {
-  // getAllProducts: getAllProducts,
-  // getProductById: getProductById,
-  // addNewProduct: addNewProduct,
-  // updateProduct: updateProduct,
-  // deleteProduct: deleteProduct,
+  getAllModels: getAllModels,
+  getModelById: getModelById,
+  addNewModel: addNewModel,
+  updateModel: updateModel,
+  deleteModel: deleteModel,
 };
