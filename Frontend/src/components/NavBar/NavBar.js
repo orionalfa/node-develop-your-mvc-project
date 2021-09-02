@@ -1,6 +1,9 @@
 import React from "react";
-// import logo from "./img/logotype.png";
+
 import "./styles.css";
+
+//Components
+import LogIn from "../LogIn";
 
 function NavBar({ showCart }) {
   return (
@@ -35,16 +38,34 @@ function NavBar({ showCart }) {
                 </a>
               </li>
               <li className="nav-item navItem">
-                <a className="nav-link" href="#">
-                  Contact Us
+                <a className="nav-link" href="/product-dashboard">
+                  ProductDashboard
                 </a>
               </li>
               <li className="nav-item navItem">
-                <a className="nav-link" href="#">
-                  About Us
-                </a>
+                <div className="nav-link checkout" href="#">
+                  ¡¡TMP!! - Checkout
+                  <ul>
+                    <li>
+                      <a href="/shipping-info">ShippingInfo</a>
+                    </li>
+                    <li>
+                      <a href="/shipping-method">ShippingMethod</a>
+                    </li>
+                    <li>
+                      <a href="/payment-method">PaymentMethod</a>
+                    </li>
+                    <li>
+                      <a href="/preview-order">PreviewOrder</a>
+                    </li>
+                    <li>
+                      <a href="/confirm-order">ConfirmOrder</a>
+                    </li>
+                  </ul>
+                </div>
               </li>
             </ul>
+            <LogIn />
             <button
               className="btn btn-secondary dropdown-toggle"
               type="button"

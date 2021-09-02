@@ -18,8 +18,25 @@
 .personalized-navbar-style {
   position: fixed;
   width: 100%;
+  background-color: transparent;
 }
-.logotype-Invert{
+
+.logotype-Invert {
   max-width: 2%;
   filter: invert(100%);
+}
+
+.checkout > ul {
+  position: absolute;
+  display: none;
+  top: 3rem;
+  background-color: white;
+}
+
+.checkout:hover > ul {
+  display: block;
+}
+
+.checkout > ul:hover {
+  display: block;
 }

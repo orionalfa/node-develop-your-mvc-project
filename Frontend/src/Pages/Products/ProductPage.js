@@ -1,34 +1,22 @@
-import React, { useEffect, useState } from "react";
-import $ from "jquery";
+import React, { useContext } from "react";
+
 import "./styles.css";
 
 import { Grid } from "@material-ui/core/";
 
 import ProductItem from "../../components/productItem";
 import Cart from "../../components/Cart";
-import { product } from "prelude-ls";
+import musicContext from "../../context";
 
+function ProductPage() {
+  const { hola, products, isLoaded } = useContext(musicContext);
+  console.log(hola);
 
-function ProductPage({ showShoppingCart }) {
-  const [products, setProducts]=useState([]);
-  const [isLoaded, setIsLoaded]=useState(false);
-  useEffect(()=>{
-   $.ajax({
-    url:"http://localhost:4000/products",
-    type:"GET",
-    success:(res)=>{
-      setProducts(res.data);
-      setIsLoaded(true);
-    }
-  })
-  },[])
-  console.log(products)
-  return (
+  // console.log(products)
+  return isLoaded ? (
     <main>
-
-      <Cart showShoppingCart={showShoppingCart} />
+      <Cart />
       <Grid container className="product-page-grid">
-      {/* {isLoaded ? ( */}
         {products.map((product, index) => (
           <Grid
             item
@@ -40,19 +28,18 @@ function ProductPage({ showShoppingCart }) {
             className="product-page-product-container"
           >
             <ProductItem
-              
               image={product.models[0].images[0]}
               productTitle={product.title}
               description={product.description}
               price={product.models[0].price}
               unitsInStock={product.models[0].unitsStock}
             ></ProductItem>
-          
           </Grid>
         ))}
-      {/* )} */}
       </Grid>
     </main>
+  ) : (
+    <h1>Our store it's empty</h1>
   );
 }
 
