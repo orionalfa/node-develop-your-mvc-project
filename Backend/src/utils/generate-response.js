@@ -2,8 +2,7 @@ function generateResponse({ data = null, error = null }) {
   if (error) {
     return {
       isSuccessful: false,
-      data: data,
-      error: error,
+      errorData: error,
     };
   } else {
     return {

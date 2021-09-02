@@ -7,6 +7,7 @@ const cors = require("cors");
 // const { errorMiddleware } = require("./middlewares");
 const {
   productRouter,
+  modelRouter,
   userRouter,
   //   personRouter,
   //   movieRouter,
@@ -23,6 +24,7 @@ app.use(cors());
 
 app.use("/products", productRouter);
 app.use("/users", userRouter);
+app.use("/models", modelRouter);
 // app.use("/account", accountRouter);
 // app.use("/genres/movie", movieGenreRouter);
 // app.use("/persons", personRouter);
