@@ -1,0 +1,11 @@
+.checkout-footer-buttons {
+  margin-top: 2rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.checkout-footer-buttons > button {
+  margin-right: 2rem;
+}
