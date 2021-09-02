@@ -14,7 +14,7 @@ connect().then(async function onServerInit() {
   //   price: 2000,
   //   modelDescription: "this banana will make you fly",
   //   unitsStock: 10,
-  //   images: ["imageUrl"],
+  //   images: ["https://cdna.artstation.com/p/assets/video_clips/images/025/166/784/large/marius-k-thumb.jpg?1584876869"],
   // });
 
   // await db.Products.create({
