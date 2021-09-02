@@ -6,7 +6,7 @@ import "./styles.css";
 export default function CheckoutFooter({ back, next }) {
   return (
     <Grid
-      container
+      item
       p={10}
       xs={12}
       sm={12}

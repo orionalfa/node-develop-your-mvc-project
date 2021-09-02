@@ -29,7 +29,7 @@ export default function ShippingMethod() {
                     <div className="radio-price">4,99€</div>
                   </label>
                 </div>
-                <div for="standard" className="shipping-method-radio">
+                <div className="shipping-method-radio">
                   <input
                     type="radio"
                     id="standard"

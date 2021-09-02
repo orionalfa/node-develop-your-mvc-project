@@ -11,10 +11,8 @@ export default function LogIn(showLogin) {
   }
 
   if (showLoginModal) {
-    console.log("mostrar");
     $("#login-modal").css("display", "block");
   } else {
-    console.log("ocultar");
     $("#login-modal").css("display", "none");
   }
 
