@@ -8,9 +8,8 @@
     background-size: cover;
   }
 
-  .logotype{
-    position: absolute;
-    bottom:20%;
-    max-width: 4%;
-  }
- 
+.logotype {
+  position: absolute;
+  bottom: 20%;
+  max-width: 4%;
+}
