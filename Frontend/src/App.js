@@ -4,8 +4,10 @@ import $ from "jquery";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import musicContext from "./context";
 
-import NavBar from "./components/NavBar";
+import "./App.css";
 
+import NavBar from "./components/NavBar";
+import ProductDashboard from "./Pages/ProductDashboard";
 import Home from "./Pages/Home";
 import ProductPage from "./Pages/Products";
 import SignUpPage from "./Pages/SignUp";
@@ -19,6 +21,7 @@ import ChangePasswordPage from "./Pages/ChangePwd";
 //           showCart:showShoppingCart ? state=false : state=true
 //         }
 
+
 //     }
 //   }
 // }
@@ -28,25 +31,27 @@ function App() {
   const [products, setProducts]=useState([]);
   const [isLoaded, setIsLoaded]=useState(false);
   useEffect(()=>{
-   $.ajax({
-    url:"http://localhost:4000/products",
-    type:"GET",
-    success:(res)=>{
-      setProducts(res.data);
-      setIsLoaded(true);
-    }
-  })
+    getAllProducts();
   },[])
 
   function showCart() {
     showShoppingCart ? setShowShoppingCart(false) : setShowShoppingCart(true);
   }
-  
+  function getAllProducts(){
+    $.ajax({
+      url:"http://localhost:4000/products",
+      type:"GET",
+      success:(res)=>{
+        setProducts(res.data);
+        setIsLoaded(true);
+      }
+    })
+  }
   return (
   <>
     <header>
         <NavBar showCart={showCart} />
-      </header>
+    </header>
     <musicContext.Provider
     value={{
       showShoppingCart:showShoppingCart,
@@ -64,12 +69,20 @@ function App() {
               <ProductPage />
             )}
           />
-          <Route path="/sign-up" component={SignUpPage} />
+         
           <Route path="/user-pwd-change" component={ChangePasswordPage} />
+          <Route
+              path="/sign-up"
+              render={() => (
+                <SignUpPage  />
+              )}
+            />
+          <Route path="/product-dashboard" component={ProductDashboard} />
         </Switch>
       </BrowserRouter>
     </musicContext.Provider>
   </>
+      
   );
 }
 
