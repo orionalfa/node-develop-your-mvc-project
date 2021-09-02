@@ -1,0 +1,16 @@
+.first_image {
+    text-align: center;
+    background-image: url("./portadaGuitarra.jpeg");
+    width: 100%;
+    height: 1000px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .logotype{
+    position: absolute;
+    bottom:20%;
+    max-width: 4%;
+  }
+ 
