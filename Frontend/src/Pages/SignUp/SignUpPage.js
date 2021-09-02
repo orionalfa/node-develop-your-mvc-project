@@ -5,10 +5,10 @@ import "./styles.css";
 import Input from "../../components/Input";
 import Cart from "../../components/Cart";
 
-function SignUpPage({ showShoppingCart }) {
+function SignUpPage() {
   return (
     <main>
-      <Cart showShoppingCart={showShoppingCart} />
+      <Cart />
       <section className="container">
         <div className="headerPage">
           <h2>Create User Account</h2>
