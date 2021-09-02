@@ -43,9 +43,26 @@ function NavBar({ showCart }) {
                 </a>
               </li>
               <li className="nav-item navItem">
-                <a className="nav-link" href="#">
-                  About Us
-                </a>
+                <div className="nav-link checkout" href="#">
+                  ¡¡TMP!! - Checkout
+                  <ul>
+                    <li>
+                      <a href="/shipping-info">ShippingInfo</a>
+                    </li>
+                    <li>
+                      <a href="/shipping-method">ShippingMethod</a>
+                    </li>
+                    <li>
+                      <a href="/payment-method">PaymentMethod</a>
+                    </li>
+                    <li>
+                      <a href="/preview-order">PreviewOrder</a>
+                    </li>
+                    <li>
+                      <a href="/confirm-order">ConfirmOrder</a>
+                    </li>
+                  </ul>
+                </div>
               </li>
             </ul>
             <LogIn />
