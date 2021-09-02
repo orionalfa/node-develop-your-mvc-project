@@ -19,6 +19,7 @@ export default function ProductDashboard() {
   useEffect(() => {
     axios.get("http://localhost:4000/products").then((response) => {
       setProducts(response.data);
+      console.log(response.data);
     });
   }, []);
 
@@ -34,11 +35,11 @@ export default function ProductDashboard() {
         />
       </td>
       <td key={uuidv4()}>{product.description}</td>
-      <td key={uuidv4()}>{product.name}</td>
-      <td key={uuidv4()}>{product.price}</td>
-      <td key={uuidv4()}>{product.modelDescription}</td>
-      <td key={uuidv4()}>{product.unitsStock}</td>
-      <td key={uuidv4()}>{product.images}</td>
+      <td key={uuidv4()}>{product.models[0].name}</td>
+      <td key={uuidv4()}>{product.models[0].price}</td>
+      <td key={uuidv4()}>{product.models[0].modelDescription}</td>
+      <td key={uuidv4()}>{product.models[0].unitsStock}</td>
+      <td key={uuidv4()}>{product.models[0].images}</td>
       <td key={uuidv4()}>
         <button onClick={() => updateProduct(product)}>Update</button>
       </td>

@@ -1,6 +1,6 @@
 .productImage {
   max-width: 400px;
-  background-image: url("../../img/violin.jpg");
+  background-image: url("../../../public/img/violin.jpg");
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;

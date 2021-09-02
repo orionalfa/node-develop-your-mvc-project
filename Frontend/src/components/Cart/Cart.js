@@ -2,7 +2,7 @@ import React from "react";
 import $ from "jquery";
 
 import "./styles.css";
-import mockProduct from "../../img/mockProduct.JPG";
+import mockProduct from "/public/img/mockProduct.JPG";
 
 import CartItem from "../CartItem";
 

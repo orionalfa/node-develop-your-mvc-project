@@ -1,5 +1,5 @@
 import "./homeStyles.css";
-import logo from "../../img/logotype.png";
+import logo from "/public/img/logotype.png";
 
 import Cart from "../../components/Cart";
 

@@ -1,7 +1,7 @@
 import React from "react";
 
 import "./styles.css";
-import logo from "../../img/logotype.png";
+import logo from "/public/img/logotype.png";
 
 //Components
 import LogIn from "../LogIn";

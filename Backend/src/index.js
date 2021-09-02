@@ -23,14 +23,14 @@ connect().then(async function onServerInit() {
   //   models: [_id],
   // });
 
-  await db.Users.create({
-    name: "Jimmy Hendrix",
-    email: "j.hendrix@guiter.com",
-    pass: "pwwd",
-    shippingAddress: "oklahoma 4",
-    role: "admin",
-    cart: [],
-  });
+  // await db.Users.create({
+  //   name: "Jimmy Hendrix",
+  //   email: "j.hendrix@guiter.com",
+  //   pass: "pwwd",
+  //   shippingAddress: "oklahoma 4",
+  //   role: "admin",
+  //   cart: [],
+  // });
 
   // await seedMovieGenres();
   // await seedMovies();
