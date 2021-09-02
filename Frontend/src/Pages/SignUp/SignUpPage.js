@@ -10,47 +10,125 @@ function SignUpPage() {
     <main>
       <Cart />
       <section className="container">
-        <div className="headerPage">
+        <div className="headerPage mt-3">
           <h2>Create User Account</h2>
         </div>
         <hr />
-        <div class="mb-3">
+        <div className="mb-3">
           <form>
-            <div class="mb-3">
-              <Input
-                type="text"
-                label="Email:"
-                id="email"
-                // value={formik.values.address}
-                placeholder="useremail@gmail.com"
-                // handleChange={formik.handleChange}
-                // handleBlur={formik.handleBlur}
-                // hasErrorMessage={formik.touched.address}
-                // errorMessage={formik.errors.address}
-              />
-              <div id="emailHelp" class="form-text">
-                We'll never share your email with anyone else.
+            <div className="row">
+              <div className="col-6">
+                <div className="mb-3">
+                  <Input
+                    type="text"
+                    label="Full Name:"
+                    id="name"
+                    // value={formik.values.address}
+                    placeholder="Introduce your full name"
+                    // handleChange={formik.handleChange}
+                    // handleBlur={formik.handleBlur}
+                    // hasErrorMessage={formik.touched.address}
+                    // errorMessage={formik.errors.address}
+                  />
+                </div>
+                <div className="mb-3">
+                  <Input
+                    type="text"
+                    label="Email:"
+                    id="email"
+                    // value={formik.values.address}
+                    placeholder="Ex: useremail@gmail.com"
+                    // handleChange={formik.handleChange}
+                    // handleBlur={formik.handleBlur}
+                    // hasErrorMessage={formik.touched.address}
+                    // errorMessage={formik.errors.address}
+                  />
+                </div>
+                <div className="mb-3">
+                  <Input
+                    type="text"
+                    label="Password:"
+                    id="password"
+                    // value={formik.values.address}
+                    placeholder="******"
+                    // handleChange={formik.handleChange}
+                    // handleBlur={formik.handleBlur}
+                    // hasErrorMessage={formik.touched.address}
+                    // errorMessage={formik.errors.address}
+                  />
+                </div>
+                <div className="mb-3">
+                  <Input
+                    type="text"
+                    label="Country:"
+                    id="country"
+                    // value={formik.values.address}
+                    placeholder="Ex: US"
+                    // handleChange={formik.handleChange}
+                    // handleBlur={formik.handleBlur}
+                    // hasErrorMessage={formik.touched.address}
+                    // errorMessage={formik.errors.address}
+                  />
+                </div>
+                <button type="submit" className="btn btn-primary">
+                  Sign up
+                </button>
+              </div>
+              <div className="col-6">
+                <div className="mb-3">
+                  <Input
+                    type="text"
+                    label="City:"
+                    id="city"
+                    // value={formik.values.address}
+                    placeholder="Ex: New York"
+                    // handleChange={formik.handleChange}
+                    // handleBlur={formik.handleBlur}
+                    // hasErrorMessage={formik.touched.address}
+                    // errorMessage={formik.errors.address}
+                  />
+                </div>
+                <div className="mb-3">
+                  <Input
+                    type="text"
+                    label="Postal Code:"
+                    id="postalCode"
+                    // value={formik.values.address}
+                    placeholder="Ex: 00501"
+                    // handleChange={formik.handleChange}
+                    // handleBlur={formik.handleBlur}
+                    // hasErrorMessage={formik.touched.address}
+                    // errorMessage={formik.errors.address}
+                  />
+                </div>
+                <div className="mb-3">
+                  <Input
+                    type="text"
+                    label="Contact name:"
+                    id="contactName"
+                    // value={formik.values.address}
+                    placeholder="Name of the package receiver"
+                    // handleChange={formik.handleChange}
+                    // handleBlur={formik.handleBlur}
+                    // hasErrorMessage={formik.touched.address}
+                    // errorMessage={formik.errors.address}
+                  />
+                </div>
+                <div className="mb-3">
+                  <Input
+                    type="text"
+                    label="Contact Phone:"
+                    id="contactPhone"
+                    // value={formik.values.address}
+                    placeholder="phone number of the package receiver"
+                    // handleChange={formik.handleChange}
+                    // handleBlur={formik.handleBlur}
+                    // hasErrorMessage={formik.touched.address}
+                    // errorMessage={formik.errors.address}
+                  />
+                </div>
               </div>
             </div>
-            <div class="mb-3">
-              <Input
-                type="text"
-                label="Password:"
-                id="password"
-                // value={formik.values.address}
-                placeholder="******"
-                // handleChange={formik.handleChange}
-                // handleBlur={formik.handleBlur}
-                // hasErrorMessage={formik.touched.address}
-                // errorMessage={formik.errors.address}
-              />
-              <div id="passwordHelp" class="form-text">
-                Passwords must include...
-              </div>
-            </div>
-            <button type="submit" class="btn btn-primary">
-              Submit
-            </button>
           </form>
         </div>
       </section>
