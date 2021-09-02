@@ -8,27 +8,25 @@ import ProductItem from "../../components/productItem";
 import Cart from "../../components/Cart";
 import { product } from "prelude-ls";
 
-
 function ProductPage({ showShoppingCart }) {
-  const [products, setProducts]=useState([]);
-  const [isLoaded, setIsLoaded]=useState(false);
-  useEffect(()=>{
-   $.ajax({
-    url:"http://localhost:4000/products",
-    type:"GET",
-    success:(res)=>{
-      setProducts(res.data);
-      setIsLoaded(true);
-    }
-  })
-  },[])
-  console.log(products)
+  const [products, setProducts] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
+  useEffect(() => {
+    $.ajax({
+      url: "http://localhost:4000/products",
+      type: "GET",
+      success: (res) => {
+        setProducts(res.data);
+        setIsLoaded(true);
+      },
+    });
+  }, []);
+  console.log(products);
   return (
     <main>
-
       <Cart showShoppingCart={showShoppingCart} />
       <Grid container className="product-page-grid">
-      {/* {isLoaded ? ( */}
+        {/* {isLoaded ? ( */}
         {products.map((product, index) => (
           <Grid
             item
@@ -40,17 +38,15 @@ function ProductPage({ showShoppingCart }) {
             className="product-page-product-container"
           >
             <ProductItem
-              
               image={product.models[0].images[0]}
               productTitle={product.title}
               description={product.description}
               price={product.models[0].price}
               unitsInStock={product.models[0].unitsStock}
             ></ProductItem>
-          
           </Grid>
         ))}
-      {/* )} */}
+        {/* )} */}
       </Grid>
     </main>
   );
