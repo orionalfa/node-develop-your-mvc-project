@@ -1,5 +1,5 @@
 const db = require("../models");
-// const { encryptString } = require("../utils/encrypt");
+const { encryptString } = require("../utils/encrypt");
 const { generateResponse } = require("../utils/generate-response");
 
 async function getAllUsers(req, res, next) {
@@ -48,12 +48,14 @@ async function getUserById(req, res, next) {
   }
 }
 async function createUser(req, res, next) {
-  console.log(req.body);
+  // console.log(req.body);
+
+  var { pass, ...rest } = req.body;
+  pass = await encryptString(pass);
 
   try {
-    const { _id } = await db.Users.create(req.body);
-
-    if (!_id) {
+    const dbResponse = await db.Users.create({ pass, ...rest });
+    if (!dbResponse._id) {
       res.status(400).send(
         generateResponse({
           error: "not created",
@@ -67,6 +69,14 @@ async function createUser(req, res, next) {
       }),
     );
   } catch (error) {
+    if (error.keyValue) {
+      res.status(500).send(
+        generateResponse({
+          data: error.keyValue,
+          error: "name or email already exists",
+        }),
+      );
+    }
     next(error);
   }
 }
