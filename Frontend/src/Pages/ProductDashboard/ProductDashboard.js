@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useContext } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Grid } from "@material-ui/core/";
 
 import "./styles.css";
+import musicContext from "../../context";
 
 async function updateProduct(product) {
   console.log(product._id);
@@ -15,18 +15,11 @@ async function removeProduct(product) {
 }
 
 export default function ProductDashboard() {
-  const [products, setProducts] = useState(null);
-
-  useEffect(() => {
-    axios.get("http://localhost:4000/products").then((response) => {
-      setProducts(response.data);
-      console.log(response.data);
-    });
-  }, []);
+  const { products } = useContext(musicContext);
 
   if (!products) return null;
 
-  const productList = products.data.map((product, index) => (
+  const productList = products.map((product, index) => (
     <tr key={uuidv4()}>
       <td key={uuidv4()}>
         <input
