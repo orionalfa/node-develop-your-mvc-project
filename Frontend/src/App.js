@@ -93,12 +93,20 @@ function App() {
       url: `http://localhost:4000/users/${user._id}`,
       type: "PATCH",
       data: shippingAddress,
-      success: (res) => {
-        //window.location.reload();
-      },
+      success: (res) => {},
     });
   }
 
+  async function getShippingData(user) {
+    $.ajax({
+      url: `http://localhost:4000/users/${user._id}`,
+      type: "GET",
+      data: "",
+      success: (res) => {
+        setShippingAddress(res.shippingAddress);
+      },
+    });
+  }
 
   async function sendOrder(user, order) {
     $.ajax({
@@ -188,6 +196,7 @@ function App() {
                   setShippingMethod: setShippingMethod,
                   setPaymentData: setPaymentData,
                   updateShippingData: updateShippingData,
+                  getShippingData: getShippingData,
                   sendOrder: sendOrder,
                 }}
               >

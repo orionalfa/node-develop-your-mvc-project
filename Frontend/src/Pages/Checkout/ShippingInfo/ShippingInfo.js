@@ -1,11 +1,24 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Grid } from "@material-ui/core/";
 
 import "../styles.css";
 
 import CheckoutFooter from "../../../components/CheckoutFooter";
+import { checkoutContext } from "../../../context";
 
 export default function ShippingInfo() {
+  const {
+    shippingAddress,
+    shippingMethod,
+    paymentData,
+    setShippingAddress,
+    setShippingMethod,
+    setPaymentData,
+    updateShippingData,
+    getShippingData,
+    sendOrder,
+  } = useContext(checkoutContext);
+
   return (
     <main>
       <form>
