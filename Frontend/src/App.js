@@ -60,8 +60,7 @@ function App() {
       type: "DELETE",
       success: (res) => {
         console.log(res);
-        //getAllProducts();
-        //window.location.reload();
+        getAllProducts();
       },
     });
   }
@@ -75,7 +74,6 @@ function App() {
       },
       success: (res) => {
         console.log(res);
-        //window.location.reload();
       },
     });
   }
@@ -86,8 +84,7 @@ function App() {
       type: "DELETE",
       success: (res) => {
         console.log(res);
-        //getAllProducts();
-        //window.location.reload();
+        getAllProducts();
       },
     });
   }
@@ -119,7 +116,10 @@ function App() {
               path="/product-dashboard"
               render={() => <ProductDashboard />}
             />
-            <Route path="/product-formulary" render={() => <ProductForm />} />
+            <Route
+              path="/product-formulary/:id"
+              render={() => <ProductForm />}
+            />
             <Route path="/shipping-info" render={() => <ShippingInfo />} />
             <Route path="/shipping-method" render={() => <ShippingMethod />} />
             <Route path="/payment-method" render={() => <PaymentMethod />} />

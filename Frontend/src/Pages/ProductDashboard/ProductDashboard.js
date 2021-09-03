@@ -1,37 +1,19 @@
-import React, { useContext, useEffect, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
+import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import { Grid } from "@material-ui/core/";
-//import $ from "jquery";
-import "./styles.css";
+import { v4 as uuidv4 } from "uuid";
 import musicContext from "../../context";
-
-function getProductList(products) {
-  const productList = [];
-  products.forEach((product) => {
-    product.models.forEach((model) => {
-      productList.push({
-        productId: product._id,
-        title: product.title,
-        description: product.description,
-        modelId: model._id,
-        modelName: model.name,
-        modelPrice: model.price,
-        modelDescription: model.modelDescription,
-        modelUnits: model.unitsStock,
-        modelImages: model.images,
-      });
-    });
-  });
-  return productList;
-}
+import "./styles.css";
 
 export default function ProductDashboard() {
-  const { products, removeModel, updateProduct, getAllProducts } =
-    useContext(musicContext);
+  const { products, removeProduct } = useContext(musicContext);
 
-  if (!products) return null;
-
-  const productList = getProductList(products);
+  if (!products)
+    return (
+      <main>
+        <div>There aren't products</div>
+      </main>
+    );
 
   return (
     <main>
@@ -40,49 +22,46 @@ export default function ProductDashboard() {
           {products.map((product) => (
             <div className="product-table border border-secondary rounded mb-4">
               <div className="product-header">
-                <div>
-                  {product.title} - {product.description} Update Remove
+                <div className="product-title ms-3">
+                  {product.title} - {product.description}
                 </div>
                 <div>
-                  <button>Update</button>
-                  <button>Remove</button>
+                  <Link
+                    to={`/product-formulary/${product._id}`}
+                    className="button me-4"
+                  >
+                    Update
+                  </Link>
+                  <button
+                    type="button"
+                    className="button"
+                    onClick={() => {
+                      removeProduct(product._id);
+                    }}
+                  >
+                    Remove
+                  </button>
                 </div>
               </div>
               <table>
-                <tbody>
-                  <tr>
-                    <th>Model Name</th>
-                    <th>Description</th>
-                    <th>Price</th>
-                    <th>Units</th>
-                    <th>Images</th>
+                <thead className="border-top">
+                  <tr key={uuidv4()}>
+                    <th key={uuidv4()}>Model Name</th>
+                    <th key={uuidv4()}>Description</th>
+                    <th key={uuidv4()}>Price</th>
+                    <th key={uuidv4()}>Units</th>
                   </tr>
+                </thead>
+                <tbody>
+                  {product.models.map((model) => (
+                    <tr key={uuidv4()}>
+                      <td key={uuidv4()}>{model.name}</td>
+                      <td key={uuidv4()}>{model.modelDescription}</td>
+                      <td key={uuidv4()}>{model.price}</td>
+                      <td key={uuidv4()}>{model.unitsStock}</td>
+                    </tr>
+                  ))}
                 </tbody>
-                {/* // <tbody>
-              //     <tr key={uuidv4()}>
-              //       <td key={uuidv4()}>{product.title}</td>
-              //       <td key={uuidv4()}>{product.description}</td>
-              //       <td key={uuidv4()}>{product.modelName}</td>
-              //       <td key={uuidv4()}>{product.modelPrice}</td>
-              //       <td key={uuidv4()}>{product.modelDescription}</td>
-              //       <td key={uuidv4()}>{product.modelUnits}</td>
-              //       <td key={uuidv4()}>{product.modelImages}</td>
-              //       <td key={uuidv4()}>
-              //         <button onClick={() => updateProduct(product.productId)}>
-              //           Update
-              //         </button>
-              //       </td>
-              //       <td key={uuidv4()}>
-              //         <button
-              //           onClick={() => {
-              //             removeModel(product.modelId);
-              //           }}
-              //         >
-              //           Remove
-              //         </button>
-              //       </td>
-              //     </tr>
-              // </tbody> */}
               </table>
             </div>
           ))}
