@@ -1,43 +1,15 @@
 
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./styles.css";
 import $ from "jquery";
 //import Input from "../../components/Input";
 import Cart from "../../components/Cart";
+import { musicContext } from "../../context";
 
 function SignUpPage() {
-  const [newUserData, setNewUserData] = useState({
-    name:"",
-    email:"",
-    password:""
-  })
-function handleChangeNewUser(e){
-  setNewUserData({
-    ...newUserData,
-    [e.target.name] : e.target.value
-  })
+
+  const { handleChangeNewUser, dataSend } = useContext(musicContext);
   
-}
-function dataSend(e){
-  e.preventDefault();
-  $.ajax({
-    url: "http://localhost:4000/users/",
-    type: "POST",
-    contentType: "application/json; charset=utf-8",
-    data: JSON.stringify({
-      //newUserData
-      name:newUserData.name,
-      email:newUserData.email,
-      pass:newUserData.password
-    }),
-      success: (res) => {
-        console.log(res);
-        
-      },
-    });
-    //console.log(`${newUserData} Was created`)
-  
-}
   return (
     <main>
       <Cart />
@@ -55,13 +27,10 @@ function dataSend(e){
                     name="name"
                     type="text"
                     label="Full Name:"
-                    // id="name"
                     defaultValue=""
                     placeholder="Introduce your full name"
                     onChange={handleChangeNewUser}
-                    // handleBlur={formik.handleBlur}
-                    // hasErrorMessage={formik.touched.address}
-                    // errorMessage={formik.errors.address}
+                    
                   />
                 </div>
                 <div className="mb-3">
@@ -69,14 +38,10 @@ function dataSend(e){
                     name="email"
                     type="text"
                     label="Email:"
-                    // id="email"
                     defaultValue=""
                     onChange={handleChangeNewUser}
                     placeholder="Ex: useremail@gmail.com"
-                    // handleChange={formik.handleChange}
-                    // handleBlur={formik.handleBlur}
-                    // hasErrorMessage={formik.touched.address}
-                    // errorMessage={formik.errors.address}
+
                   />
                 </div>
                 <div className="mb-3">
@@ -84,14 +49,10 @@ function dataSend(e){
                     name="password"
                     type="text"
                     label="Password:"
-                    // id="password"
                     defaultValue=""
                     onChange={handleChangeNewUser}
                     placeholder="******"
-                    // handleChange={formik.handleChange}
-                    // handleBlur={formik.handleBlur}
-                    // hasErrorMessage={formik.touched.address}
-                    // errorMessage={formik.errors.address}
+
                   />
                 </div>
                 {/* <div className="mb-3">

@@ -44,6 +44,11 @@ function NavBar({ showCart }) {
                 </Link>
               </li>
               <li className="nav-item navItem">
+                <Link className="nav-link" to="/users-dashboard">
+                  UsersDashboard
+                </Link>
+              </li>
+              <li className="nav-item navItem">
                 <div className="nav-link checkout">
                   ¡¡TMP!! - Checkout
                   <ul>
