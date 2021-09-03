@@ -4,7 +4,7 @@ import $ from "jquery";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { HunelProvider, HunelCreditCard } from "reactjs-credit-card";
 
-import { musicContext } from "./context";
+import { checkoutContext, musicContext } from "./context";
 import { shoppingCart } from "./context";
 
 import "./App.css";
@@ -38,6 +38,16 @@ function App() {
   // const [state, dispatch] = useReducer(reducer);
   const [showShoppingCart, setShowShoppingCart] = useState(false);
   const [cartProducts, setCartProducts] = useState([]);
+  const [shippingAddress, setShippingAddress] = useState({
+    country: "",
+    city: "",
+    postalCode: "",
+    streetAddress: "",
+    contactName: "",
+    contactPhone: "",
+  });
+  const [shippingMethod, setShippingMethod] = useState("");
+  const [paymentData, setPaymentData] = useState({});
 
   const [products, setProducts] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -79,6 +89,37 @@ function App() {
       data: {
         title: product.title,
       },
+      success: (res) => {
+        //window.location.reload();
+      },
+    });
+  }
+
+  async function updateShippingData(user, shippingAddress) {
+    $.ajax({
+      url: `http://localhost:4000/users/${user._id}`,
+      type: "PATCH",
+      data: shippingAddress,
+      success: (res) => {},
+    });
+  }
+
+  async function getShippingData(user) {
+    $.ajax({
+      url: `http://localhost:4000/users/${user._id}`,
+      type: "GET",
+      data: "",
+      success: (res) => {
+        setShippingAddress(res.shippingAddress);
+      },
+    });
+  }
+
+  async function sendOrder(user, order) {
+    $.ajax({
+      url: `http://localhost:4000/users/${user._id}`,
+      type: "PATCH",
+      data: order,
       success: (res) => {
         //window.location.reload();
       },
@@ -153,19 +194,33 @@ function App() {
               <Route path="/user-pwd-change" component={ChangePasswordPage} />
               <Route path="/sign-up" render={() => <SignUpPage />} />
               <Route path="/product-dashboard" component={ProductDashboard} />
-              <Route path="/shipping-info" render={() => <ShippingInfo />} />
-              <Route
-                path="/shipping-method"
-                render={() => <ShippingMethod />}
-              />
-              <HunelProvider config={hunel}>
+              <checkoutContext.Provider
+                value={{
+                  shippingAddress: shippingAddress,
+                  shippingMethod: shippingMethod,
+                  paymentData: paymentData,
+                  setShippingAddress: setShippingAddress,
+                  setShippingMethod: setShippingMethod,
+                  setPaymentData: setPaymentData,
+                  updateShippingData: updateShippingData,
+                  getShippingData: getShippingData,
+                  sendOrder: sendOrder,
+                }}
+              >
+                <Route path="/shipping-info" render={() => <ShippingInfo />} />
                 <Route
-                  path="/payment-method"
-                  render={() => <PaymentMethod />}
+                  path="/shipping-method"
+                  render={() => <ShippingMethod />}
                 />
-              </HunelProvider>
-              <Route path="/preview-order" render={() => <PreviewOrder />} />
-              <Route path="/confirm-order" render={() => <ConfirmOrder />} />
+                <HunelProvider config={hunel}>
+                  <Route
+                    path="/payment-method"
+                    render={() => <PaymentMethod />}
+                  />
+                </HunelProvider>
+                <Route path="/preview-order" render={() => <PreviewOrder />} />
+                <Route path="/confirm-order" render={() => <ConfirmOrder />} />
+              </checkoutContext.Provider>
             </Switch>
           </shoppingCart.Provider>
         </musicContext.Provider>

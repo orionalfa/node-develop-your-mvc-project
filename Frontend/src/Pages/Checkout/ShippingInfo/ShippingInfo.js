@@ -1,11 +1,29 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Grid } from "@material-ui/core/";
 
 import "../styles.css";
 
 import CheckoutFooter from "../../../components/CheckoutFooter";
+import { checkoutContext } from "../../../context";
 
 export default function ShippingInfo() {
+  const {
+    shippingAddress,
+    shippingMethod,
+    paymentData,
+    setShippingAddress,
+    setShippingMethod,
+    setPaymentData,
+    updateShippingData,
+    getShippingData,
+    sendOrder,
+  } = useContext(checkoutContext);
+
+  const handleChange = (e) => {
+    shippingAddress[e.target.id] = e.target.value;
+    setShippingAddress(shippingAddress);
+    // console.log(shippingAddress);
+  };
   return (
     <main>
       <form>
@@ -15,27 +33,27 @@ export default function ShippingInfo() {
               <h1>SHIPPING INFO</h1>
               <div>
                 <h5>Full name:</h5>
-                <input type="text" />
+                <input type="text" id="contactName" onChange={handleChange} />
               </div>
               <div>
                 <h5>Address</h5>
-                <input type="text" />
+                <input type="text" id="streetAddress" onChange={handleChange} />
               </div>
               <div>
                 <h5>Postal Code</h5>
-                <input type="text" />
+                <input type="text" id="postalCode" onChange={handleChange} />
               </div>
               <div>
                 <h5>City</h5>
-                <input type="text" />
+                <input type="text" id="city" onChange={handleChange} />
               </div>
               <div>
                 <h5>Country</h5>
-                <input type="text" />
+                <input type="text" id="country" onChange={handleChange} />
               </div>
               <div>
                 <h5>Phone number</h5>
-                <input type="text" />
+                <input type="text" id="contactPhone" onChange={handleChange} />
               </div>
             </Grid>
             <Grid

@@ -4,4 +4,6 @@ const musicContext = createContext({});
 
 const shoppingCart = createContext([]);
 
-export { musicContext, shoppingCart };
+const checkoutContext = createContext({});
+
+export { musicContext, shoppingCart, checkoutContext };
