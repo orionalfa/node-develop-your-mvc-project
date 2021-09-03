@@ -8,6 +8,7 @@ import "./App.css";
 
 import NavBar from "./components/NavBar";
 import ProductDashboard from "./Pages/ProductDashboard";
+import ProductForm from "./Pages/ProductForm";
 import Home from "./Pages/Home";
 import ProductPage from "./Pages/Products";
 import SignUpPage from "./Pages/SignUp";
@@ -34,6 +35,7 @@ function App() {
   const [showShoppingCart, setShowShoppingCart] = useState(false);
   const [products, setProducts] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
+
   useEffect(() => {
     getAllProducts();
   }, []);
@@ -52,31 +54,42 @@ function App() {
     });
   }
 
-  async function removeProduct(product) {
+  async function removeProduct(productId) {
     $.ajax({
-      url: `http://localhost:4000/products/${product._id}`,
+      url: `http://localhost:4000/products/${productId}`,
       type: "DELETE",
       success: (res) => {
         console.log(res);
         //getAllProducts();
         //window.location.reload();
       },
-    });  
+    });
   }
 
-  async function updateProduct(product) {
-    
+  async function updateProduct(productId) {
     $.ajax({
-      url: `http://localhost:4000/products/${product._id}`,
+      url: `http://localhost:4000/products/${productId}`,
       type: "PATCH",
-      data:{
-        title:product.title
+      data: {
+        // title: product.title,
       },
       success: (res) => {
         console.log(res);
         //window.location.reload();
       },
-    });  
+    });
+  }
+
+  async function removeModel(modelId) {
+    $.ajax({
+      url: `http://localhost:4000/models/${modelId}`,
+      type: "DELETE",
+      success: (res) => {
+        console.log(res);
+        //getAllProducts();
+        //window.location.reload();
+      },
+    });
   }
 
   return (
@@ -90,9 +103,10 @@ function App() {
           hola: "holaketal",
           products: products,
           isLoaded: isLoaded,
-          removeProduct:removeProduct,
-          updateProduct:updateProduct,
-          getAllProducts:getAllProducts
+          removeProduct: removeProduct,
+          updateProduct: updateProduct,
+          getAllProducts: getAllProducts,
+          removeModel: removeModel,
         }}
       >
         <BrowserRouter>
@@ -101,7 +115,11 @@ function App() {
             <Route path="/products" render={() => <ProductPage />} />
             <Route path="/user-pwd-change" component={ChangePasswordPage} />
             <Route path="/sign-up" render={() => <SignUpPage />} />
-            <Route path="/product-dashboard" component={ProductDashboard} />
+            <Route
+              path="/product-dashboard"
+              render={() => <ProductDashboard />}
+            />
+            <Route path="/product-formulary" render={() => <ProductForm />} />
             <Route path="/shipping-info" render={() => <ShippingInfo />} />
             <Route path="/shipping-method" render={() => <ShippingMethod />} />
             <Route path="/payment-method" render={() => <PaymentMethod />} />
