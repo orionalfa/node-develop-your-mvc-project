@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Grid } from "@material-ui/core/";
 import {
   CardHolder,
@@ -9,6 +9,7 @@ import {
 } from "reactjs-credit-card/form";
 import Card from "reactjs-credit-card/card";
 import { useCardForm } from "reactjs-credit-card";
+import { checkoutContext } from "../../../context";
 
 import "./styles.css";
 
@@ -17,6 +18,17 @@ import CheckoutFooter from "../../../components/CheckoutFooter";
 export default function PaymentMethod() {
   const getFormData = useCardForm();
   const [numberValid, setNumberValid] = useState(true);
+  const {
+    shippingAddress,
+    shippingMethod,
+    paymentData,
+    setShippingAddress,
+    setShippingMethod,
+    setPaymentData,
+    updateShippingData,
+    getShippingData,
+    sendOrder,
+  } = useContext(checkoutContext);
 
   function handleSubmit(e) {
     e.preventDefault();
