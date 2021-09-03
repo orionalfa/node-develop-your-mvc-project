@@ -17,29 +17,39 @@ export default function LogIn(showLogin) {
     $("#login-modal").css("display", "none");
   }
 
+  const isLoggedin = false;
+
   return (
     <div className="login-main-container">
-      <Link className="login-button" to="/sign-up">
-        Register
-      </Link>
-      <div>
-        <a id="login-button" className="login-button" onClick={showLogin}>
-          LogIn
-        </a>
-        <div id="login-modal" className="login-container">
-          <div className="login-field">Username:</div>
-          <div className="login-field">
-            <input type="text" />
-          </div>
-          <div className="login-field">Password:</div>
-          <div className="login-field">
-            <input type="text" />
-          </div>
-          <div className="login-field login-buttons">
-            <a href="#">Login</a>
+      {isLoggedin ? (
+        <div className="login-main-container">
+          <Link className="login-button" to="/sign-up">
+            Register
+          </Link>
+          <div>
+            <a id="login-button" className="login-button" onClick={showLogin}>
+              LogIn
+            </a>
+            <div id="login-modal" className="login-container">
+              <div className="login-field">Username:</div>
+              <div className="login-field">
+                <input type="text" />
+              </div>
+              <div className="login-field">Password:</div>
+              <div className="login-field">
+                <input type="text" />
+              </div>
+              <div className="login-field login-buttons">
+                <a href="#">Login</a>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      ) : (
+        <Link className="login-button" to="/logout">
+          Logout
+        </Link>
+      )}
     </div>
   );
 }
