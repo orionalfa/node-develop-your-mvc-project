@@ -38,7 +38,14 @@ function App() {
   // const [state, dispatch] = useReducer(reducer);
   const [showShoppingCart, setShowShoppingCart] = useState(false);
   const [cartProducts, setCartProducts] = useState([]);
-  const [shippingAddress, setShippingAddress] = useState({});
+  const [shippingAddress, setShippingAddress] = useState({
+    country: "",
+    city: "",
+    postalCode: "",
+    streetAddress: "",
+    contactName: "",
+    contactPhone: "",
+  });
   const [shippingMethod, setShippingMethod] = useState("");
   const [paymentData, setPaymentData] = useState({});
 
