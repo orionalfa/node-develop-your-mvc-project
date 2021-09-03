@@ -1,7 +1,6 @@
 import React, { useContext, useState } from "react";
+import { useParams } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
-import { Grid } from "@material-ui/core/";
-import Input from "../../components/Input";
 //import $ from "jquery";
 import "./styles.css";
 import musicContext from "../../context";
@@ -12,30 +11,29 @@ import musicContext from "../../context";
 // }
 
 export default function ProductForm() {
-  const product = {
-    title: "Eliminate",
-    description: "Producto a eliminar",
-    models: [
-      {
-        name: "Modelo 1 a elminar",
-        price: 2000,
-        modelDescription: "lalalala",
-        unitsStock: 10,
-        images: ["imageUrl"],
-      },
-      // {
-      //   name: "Modelo 2 a elminar",
-      //   price: 2000,
-      //   modelDescription: "lalalala",
-      //   unitsStock: 10,
-      //   images: ["imageUrl"],
-      // },
-    ],
-  };
 
-  const [productTitle, setProductTitle] = useState(product.title);
-  const [productDescription, setProductDescription] = useState(product.description);
-  const { removeModel, updateProduct } = useContext(musicContext);
+  // get productId through URL params using useParams hook
+  const { id } = useParams();
+  const { products, removeModel, updateProduct } = useContext(musicContext);
+
+  const product = products.find((product) => product._id === id);
+
+  const [updatedProductStatic, setUpdatedProductStatic] = useState({
+    title: product.title,
+    description: product.description,
+  });
+
+  function handleChangeStatic(e) {
+    setUpdatedProductStatic({
+      ...updatedProductStatic,
+      [e.target.name]: e.target.value,
+    });
+  }
+  const [updatedProductModels, setUpdatedProductModels] = useState(
+    product.models,
+  );
+  // const [productTitle, setProductTitle] = useState(product.title);
+  // const [productDescription, setProductDescription] = useState(product.description);
 
   // const modelsList = product.models.map((product, index) => (
 
@@ -43,18 +41,19 @@ export default function ProductForm() {
 
   return (
     <main>
-      <section className="container">
+      <section className="">
         <div className="headerPage mt-3">
           <h2>Create User Account</h2>
         </div>
         <hr />
         <div className="mb-3">
           <form>
-            <div className="mb-3">
-              <Input
+            <div className="mb-3 form">
+              <label htmlFor="title">Title:</label>
+              <input
                 type="text"
-                label="Title:"
                 id="title"
+                name="title"
                 defaultValue={product.title}
                 // value={formik.values.address}
                 placeholder="Introduce new title"
@@ -64,14 +63,16 @@ export default function ProductForm() {
                 // errorMessage={formik.errors.address}
               />
             </div>
-            <div className="mb-3">
-              <Input
+            <div className="mb-3 form">
+              <label htmlFor="description">Description:</label>
+              <input
                 type="text"
-                label="Description:"
                 id="description"
+                name="description"
                 defaultValue={product.description}
                 // value={formik.values.address}
                 placeholder="Introduce new description"
+                onChange={handleChangeStatic}
                 // handleChange={formik.handleChange}
                 // handleBlur={formik.handleBlur}
                 // hasErrorMessage={formik.touched.address}
@@ -83,11 +84,12 @@ export default function ProductForm() {
                 <div className="headerPage mt-3">
                   <h5>Model {index + 1}</h5>
                 </div>
-                <div className="mb-3">
-                  <Input
+                <div className="mb-3 form">
+                  <label htmlFor="name">Name:</label>
+                  <input
                     type="text"
-                    label="Name:"
-                    id="name"
+                    id={`name${index}`}
+                    name={`name${index}`}
                     defaultValue={model.name}
                     // value={formik.values.address}
                     placeholder="Introduce new name"
@@ -97,11 +99,12 @@ export default function ProductForm() {
                     // errorMessage={formik.errors.address}
                   />
                 </div>
-                <div className="mb-3">
-                  <Input
+                <div className="mb-3 form">
+                  <label htmlFor="price">Price:</label>
+                  <input
                     type="text"
-                    label="Price:"
-                    id="price"
+                    id={`price${index}`}
+                    name={`price${index}`}
                     defaultValue={model.price}
                     // value={formik.values.address}
                     placeholder="Introduce new price"
@@ -111,11 +114,12 @@ export default function ProductForm() {
                     // errorMessage={formik.errors.address}
                   />
                 </div>
-                <div className="mb-3">
-                  <Input
+                <div className="mb-3 form">
+                  <label htmlFor="modelDescription">Description:</label>
+                  <input
                     type="text"
-                    label="Description:"
-                    id="description"
+                    id={`modelDescription${index}`}
+                    name={`modelDescription${index}`}
                     defaultValue={model.modelDescription}
                     // value={formik.values.address}
                     placeholder="Introduce new description"
@@ -125,11 +129,12 @@ export default function ProductForm() {
                     // errorMessage={formik.errors.address}
                   />
                 </div>
-                <div className="mb-3">
-                  <Input
+                <div className="mb-3 form">
+                  <label htmlFor="unitStock">Stock Units:</label>
+                  <input
                     type="text"
-                    label="Stock Units:"
                     id="unitStock"
+                    name="unitStock"
                     defaultValue={model.unitsStock}
                     // value={formik.values.address}
                     placeholder="Update stock units"
@@ -141,11 +146,12 @@ export default function ProductForm() {
                 </div>
                 {model.images.map((image) => (
                   <div>
-                    <div className="mb-3">
-                      <Input
+                    <div className="mb-3 form">
+                      <label htmlFor="name">Image:</label>
+                      <input
                         type="text"
-                        label="Image:"
                         id="image"
+                        name="image"
                         defaultValue={image}
                         // value={formik.values.address}
                         placeholder="Update image"
