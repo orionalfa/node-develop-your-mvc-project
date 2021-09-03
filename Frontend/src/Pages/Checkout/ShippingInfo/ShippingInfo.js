@@ -22,7 +22,7 @@ export default function ShippingInfo() {
   const handleChange = (e) => {
     shippingAddress[e.target.id] = e.target.value;
     setShippingAddress(shippingAddress);
-    console.log(shippingAddress);
+    // console.log(shippingAddress);
   };
   return (
     <main>
