@@ -24,26 +24,32 @@ const UserSchema = new Schema({
   },
 
   shippingAddress: {
-    country: { type: String, required: [true, "The country is required"] },
-    city: { type: String, required: [true, "The city is required"] },
+    country: { type: String, 
+      // required: [true, "The country is required"] 
+    },
+    city: { type: String,
+      //  required: [true, "The city is required"] 
+      },
     postalCode: {
       type: String,
-      required: [true, "The postal code is required"],
+      // required: [true, "The postal code is required"],
     },
     streetAddress: {
       type: String,
-      required: [true, "The street address is required"],
+      // required: [true, "The street address is required"],
     },
     contactName: {
       type: String,
-      required: [true, "The contact name is required"],
+      // required: [true, "The contact name is required"],
     },
     contactPhone: {
       type: String,
-      required: [true, "The contact phone is required"],
+      // required: [true, "The contact phone is required"],
     },
   },
-  role: { type: String, required: [true, "The role is required"] },
+  role: { type: String,
+    //  required: [true, "The role is required"] 
+    },
   cart: [{ product: Schema.Types.ObjectId, model: Schema.Types.ObjectId }],
 });
 
