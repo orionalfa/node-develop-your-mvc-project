@@ -38,6 +38,9 @@ function App() {
   // const [state, dispatch] = useReducer(reducer);
   const [showShoppingCart, setShowShoppingCart] = useState(false);
   const [cartProducts, setCartProducts] = useState([]);
+  const [shippingAddress, setShippingAddress] = useState({});
+  const [shippingMethod, setShippingMethod] = useState("");
+  const [paymentData, setPaymentData] = useState({});
 
   const [products, setProducts] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -79,6 +82,29 @@ function App() {
       data: {
         title: product.title,
       },
+      success: (res) => {
+        //window.location.reload();
+      },
+    });
+  }
+
+  async function updateShippingData(user, shippingAddress) {
+    $.ajax({
+      url: `http://localhost:4000/users/${user._id}`,
+      type: "PATCH",
+      data: shippingAddress,
+      success: (res) => {
+        //window.location.reload();
+      },
+    });
+  }
+
+
+  async function sendOrder(user, order) {
+    $.ajax({
+      url: `http://localhost:4000/users/${user._id}`,
+      type: "PATCH",
+      data: order,
       success: (res) => {
         //window.location.reload();
       },
@@ -152,26 +178,19 @@ function App() {
               <Route path="/products" render={() => <ProductPage />} />
               <Route path="/user-pwd-change" component={ChangePasswordPage} />
               <Route path="/sign-up" render={() => <SignUpPage />} />
+              <Route path="/product-dashboard" component={ProductDashboard} />
               <checkoutContext.Provider
                 value={{
-                  shippingAddress: {
-                    country: "country",
-                    city: "city",
-                    postalCode: "postalCode",
-                    streetAddress: "streetAddress",
-                    contactName: "contactName",
-                    contactPhone: "contactPhone",
-                  },
-                  shippingMethod: "premium",
-                  paymentData: {
-                    cardNumber: "",
-                    cardHolder: "",
-                    expiryDate: "",
-                    cvc: "",
-                  },
+                  shippingAddress: shippingAddress,
+                  shippingMethod: shippingMethod,
+                  paymentData: paymentData,
+                  setShippingAddress: setShippingAddress,
+                  setShippingMethod: setShippingMethod,
+                  setPaymentData: setPaymentData,
+                  updateShippingData: updateShippingData,
+                  sendOrder: sendOrder,
                 }}
               >
-                <Route path="/product-dashboard" component={ProductDashboard} />
                 <Route path="/shipping-info" render={() => <ShippingInfo />} />
                 <Route
                   path="/shipping-method"
