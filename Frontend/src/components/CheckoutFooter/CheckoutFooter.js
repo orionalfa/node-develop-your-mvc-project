@@ -1,5 +1,6 @@
 import React from "react";
 import { Grid } from "@material-ui/core/";
+import { Link } from "react-router-dom";
 
 import "./styles.css";
 
@@ -13,12 +14,12 @@ export default function CheckoutFooter({ back, next }) {
       md={12}
       className="checkout-footer-buttons"
     >
-      <a className="button" href={"/" + back}>
+      <Link className="button" to={"/" + back}>
         Back to {back}
-      </a>
-      <a className="button" href={"/" + next}>
+      </Link>
+      <Link className="button" to={"/" + next}>
         Continue to {next}
-      </a>
+      </Link>
     </Grid>
   );
 }

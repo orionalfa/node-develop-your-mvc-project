@@ -1,10 +1,11 @@
 import "./App.css";
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useState, useEffect } from "react";
 import $ from "jquery";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { HunelProvider, HunelCreditCard } from "reactjs-credit-card";
 
-import musicContext from "./context";
+import { musicContext } from "./context";
+import { shoppingCart } from "./context";
 
 import "./App.css";
 
@@ -36,8 +37,11 @@ const hunel = new HunelCreditCard();
 function App() {
   // const [state, dispatch] = useReducer(reducer);
   const [showShoppingCart, setShowShoppingCart] = useState(false);
+  const [cartProducts, setCartProducts] = useState([]);
+
   const [products, setProducts] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
+
   useEffect(() => {
     getAllProducts();
   }, []);
@@ -45,8 +49,9 @@ function App() {
   function showCart() {
     showShoppingCart ? setShowShoppingCart(false) : setShowShoppingCart(true);
   }
+
   function getAllProducts() {
-    $.ajax({
+    return $.ajax({
       url: "http://localhost:4000/products",
       type: "GET",
       success: (res) => {
@@ -61,7 +66,6 @@ function App() {
       url: `http://localhost:4000/products/${product._id}`,
       type: "DELETE",
       success: (res) => {
-        console.log(res);
         //getAllProducts();
         //window.location.reload();
       },
@@ -76,45 +80,96 @@ function App() {
         title: product.title,
       },
       success: (res) => {
-        console.log(res);
         //window.location.reload();
       },
     });
   }
 
+  function buildNewCartItem(product) {
+    return {
+      _id: product._id,
+      title: product.title,
+      price: product.models[0].price,
+      images: product.models[0].images[0],
+      quantity: 0,
+    };
+  }
+
+  function addToCart(productId) {
+    const prevCartItem = cartProducts.find(
+      (product) => product._id === productId,
+    );
+    const foundProduct = products.find((product) => product._id === productId);
+
+    if (prevCartItem) {
+      const updatedCartItems = cartProducts.map((item) => {
+        if (item.id !== productId) {
+          return item;
+        }
+
+        return {
+          ...item,
+          quantity: item.quantity + 1,
+        };
+      });
+
+      setCartProducts(updatedCartItems);
+      console.log(cartProducts);
+      return;
+    }
+
+    const updatedProduct = buildNewCartItem(foundProduct);
+
+    setCartProducts((prevState) => [...prevState, updatedProduct]);
+    console.log(cartProducts);
+  }
+
   return (
     <>
-      <header>
-        <NavBar showCart={showCart} />
-      </header>
-      <musicContext.Provider
-        value={{
-          showShoppingCart: showShoppingCart,
-          hola: "holaketal",
-          products: products,
-          isLoaded: isLoaded,
-          removeProduct: removeProduct,
-          updateProduct: updateProduct,
-          getAllProducts: getAllProducts,
-        }}
-      >
-        <BrowserRouter>
-          <Switch>
-            <Route path="/" exact component={Home} />
-            <Route path="/products" render={() => <ProductPage />} />
-            <Route path="/user-pwd-change" component={ChangePasswordPage} />
-            <Route path="/sign-up" render={() => <SignUpPage />} />
-            <Route path="/product-dashboard" component={ProductDashboard} />
-            <Route path="/shipping-info" render={() => <ShippingInfo />} />
-            <Route path="/shipping-method" render={() => <ShippingMethod />} />
-            <HunelProvider config={hunel}>
-              <Route path="/payment-method" render={() => <PaymentMethod />} />
-            </HunelProvider>
-            <Route path="/preview-order" render={() => <PreviewOrder />} />
-            <Route path="/confirm-order" render={() => <ConfirmOrder />} />
-          </Switch>
-        </BrowserRouter>
-      </musicContext.Provider>
+      <Router>
+        <header>
+          <NavBar showCart={showCart} />
+        </header>
+        <musicContext.Provider
+          value={{
+            showShoppingCart: showShoppingCart,
+            hola: "holaketal",
+            products: products,
+            isLoaded: isLoaded,
+            removeProduct: removeProduct,
+            updateProduct: updateProduct,
+            getAllProducts: getAllProducts,
+          }}
+        >
+          <shoppingCart.Provider
+            value={{
+              cartProducts: cartProducts,
+              addToCart: addToCart,
+            }}
+          >
+            <Switch>
+              <Route path="/" exact render={() => <Home />} />
+              <Route path="/products" render={() => <ProductPage />} />
+              <Route path="/user-pwd-change" component={ChangePasswordPage} />
+              <Route path="/sign-up" render={() => <SignUpPage />} />
+              <Route path="/product-dashboard" component={ProductDashboard} />
+              <Route path="/shipping-info" render={() => <ShippingInfo />} />
+              <Route
+                path="/shipping-method"
+                render={() => <ShippingMethod />}
+              />
+              <HunelProvider config={hunel}>
+                <Route
+                  path="/payment-method"
+                  render={() => <PaymentMethod />}
+                />
+              </HunelProvider>
+              <Route path="/preview-order" render={() => <PreviewOrder />} />
+              <Route path="/confirm-order" render={() => <ConfirmOrder />} />
+            </Switch>
+          </shoppingCart.Provider>
+        </musicContext.Provider>
+      </Router>
     </>
   );
 }

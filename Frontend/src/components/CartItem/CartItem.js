@@ -24,7 +24,6 @@ function CartItem({
   unitsInStock,
   handleChange,
   handleRemove,
-  // handleClose,
 }) {
   function onHandleChange(event) {
     handleChange(event, id);

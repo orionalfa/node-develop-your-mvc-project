@@ -22,8 +22,6 @@ export default function PaymentMethod() {
     e.preventDefault();
     const [data, isValid] = getFormData();
 
-    console.log(data, isValid); //log all form data and verification results
-
     if (!data.number.isValid) setNumberValid(false); //we'll set a hook to show a error if card number is invalid
     //check the general verification result and alert with special verification result
     if (!isValid)

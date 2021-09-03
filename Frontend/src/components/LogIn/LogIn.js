@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import $ from "jquery";
+import { Link } from "react-router-dom";
 
 import "./styles.css";
 
@@ -18,9 +19,9 @@ export default function LogIn(showLogin) {
 
   return (
     <div className="login-main-container">
-      <a className="login-button" href="/sign-up">
+      <Link className="login-button" to="/sign-up">
         Register
-      </a>
+      </Link>
       <div>
         <a id="login-button" className="login-button" onClick={showLogin}>
           LogIn
