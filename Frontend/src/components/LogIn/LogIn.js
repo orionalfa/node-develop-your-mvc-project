@@ -25,6 +25,7 @@ export default function LogIn(showLogin) {
       }),
       success: (res) => {
         console.log(res);
+        setisLoggedin(false);
       },
     });
   }
