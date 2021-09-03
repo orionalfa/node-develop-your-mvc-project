@@ -6,13 +6,11 @@ import { Grid } from "@material-ui/core/";
 
 import ProductItem from "../../components/productItem";
 import Cart from "../../components/Cart";
-import musicContext from "../../context";
+import { musicContext } from "../../context";
 
 function ProductPage() {
-  const { hola, products, isLoaded } = useContext(musicContext);
-  console.log(hola);
+  const { products, isLoaded } = useContext(musicContext);
 
-  // console.log(products)
   return isLoaded ? (
     <main>
       <Cart />
@@ -28,7 +26,8 @@ function ProductPage() {
             className="product-page-product-container"
           >
             <ProductItem
-              image={product.models[0].images[0]}
+              id={product._id}
+              images={product.models[0].images[0]}
               productTitle={product.title}
               description={product.description}
               price={product.models[0].price}

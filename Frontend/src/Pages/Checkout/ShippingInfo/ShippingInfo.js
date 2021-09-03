@@ -14,11 +14,7 @@ export default function ShippingInfo() {
             <Grid item p={10} xs={12} sm={12} md={9} className="left-container">
               <h1>SHIPPING INFO</h1>
               <div>
-                <h5>Name:</h5>
-                <input type="text" />
-              </div>
-              <div>
-                <h5>Last name:</h5>
+                <h5>Full name:</h5>
                 <input type="text" />
               </div>
               <div>
