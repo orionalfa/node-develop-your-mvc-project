@@ -6,14 +6,14 @@ import $ from "jquery";
 import Cart from "../../components/Cart";
 
 function SignUpPage() {
-  const [data, setData] = useState({
+  const [newUserData, setNewUserData] = useState({
     name:"",
     email:"",
     password:""
   })
-function handleChange(e){
-  setData({
-    ...data,
+function handleChangeNewUser(e){
+  setNewUserData({
+    ...newUserData,
     [e.target.name] : e.target.value
   })
   
@@ -25,16 +25,17 @@ function dataSend(e){
     type: "POST",
     contentType: "application/json; charset=utf-8",
     data: JSON.stringify({
-      name:data.name,
-      email:data.email,
-      pass:data.password
+      //newUserData
+      name:newUserData.name,
+      email:newUserData.email,
+      pass:newUserData.password
     }),
       success: (res) => {
         console.log(res);
         
       },
     });
-    console.log(`${data} Was created`)
+    //console.log(`${newUserData} Was created`)
   
 }
   return (
@@ -57,7 +58,7 @@ function dataSend(e){
                     // id="name"
                    defaultValue=""
                     placeholder="Introduce your full name"
-                    onChange={handleChange}
+                    onChange={handleChangeNewUser}
                     // handleBlur={formik.handleBlur}
                     // hasErrorMessage={formik.touched.address}
                     // errorMessage={formik.errors.address}
@@ -70,7 +71,7 @@ function dataSend(e){
                     label="Email:"
                     // id="email"
                     defaultValue=""
-                    onChange={handleChange}
+                    onChange={handleChangeNewUser}
                     placeholder="Ex: useremail@gmail.com"
                     // handleChange={formik.handleChange}
                     // handleBlur={formik.handleBlur}
@@ -85,7 +86,7 @@ function dataSend(e){
                     label="Password:"
                     // id="password"
                     defaultValue=""
-                    onChange={handleChange}
+                    onChange={handleChangeNewUser}
                     placeholder="******"
                     // handleChange={formik.handleChange}
                     // handleBlur={formik.handleBlur}
