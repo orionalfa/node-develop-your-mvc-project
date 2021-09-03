@@ -7,17 +7,7 @@ import CheckoutFooter from "../../../components/CheckoutFooter";
 import { checkoutContext } from "../../../context";
 
 export default function ShippingMethod() {
-  const {
-    shippingAddress,
-    shippingMethod,
-    paymentData,
-    setShippingAddress,
-    setShippingMethod,
-    setPaymentData,
-    updateShippingData,
-    getShippingData,
-    sendOrder,
-  } = useContext(checkoutContext);
+  const { shippingMethod, setShippingMethod } = useContext(checkoutContext);
 
   const handleChange = (e) => {
     setShippingMethod(e.target.value);
@@ -39,6 +29,7 @@ export default function ShippingMethod() {
                     name="shipping"
                     value="cheapest"
                     onChange={handleChange}
+                    checked={shippingMethod == "cheapest" ? "checked" : ""}
                   />
                   <label>
                     <div className="radio-info">
@@ -55,6 +46,7 @@ export default function ShippingMethod() {
                     name="shipping"
                     value="standard"
                     onChange={handleChange}
+                    checked={shippingMethod == "standard" ? "checked" : ""}
                   />
                   <label>
                     <div className="radio-info">
@@ -71,6 +63,7 @@ export default function ShippingMethod() {
                     name="shipping"
                     value="premium"
                     onChange={handleChange}
+                    checked={shippingMethod == "premium" ? "checked" : ""}
                   />
                   <label>
                     <div className="radio-info">
@@ -87,6 +80,7 @@ export default function ShippingMethod() {
                     name="shipping"
                     value="express"
                     onChange={handleChange}
+                    checked={shippingMethod == "express" ? "checked" : ""}
                   />
                   <label>
                     <div className="radio-info">
