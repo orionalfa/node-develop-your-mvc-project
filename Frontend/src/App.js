@@ -4,7 +4,7 @@ import $ from "jquery";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { HunelProvider, HunelCreditCard } from "reactjs-credit-card";
 
-import { musicContext } from "./context";
+import { checkoutContext, musicContext } from "./context";
 import { shoppingCart } from "./context";
 
 import "./App.css";
@@ -152,20 +152,40 @@ function App() {
               <Route path="/products" render={() => <ProductPage />} />
               <Route path="/user-pwd-change" component={ChangePasswordPage} />
               <Route path="/sign-up" render={() => <SignUpPage />} />
-              <Route path="/product-dashboard" component={ProductDashboard} />
-              <Route path="/shipping-info" render={() => <ShippingInfo />} />
-              <Route
-                path="/shipping-method"
-                render={() => <ShippingMethod />}
-              />
-              <HunelProvider config={hunel}>
+              <checkoutContext.Provider
+                value={{
+                  shippingAddress: {
+                    country: "country",
+                    city: "city",
+                    postalCode: "postalCode",
+                    streetAddress: "streetAddress",
+                    contactName: "contactName",
+                    contactPhone: "contactPhone",
+                  },
+                  shippingMethod: "premium",
+                  paymentData: {
+                    cardNumber: "",
+                    cardHolder: "",
+                    expiryDate: "",
+                    cvc: "",
+                  },
+                }}
+              >
+                <Route path="/product-dashboard" component={ProductDashboard} />
+                <Route path="/shipping-info" render={() => <ShippingInfo />} />
                 <Route
-                  path="/payment-method"
-                  render={() => <PaymentMethod />}
+                  path="/shipping-method"
+                  render={() => <ShippingMethod />}
                 />
-              </HunelProvider>
-              <Route path="/preview-order" render={() => <PreviewOrder />} />
-              <Route path="/confirm-order" render={() => <ConfirmOrder />} />
+                <HunelProvider config={hunel}>
+                  <Route
+                    path="/payment-method"
+                    render={() => <PaymentMethod />}
+                  />
+                </HunelProvider>
+                <Route path="/preview-order" render={() => <PreviewOrder />} />
+                <Route path="/confirm-order" render={() => <ConfirmOrder />} />
+              </checkoutContext.Provider>
             </Switch>
           </shoppingCart.Provider>
         </musicContext.Provider>
