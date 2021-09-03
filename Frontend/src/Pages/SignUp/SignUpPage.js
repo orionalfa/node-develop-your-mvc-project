@@ -56,7 +56,7 @@ function dataSend(e){
                     type="text"
                     label="Full Name:"
                     // id="name"
-                   defaultValue=""
+                    defaultValue=""
                     placeholder="Introduce your full name"
                     onChange={handleChangeNewUser}
                     // handleBlur={formik.handleBlur}

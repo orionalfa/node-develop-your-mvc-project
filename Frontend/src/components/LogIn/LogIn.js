@@ -6,8 +6,6 @@ import "./styles.css";
 
 export default function LogIn(showLogin) {
   const [showLoginModal, setShowLoginModal] = useState(false);
-  const [userEmail, setUseremail] = useState();
-  const [userPassword, setPassword] = useState();
   const [userExistData, setuserExistData ]=useState({
     email:"",
     pass:""
