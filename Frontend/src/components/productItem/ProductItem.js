@@ -1,10 +1,18 @@
 import "./styles.css";
-import { Button } from "@material-ui/core";
-import React, { useState } from "react";
-// import image from "../../img/violin.jpg";
+import React, { useState, useContext } from "react";
+import { shoppingCart } from "../../context/context";
 
-function ProductItem({ productTitle, description, price, unitsInStock, image}) {
+function ProductItem({
+  id,
+  productTitle,
+  description,
+  price,
+  unitsInStock,
+  image,
+}) {
   const [state, setClass] = useState(false);
+  const { addToCart } = useContext(shoppingCart);
+
   let productClass = "productImage";
   let productData = "productDetails_hide";
   let buttonText = "Show details";
@@ -17,22 +25,32 @@ function ProductItem({ productTitle, description, price, unitsInStock, image}) {
     buttonText = "Back to Image";
   }
 
+  function handleAddToCart() {
+    addToCart(id);
+  }
+
   return (
     <div className={containerFlip}>
-      <Button
-        onClick={() => {
-          if (state === false) {
-            setClass(true);
-          } else {
-            setClass(false);
-          }
-        }}
-        variant="contained"
-        color="primary"
-      >
-        {buttonText}
-      </Button>
       <div className={productClass}>
+        <div className="front-buttons">
+          <button className="button" onClick={handleAddToCart}>
+            Buy now
+          </button>
+          <button
+            className="button"
+            onClick={() => {
+              if (state === false) {
+                setClass(true);
+              } else {
+                setClass(false);
+              }
+            }}
+            variant="contained"
+            color="primary"
+          >
+            {buttonText}
+          </button>
+        </div>
         <img className="imageInstrument" alt={image} src={image}></img>
       </div>
       <div className={productData}>
@@ -40,9 +58,23 @@ function ProductItem({ productTitle, description, price, unitsInStock, image}) {
         <p className="productDetails-data">{description}</p>
         <p className="productDetails-data">{price} $</p>
         <p className="productDetails-data">{unitsInStock} U</p>
-        <Button variant="contained" color="primary">
-          Buy now
-        </Button>
+        <div className="buttons">
+          <button className="button" onClick={handleAddToCart}>
+            Buy now
+          </button>
+          <button
+            className="button"
+            onClick={() => {
+              if (state === false) {
+                setClass(true);
+              } else {
+                setClass(false);
+              }
+            }}
+          >
+            {buttonText}
+          </button>
+        </div>
       </div>
     </div>
   );

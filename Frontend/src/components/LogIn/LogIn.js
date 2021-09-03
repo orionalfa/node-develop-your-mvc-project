@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import $ from "jquery";
+import { Link } from "react-router-dom";
 
 import "./styles.css";
 
@@ -11,18 +12,16 @@ export default function LogIn(showLogin) {
   }
 
   if (showLoginModal) {
-    console.log("mostrar");
     $("#login-modal").css("display", "block");
   } else {
-    console.log("ocultar");
     $("#login-modal").css("display", "none");
   }
 
   return (
     <div className="login-main-container">
-      <a className="login-button" href="/sign-up">
+      <Link className="login-button" to="/sign-up">
         Register
-      </a>
+      </Link>
       <div>
         <a id="login-button" className="login-button" onClick={showLogin}>
           LogIn

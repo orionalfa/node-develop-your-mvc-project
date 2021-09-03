@@ -1,36 +1,16 @@
 import React, { useContext } from "react";
 import $ from "jquery";
-import musicContext from "../../context";
+import { musicContext, shoppingCart } from "../../context";
+import { v4 as uuidv4 } from "uuid";
+
 import "./styles.css";
-// import mockProduct from "./img/mockProduct.JPG";
 
 import CartItem from "../CartItem";
-
-function renderCartItems() {
-  const mockCartItems = [];
-
-  for (let i = 0; i < 5; i++) {
-    mockCartItems.push(
-      <CartItem
-        key={i}
-        id={i}
-        title={"product " + i}
-        price={100}
-        img="./img/mockProduct.JPG"
-        quantity={5}
-        unitsInStock={3}
-        // handleRemove={handleRemove}
-        // handleChange={handleChange}
-      />,
-    );
-  }
-  return mockCartItems;
-}
 
 // Render function
 function Cart() {
   const { showShoppingCart } = useContext(musicContext);
-  const mockCartItems = renderCartItems();
+  const { cartProducts } = useContext(shoppingCart);
 
   if (showShoppingCart) {
     $(".shopping-cart-list").css("right", "0");
@@ -40,7 +20,25 @@ function Cart() {
 
   return (
     <div className="shopping-cart-list">
-      <ul>{mockCartItems}</ul>
+      <ul>
+        {cartProducts.length > 0 ? (
+          cartProducts.map((product) => (
+            <CartItem
+              key={uuidv4()}
+              id={product._id}
+              title={product.title}
+              price={product.price}
+              img={product.images}
+              quantity={product.quantity}
+              unitsInStock={product.unitsStock}
+            />
+          ))
+        ) : (
+          <div className="col mb-4">
+            <h4>Your cart is empty</h4>
+          </div>
+        )}
+      </ul>
     </div>
   );
 }
