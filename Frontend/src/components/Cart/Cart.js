@@ -10,12 +10,17 @@ import CartItem from "../CartItem";
 // Render function
 function Cart() {
   const { showShoppingCart } = useContext(musicContext);
-  const { cartProducts } = useContext(shoppingCart);
+  const { cartProducts, handleChange, handleRemove, isCheckoutDisabled } =
+    useContext(shoppingCart);
 
   if (showShoppingCart) {
     $(".shopping-cart-list").css("right", "0");
   } else {
     $(".shopping-cart-list").css("right", "-400px");
+  }
+
+  function test() {
+    console.log("test");
   }
 
   return (
@@ -30,7 +35,9 @@ function Cart() {
               price={product.price}
               img={product.images}
               quantity={product.quantity}
-              unitsInStock={product.unitsStock}
+              unitsInStock={product.unitsInStock}
+              handleChange={handleChange}
+              handleRemove={handleRemove}
             />
           ))
         ) : (
@@ -39,6 +46,11 @@ function Cart() {
           </div>
         )}
       </ul>
+      <div className="checkout-button">
+        <button className="button" disabled={isCheckoutDisabled} onClick={test}>
+          Checkout
+        </button>
+      </div>
     </div>
   );
 }

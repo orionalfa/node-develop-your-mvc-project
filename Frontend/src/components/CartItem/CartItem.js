@@ -1,10 +1,10 @@
 import React from "react";
+import { Button } from "@material-ui/core";
 
 import "./styles.css";
 
-import { Button } from "@material-ui/core";
-
 function buildSelectOptions(unitsInStock) {
+  console.log(unitsInStock);
   return Array.from({ length: unitsInStock }, (_value, index) => {
     const currentIndex = index + 1;
     return (
@@ -28,6 +28,7 @@ function CartItem({
   function onHandleChange(event) {
     handleChange(event, id);
   }
+
   function onHandleRemove() {
     handleRemove(id);
   }
@@ -65,14 +66,9 @@ function CartItem({
                       </select>
                     </div>
                     <div className="col col-6 col-lg-8">
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={onHandleRemove}
-                      >
+                      <button className="button" onClick={onHandleRemove}>
                         Remove
-                      </Button>
-                      {/* <Button onClick={onHandleRemove}>Remove</Button> */}
+                      </button>
                     </div>
                   </div>
                 </div>

@@ -38,6 +38,7 @@ function App() {
   // const [state, dispatch] = useReducer(reducer);
   const [showShoppingCart, setShowShoppingCart] = useState(false);
   const [cartProducts, setCartProducts] = useState([]);
+  const [isCheckoutDisabled, setIsCheckoutDisabled] = useState(true);
 
   const [products, setProducts] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -86,12 +87,17 @@ function App() {
   }
 
   function buildNewCartItem(product) {
+    if (product.quantity >= product.models[0].unitsStock) {
+      return product;
+    }
+
     return {
       _id: product._id,
       title: product.title,
       price: product.models[0].price,
       images: product.models[0].images[0],
-      quantity: 0,
+      quantity: 1,
+      unitsInStock: product.models[0].unitsStock,
     };
   }
 
@@ -103,7 +109,11 @@ function App() {
 
     if (prevCartItem) {
       const updatedCartItems = cartProducts.map((item) => {
-        if (item.id !== productId) {
+        if (item._id !== productId) {
+          return item;
+        }
+
+        if (item.quantity >= item.unitsInStock) {
           return item;
         }
 
@@ -122,6 +132,37 @@ function App() {
 
     setCartProducts((prevState) => [...prevState, updatedProduct]);
     console.log(cartProducts);
+
+    if (cartProducts) {
+      setIsCheckoutDisabled(false);
+    }
+  }
+
+  function handleChange(event, productId) {
+    const updatedCartItems = cartProducts.map((item) => {
+      if (item._id === productId && item.quantity <= item.unitsInStock) {
+        return {
+          ...item,
+          quantity: Number(event.target.value),
+        };
+      }
+
+      return item;
+    });
+
+    setCartProducts(updatedCartItems);
+  }
+
+  function handleRemove(productId) {
+    const updatedCartItems = cartProducts.filter(
+      (item) => item._id !== productId,
+    );
+
+    setCartProducts(updatedCartItems);
+
+    if (cartProducts.length === 1) {
+      setIsCheckoutDisabled(true);
+    }
   }
 
   return (
@@ -144,7 +185,10 @@ function App() {
           <shoppingCart.Provider
             value={{
               cartProducts: cartProducts,
+              isCheckoutDisabled: isCheckoutDisabled,
               addToCart: addToCart,
+              handleChange: handleChange,
+              handleRemove: handleRemove,
             }}
           >
             <Switch>
