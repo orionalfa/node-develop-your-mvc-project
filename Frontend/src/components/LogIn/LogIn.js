@@ -8,6 +8,7 @@ export default function LogIn(showLogin) {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [userEmail, setUseremail] = useState();
   const [userPassword, setPassword] = useState();
+  const [isLoggedin, setisLoggedin] = useState(true);
 
   function showLogin() {
     showLoginModal ? setShowLoginModal(false) : setShowLoginModal(true);
@@ -24,6 +25,7 @@ export default function LogIn(showLogin) {
       }),
       success: (res) => {
         console.log(res);
+        setisLoggedin(false);
       },
     });
   }
@@ -34,12 +36,13 @@ export default function LogIn(showLogin) {
     $("#login-modal").css("display", "none");
   }
 
-  const isLoggedin = false;
+  // const isLoggedin = true;
 
   return (
-    {isLoggedin ? (
+    
     <div className="login-main-container">
-
+    {isLoggedin ? (
+      <>
     <Link className="login-button" to="/sign-up">
             Register
           </Link>
@@ -48,7 +51,7 @@ export default function LogIn(showLogin) {
           LogIn
         </a>
         <div id="login-modal" className="login-container">
-          <div className="login-field">Username:</div>
+          <div className="login-field">Email:</div>
           <div className="login-field">
             <input type="text" onChange={(e) => setUseremail(e.target.value)} />
           </div>
@@ -61,10 +64,14 @@ export default function LogIn(showLogin) {
 
           </div>
         </div>
+      </div>
+      </>
+      
       ) : (
         <Link className="login-button" to="/logout">
           Logout
         </Link>
+       
       )}
     </div>
   );

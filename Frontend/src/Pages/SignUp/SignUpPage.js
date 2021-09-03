@@ -1,11 +1,23 @@
-import React from "react";
 
+import React, { useState } from "react";
 import "./styles.css";
 
 import Input from "../../components/Input";
 import Cart from "../../components/Cart";
 
 function SignUpPage() {
+  const [data, setData] = useState({
+    name:"",
+    email:"",
+    password:""
+  })
+function handleChange(e){
+  console.log(e.target.name)
+    // setData({
+    //   ...data
+
+    // })
+}
   return (
     <main>
       <Cart />
@@ -20,12 +32,13 @@ function SignUpPage() {
               <div className="col-6">
                 <div className="mb-3">
                   <Input
+                    name="name"
                     type="text"
                     label="Full Name:"
                     id="name"
                     // value={formik.values.address}
                     placeholder="Introduce your full name"
-                    // handleChange={formik.handleChange}
+                    onChange={handleChange}
                     // handleBlur={formik.handleBlur}
                     // hasErrorMessage={formik.touched.address}
                     // errorMessage={formik.errors.address}
@@ -33,10 +46,12 @@ function SignUpPage() {
                 </div>
                 <div className="mb-3">
                   <Input
+                    name="email"
                     type="text"
                     label="Email:"
                     id="email"
                     // value={formik.values.address}
+                    onChange={handleChange}
                     placeholder="Ex: useremail@gmail.com"
                     // handleChange={formik.handleChange}
                     // handleBlur={formik.handleBlur}
@@ -46,10 +61,12 @@ function SignUpPage() {
                 </div>
                 <div className="mb-3">
                   <Input
+                    name="password"
                     type="text"
                     label="Password:"
                     id="password"
                     // value={formik.values.address}
+                    onChange={handleChange}
                     placeholder="******"
                     // handleChange={formik.handleChange}
                     // handleBlur={formik.handleBlur}
@@ -57,7 +74,7 @@ function SignUpPage() {
                     // errorMessage={formik.errors.address}
                   />
                 </div>
-                <div className="mb-3">
+                {/* <div className="mb-3">
                   <Input
                     type="text"
                     label="Country:"
@@ -125,8 +142,8 @@ function SignUpPage() {
                     // handleBlur={formik.handleBlur}
                     // hasErrorMessage={formik.touched.address}
                     // errorMessage={formik.errors.address}
-                  />
-                </div>
+                  /> 
+                </div>*/}
               </div>
             </div>
           </form>
