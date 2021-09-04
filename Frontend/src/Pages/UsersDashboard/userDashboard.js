@@ -19,7 +19,16 @@ export default function UserDashboard() {
     <tr key={uuidv4()}>
       <td key={uuidv4()}>{user.name}</td>
       <td key={uuidv4()}>{user.email}</td>
-      <td key={uuidv4()}>{user.cart[0]}</td>
+      <td key={uuidv4()}>{
+      <div key={uuidv4()}> 
+      {
+      user.products.map((product=>{
+        {return <p key={uuidv4()} >{`Product: ${product.title}`}</p>}
+      }))}
+      </div> 
+      }
+      </td>
+      
       {/* <td key={uuidv4()}>{users.models[0].name}</td>
       <td key={uuidv4()}>{users.models[0].price}</td>
       <td key={uuidv4()}>{users.models[0].modelDescription}</td>

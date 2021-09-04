@@ -99,6 +99,7 @@ function dataSend(e){
       url: "http://localhost:4000/products",
       type: "GET",
       success: (res) => {
+        //console.log(res)
         setProducts(res.data);
         setIsLoaded(true);
       },

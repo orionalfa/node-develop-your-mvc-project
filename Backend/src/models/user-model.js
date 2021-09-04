@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const { Schema } = require("mongoose");
 const { isEmail } = require("validator");
 
+
 const UserSchema = new Schema({
   name: {
     type: String,
@@ -50,7 +51,10 @@ const UserSchema = new Schema({
   role: { type: String,
     //  required: [true, "The role is required"] 
     },
-  cart: [{ product: Schema.Types.ObjectId, model: Schema.Types.ObjectId }],
+    products: [{ 
+    type: Schema.Types.ObjectId, 
+    ref:"products",
+  }],
 });
 
 const Users = mongoose.model("users", UserSchema);
