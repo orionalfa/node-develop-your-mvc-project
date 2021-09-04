@@ -4,10 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import { Grid } from "@material-ui/core/";
 import { musicContext, shoppingCart } from "../../context";
 
-// async function updateProduct(product) {
-//   console.log(product._id);
-//   console.log(product.title);
-// }
+
 
 export default function UserDashboard() {
   const { users, removeUser, updateProduct } =
@@ -23,7 +20,13 @@ export default function UserDashboard() {
       <div key={uuidv4()}> 
       {
       user.products.map((product=>{
-        {return <p key={uuidv4()} >{`Product: ${product.title}`}</p>}
+        {
+        return(
+        <div key={uuidv4()}>
+        <p key={uuidv4()} >{`Product: ${product.title}`}</p>
+        <button key={uuidv4()}>delete</button>
+      </div>
+        )}
       }))}
       </div> 
       }
