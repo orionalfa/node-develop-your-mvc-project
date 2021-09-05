@@ -1,43 +1,42 @@
 import React, { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
-//import $ from "jquery";
+import $ from "jquery";
 import "./styles.css";
 import musicContext from "../../context";
 
-// async function updateProduct(product) {
-//   console.log(product._id);
-//   console.log(product.title);
-// }
-
 export default function ProductForm() {
-
   // get productId through URL params using useParams hook
   const { id } = useParams();
-  const { products, removeModel, updateProduct } = useContext(musicContext);
+  const { products } = useContext(musicContext);
 
-  const product = products.find((product) => product._id === id);
+  // Find specific product
+  var product = products.find((product) => product._id === id);
 
-  const [updatedProductStatic, setUpdatedProductStatic] = useState({
-    title: product.title,
-    description: product.description,
-  });
+  // product to update hook
+  const [productToUpdate, setProductToUpdate] = useState(product);
 
-  function handleChangeStatic(e) {
-    setUpdatedProductStatic({
-      ...updatedProductStatic,
+  // handling all input changes
+  function handleChange(e) {
+    setProductToUpdate({
+      ...productToUpdate,
       [e.target.name]: e.target.value,
     });
   }
-  const [updatedProductModels, setUpdatedProductModels] = useState(
-    product.models,
-  );
-  // const [productTitle, setProductTitle] = useState(product.title);
-  // const [productDescription, setProductDescription] = useState(product.description);
 
-  // const modelsList = product.models.map((product, index) => (
-
-  // ));
+  // Update request by id 
+  async function updateProduct() {
+    $.ajax({
+      url: `http://localhost:4000/products/${productToUpdate._id}`,
+      type: "PATCH",
+      data: {
+        productToUpdate,
+      },
+      success: (res) => {
+        console.log(res);
+      },
+    });
+  }
 
   return (
     <main>
@@ -47,16 +46,17 @@ export default function ProductForm() {
         </div>
         <hr />
         <div className="mb-3">
-          <form>
+          <form onSubmit={updateProduct}>
             <div className="mb-3 form">
               <label htmlFor="title">Title:</label>
               <input
                 type="text"
                 id="title"
                 name="title"
-                defaultValue={product.title}
-                // value={formik.values.address}
                 placeholder="Introduce new title"
+                defaultValue={productToUpdate.title}
+                onChange={handleChange}
+                // value={formik.values.address}
                 // handleChange={formik.handleChange}
                 // handleBlur={formik.handleBlur}
                 // hasErrorMessage={formik.touched.address}
@@ -69,17 +69,17 @@ export default function ProductForm() {
                 type="text"
                 id="description"
                 name="description"
-                defaultValue={product.description}
-                // value={formik.values.address}
                 placeholder="Introduce new description"
-                onChange={handleChangeStatic}
+                defaultValue={productToUpdate.description}
+                onChange={handleChange}
+                // value={formik.values.address}
                 // handleChange={formik.handleChange}
                 // handleBlur={formik.handleBlur}
                 // hasErrorMessage={formik.touched.address}
                 // errorMessage={formik.errors.address}
               />
             </div>
-            {product.models.map((model, index) => (
+            {productToUpdate.models.map((model, index) => (
               <div>
                 <div className="headerPage mt-3">
                   <h5>Model {index + 1}</h5>
@@ -90,9 +90,10 @@ export default function ProductForm() {
                     type="text"
                     id={`name${index}`}
                     name={`name${index}`}
-                    defaultValue={model.name}
-                    // value={formik.values.address}
                     placeholder="Introduce new name"
+                    defaultValue={model.name}
+                    onChange={handleChange}
+                    // value={formik.values.address}
                     // handleChange={formik.handleChange}
                     // handleBlur={formik.handleBlur}
                     // hasErrorMessage={formik.touched.address}
@@ -105,9 +106,10 @@ export default function ProductForm() {
                     type="text"
                     id={`price${index}`}
                     name={`price${index}`}
-                    defaultValue={model.price}
-                    // value={formik.values.address}
                     placeholder="Introduce new price"
+                    defaultValue={model.price}
+                    onChange={handleChange}
+                    // value={formik.values.address}
                     // handleChange={formik.handleChange}
                     // handleBlur={formik.handleBlur}
                     // hasErrorMessage={formik.touched.address}
@@ -120,9 +122,10 @@ export default function ProductForm() {
                     type="text"
                     id={`modelDescription${index}`}
                     name={`modelDescription${index}`}
-                    defaultValue={model.modelDescription}
-                    // value={formik.values.address}
                     placeholder="Introduce new description"
+                    defaultValue={model.modelDescription}
+                    onChange={handleChange}
+                    // value={formik.values.address}
                     // handleChange={formik.handleChange}
                     // handleBlur={formik.handleBlur}
                     // hasErrorMessage={formik.touched.address}
@@ -135,9 +138,10 @@ export default function ProductForm() {
                     type="text"
                     id="unitStock"
                     name="unitStock"
-                    defaultValue={model.unitsStock}
-                    // value={formik.values.address}
                     placeholder="Update stock units"
+                    defaultValue={model.unitsStock}
+                    onChange={handleChange}
+                    // value={formik.values.address}
                     // handleChange={formik.handleChange}
                     // handleBlur={formik.handleBlur}
                     // hasErrorMessage={formik.touched.address}
@@ -152,9 +156,10 @@ export default function ProductForm() {
                         type="text"
                         id="image"
                         name="image"
-                        defaultValue={image}
-                        // value={formik.values.address}
                         placeholder="Update image"
+                        defaultValue={image}
+                        onChange={handleChange}
+                        // value={formik.values.address}
                         // handleChange={formik.handleChange}
                         // handleBlur={formik.handleBlur}
                         // hasErrorMessage={formik.touched.address}
