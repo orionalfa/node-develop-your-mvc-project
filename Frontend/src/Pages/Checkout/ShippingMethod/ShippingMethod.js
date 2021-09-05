@@ -4,11 +4,19 @@ import { Grid } from "@material-ui/core/";
 import "../styles.css";
 
 import CheckoutFooter from "../../../components/CheckoutFooter";
-import { checkoutContext } from "../../../context";
+import CheckoutResume from "../../../components/CheckoutResume";
+
+import { checkoutContext, shoppingCart } from "../../../context";
 
 export default function ShippingMethod() {
   const { shippingMethod, setShippingMethod } = useContext(checkoutContext);
+  const { cartProducts } = useContext(shoppingCart);
+  // const reducer = (accumulator, currentValue) => accumulator + currentValue;
+  var totalAmount = 0;
 
+  cartProducts.forEach((product) => {
+    totalAmount += product.price;
+  });
   const handleChange = (e) => {
     setShippingMethod(e.target.value);
     // console.log(shippingMethod);
@@ -100,7 +108,7 @@ export default function ShippingMethod() {
               md={3}
               className="right-container"
             >
-              <div>Resume</div>
+              <CheckoutResume />
             </Grid>
             <CheckoutFooter back="shipping-info" next="payment-method" />
           </Grid>

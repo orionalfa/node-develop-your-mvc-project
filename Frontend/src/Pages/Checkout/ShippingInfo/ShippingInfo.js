@@ -4,6 +4,8 @@ import { Grid } from "@material-ui/core/";
 import "../styles.css";
 
 import CheckoutFooter from "../../../components/CheckoutFooter";
+import CheckoutResume from "../../../components/CheckoutResume";
+
 import { checkoutContext } from "../../../context";
 
 export default function ShippingInfo() {
@@ -101,7 +103,7 @@ export default function ShippingInfo() {
               md={3}
               className="right-container"
             >
-              <div>Resume</div>
+              <CheckoutResume />
             </Grid>
             <CheckoutFooter back="products" next="shipping-method" />
           </Grid>
