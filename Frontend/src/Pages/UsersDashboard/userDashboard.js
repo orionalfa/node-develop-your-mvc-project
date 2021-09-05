@@ -3,11 +3,11 @@ import React, { useContext, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Grid } from "@material-ui/core/";
 import { musicContext, shoppingCart } from "../../context";
-
+import { Link } from "react-router-dom";
 
 
 export default function UserDashboard() {
-  const { users, removeUser, updateProduct } =
+  const { users, removeUser } =
     useContext(musicContext);
 
   if (!users) return null;
@@ -22,9 +22,9 @@ export default function UserDashboard() {
       user.products.map((product=>{
         {
         return(
-        <div key={uuidv4()}>
-        <p key={uuidv4()} >{`Product: ${product.title}`}</p>
-        <button key={uuidv4()}>delete</button>
+        <div className="products_content" key={uuidv4()}>
+        <p key={uuidv4()} >{product.title}</p>
+        
       </div>
         )}
       }))}
@@ -38,10 +38,20 @@ export default function UserDashboard() {
       <td key={uuidv4()}>{users.models[0].unitsStock}</td>
       <td key={uuidv4()}>{users.models[0].images}</td> */}
       <td key={uuidv4()}>
-        <button onClick={() => updateProduct(user)}>Update</button>
+        <Link 
+       
+        to={`users-update/${user._id}`}>
+        <button 
+        className="btn btn-success"
+        
+        >
+          Update
+        </button>
+        </Link>
       </td>
       <td key={uuidv4()}>
-        <button
+        <button 
+          className="btn btn-danger"
           onClick={() => {
             removeUser(user);           
           }}

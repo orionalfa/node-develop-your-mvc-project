@@ -21,6 +21,7 @@ import ShippingMethod from "./Pages/Checkout/ShippingMethod";
 import PaymentMethod from "./Pages/Checkout/PaymentMethod";
 import PreviewOrder from "./Pages/Checkout/PreviewOrder";
 import ConfirmOrder from "./Pages/Checkout/ConfirmOrder";
+import UpdateUsers from "./Pages/updateUser";
 
 const hunel = new HunelCreditCard();
 // const SHOW_SHOPPINGCART="SHOW_SHOPPINGCART";
@@ -243,6 +244,7 @@ function dataSend(e){
             getAllProducts: getAllProducts, 
             handleChangeNewUser:handleChangeNewUser,
             dataSend:dataSend
+           
           }}
         >
           <shoppingCart.Provider
@@ -258,6 +260,7 @@ function dataSend(e){
               <Route path="/sign-up" render={() => <SignUpPage />} />
               <Route path="/product-dashboard" component={ProductDashboard} />
               <Route path="/users-dashboard" component={UsersDashboard} />
+              <Route path="/users-update/:id" component={UpdateUsers} />
               <checkoutContext.Provider
                 value={{
                   shippingAddress: shippingAddress,
