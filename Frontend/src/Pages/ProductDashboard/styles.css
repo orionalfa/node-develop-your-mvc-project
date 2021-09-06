@@ -1,20 +1,37 @@
 .grid-container {
   width: 100%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   padding-top: 1rem;
 }
 
-table {
+.product-table {
   width: 95%;
-  border: 1px solid black;
+}
+
+.product-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.product-title {
+  display: flex;
+  align-items: center;
+  width: 80%;
+}
+
+table {
+  width: 100%;
+  /* border: 1px solid black; */
   text-align: center;
 }
 
 th {
-  border: 1px solid black;
+  /* border: 1px solid black; */
 }
 
 td {
-  border: 1px solid black;
+  width: 25%;
+  /* border: 1px solid black; */
 }
