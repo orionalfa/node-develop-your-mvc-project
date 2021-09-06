@@ -22,6 +22,7 @@ import ShippingMethod from "./Pages/Checkout/ShippingMethod";
 import PaymentMethod from "./Pages/Checkout/PaymentMethod";
 import PreviewOrder from "./Pages/Checkout/PreviewOrder";
 import ConfirmOrder from "./Pages/Checkout/ConfirmOrder";
+import UpdateUsers from "./Pages/updateUser";
 
 const hunel = new HunelCreditCard();
 // const SHOW_SHOPPINGCART="SHOW_SHOPPINGCART";
@@ -57,10 +58,11 @@ function App() {
   const [isLoaded, setIsLoaded] = useState(false);
 
   const [newUserData, setNewUserData] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
+    name:"",
+    email:"",
+    password:""
+  })
+
   useEffect(() => {
     getAllProducts();
     getAllUsers();
@@ -98,6 +100,7 @@ function App() {
       url: "http://localhost:4000/products",
       type: "GET",
       success: (res) => {
+        //console.log(res)
         setProducts(res.data);
         setIsLoaded(true);
       },
@@ -288,9 +291,12 @@ function App() {
             removeProduct: removeProduct,
             removeUser: removeUser,
             updateProduct: updateProduct,
-            getAllProducts: getAllProducts,
-            handleChangeNewUser: handleChangeNewUser,
-            dataSend: dataSend,
+            getAllProducts: getAllProducts, 
+            handleChangeNewUser:handleChangeNewUser,
+            dataSend:dataSend,
+            
+
+           
           }}
         >
           <shoppingCart.Provider
@@ -313,6 +319,7 @@ function App() {
                 render={() => <ProductForm />}
               />
               <Route path="/users-dashboard" component={UsersDashboard} />
+              <Route path="/users-update/:id" component={UpdateUsers} />
               <checkoutContext.Provider
                 value={{
                   shippingAddress: shippingAddress,

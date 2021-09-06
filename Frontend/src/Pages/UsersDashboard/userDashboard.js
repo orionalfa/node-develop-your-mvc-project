@@ -1,35 +1,57 @@
-import "./styles.css";
+import "./stylesUser.css";
 import React, { useContext, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Grid } from "@material-ui/core/";
 import { musicContext, shoppingCart } from "../../context";
+import { Link } from "react-router-dom";
 
-// async function updateProduct(product) {
-//   console.log(product._id);
-//   console.log(product.title);
-// }
 
 export default function UserDashboard() {
-  const { users, removeUser, updateProduct } =
+  const { users, removeUser } =
     useContext(musicContext);
 
   if (!users) return null;
 
   const usersList = users.map((user, index) => (
-    <tr key={uuidv4()}>
+    <tr  key={uuidv4()}>
       <td key={uuidv4()}>{user.name}</td>
       <td key={uuidv4()}>{user.email}</td>
-      <td key={uuidv4()}>{user.cart[0]}</td>
+      <td  key={uuidv4()}>{
+      <div key={uuidv4()}> 
+      {
+      user.products.map((product=>{
+        {
+        return(
+        <div className="products_content" key={uuidv4()}>
+        <p key={uuidv4()} >{product.title}</p>
+        
+      </div>
+        )}
+      }))}
+      </div> 
+      }
+      </td>
+      
       {/* <td key={uuidv4()}>{users.models[0].name}</td>
       <td key={uuidv4()}>{users.models[0].price}</td>
       <td key={uuidv4()}>{users.models[0].modelDescription}</td>
       <td key={uuidv4()}>{users.models[0].unitsStock}</td>
       <td key={uuidv4()}>{users.models[0].images}</td> */}
-      <td key={uuidv4()}>
-        <button onClick={() => updateProduct(user)}>Update</button>
+      <td  key={uuidv4()}>
+        <Link 
+       
+        to={`users-update/${user._id}`}>
+        <button 
+        className="btn btn-success"
+        
+        >
+          Update
+        </button>
+        </Link>
       </td>
       <td key={uuidv4()}>
-        <button
+        <button 
+          className="btn btn-danger"
           onClick={() => {
             removeUser(user);           
           }}

@@ -5,7 +5,7 @@ const { compareEncrypted } = require("../utils/encrypt");
 
 async function getAllUsers(req, res, next) {
   try {
-    const dbResponse = await db.Users.find();
+    const dbResponse = await db.Users.find().populate("products");
 
     if (dbResponse.error) {
       res.status(400).send(
@@ -95,7 +95,8 @@ async function createUser(req, res, next) {
   var { pass, ...rest } = req.body;
   pass = await encryptString(pass);
   try {
-    const dbResponse = await db.Users.create({ pass, ...rest });
+    const dbResponse = await db.Users.create({ 
+      pass, ...rest });
     if (!dbResponse._id) {
       res.status(400).send(
         generateResponse({
@@ -149,6 +150,7 @@ async function deleteUser(req, res, next) {
 }
 
 async function updateUser(req, res, next) {
+  console.log(req.body)
   try {
     var { pass, ...bodyReq } = req.body;
     if (pass) {
