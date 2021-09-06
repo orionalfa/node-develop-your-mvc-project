@@ -22,6 +22,7 @@ import ShippingMethod from "./Pages/Checkout/ShippingMethod";
 import PaymentMethod from "./Pages/Checkout/PaymentMethod";
 import PreviewOrder from "./Pages/Checkout/PreviewOrder";
 import ConfirmOrder from "./Pages/Checkout/ConfirmOrder";
+import UpdateUsers from "./Pages/updateUser";
 
 const hunel = new HunelCreditCard();
 // const SHOW_SHOPPINGCART="SHOW_SHOPPINGCART";
@@ -40,6 +41,7 @@ function App() {
   // const [state, dispatch] = useReducer(reducer);
   const [showShoppingCart, setShowShoppingCart] = useState(false);
   const [cartProducts, setCartProducts] = useState([]);
+  const [isCheckoutDisabled, setIsCheckoutDisabled] = useState(true);
   const [shippingAddress, setShippingAddress] = useState({
     country: "",
     city: "",
@@ -56,10 +58,11 @@ function App() {
   const [isLoaded, setIsLoaded] = useState(false);
 
   const [newUserData, setNewUserData] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
+    name:"",
+    email:"",
+    password:""
+  })
+
   useEffect(() => {
     getAllProducts();
     getAllUsers();
@@ -97,6 +100,7 @@ function App() {
       url: "http://localhost:4000/products",
       type: "GET",
       success: (res) => {
+        //console.log(res)
         setProducts(res.data);
         setIsLoaded(true);
       },
@@ -193,12 +197,17 @@ function App() {
   }
 
   function buildNewCartItem(product) {
+    if (product.quantity >= product.models[0].unitsStock) {
+      return product;
+    }
+
     return {
       _id: product._id,
       title: product.title,
       price: product.models[0].price,
       images: product.models[0].images[0],
-      quantity: 0,
+      quantity: 1,
+      unitsInStock: product.models[0].unitsStock,
     };
   }
 
@@ -210,7 +219,11 @@ function App() {
 
     if (prevCartItem) {
       const updatedCartItems = cartProducts.map((item) => {
-        if (item.id !== productId) {
+        if (item._id !== productId) {
+          return item;
+        }
+
+        if (item.quantity >= item.unitsInStock) {
           return item;
         }
 
@@ -229,6 +242,37 @@ function App() {
 
     setCartProducts((prevState) => [...prevState, updatedProduct]);
     console.log(cartProducts);
+
+    if (cartProducts) {
+      setIsCheckoutDisabled(false);
+    }
+  }
+
+  function handleChange(event, productId) {
+    const updatedCartItems = cartProducts.map((item) => {
+      if (item._id === productId && item.quantity <= item.unitsInStock) {
+        return {
+          ...item,
+          quantity: Number(event.target.value),
+        };
+      }
+
+      return item;
+    });
+
+    setCartProducts(updatedCartItems);
+  }
+
+  function handleRemove(productId) {
+    const updatedCartItems = cartProducts.filter(
+      (item) => item._id !== productId,
+    );
+
+    setCartProducts(updatedCartItems);
+
+    if (cartProducts.length === 1) {
+      setIsCheckoutDisabled(true);
+    }
   }
 
   return (
@@ -247,15 +291,21 @@ function App() {
             removeProduct: removeProduct,
             removeUser: removeUser,
             updateProduct: updateProduct,
-            getAllProducts: getAllProducts,
-            handleChangeNewUser: handleChangeNewUser,
-            dataSend: dataSend,
+            getAllProducts: getAllProducts, 
+            handleChangeNewUser:handleChangeNewUser,
+            dataSend:dataSend,
+            
+
+           
           }}
         >
           <shoppingCart.Provider
             value={{
               cartProducts: cartProducts,
+              isCheckoutDisabled: isCheckoutDisabled,
               addToCart: addToCart,
+              handleChange: handleChange,
+              handleRemove: handleRemove,
             }}
           >
             <Switch>
@@ -269,6 +319,7 @@ function App() {
                 render={() => <ProductForm />}
               />
               <Route path="/users-dashboard" component={UsersDashboard} />
+              <Route path="/users-update/:id" component={UpdateUsers} />
               <checkoutContext.Provider
                 value={{
                   shippingAddress: shippingAddress,

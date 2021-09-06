@@ -54,26 +54,28 @@ function ProductItem({
         <img className="imageInstrument" alt={image} src={image}></img>
       </div>
       <div className={productData}>
-        <h1 className="productDetails-data">{productTitle}</h1>
-        <p className="productDetails-data">{description}</p>
-        <p className="productDetails-data">{price} $</p>
-        <p className="productDetails-data">{unitsInStock} U</p>
-        <div className="buttons">
-          <button className="button" onClick={handleAddToCart}>
-            Buy now
-          </button>
-          <button
-            className="button"
-            onClick={() => {
-              if (state === false) {
-                setClass(true);
-              } else {
-                setClass(false);
-              }
-            }}
-          >
-            {buttonText}
-          </button>
+        <div className="product-data-container">
+          <h1 className="productDetails-data">{productTitle}</h1>
+          <p className="productDetails-data">{description}</p>
+          <p className="productDetails-data">{price} $</p>
+          <p className="productDetails-data">{unitsInStock} U</p>
+          <div className="buttons">
+            <button className="button" onClick={handleAddToCart}>
+              Buy now
+            </button>
+            <button
+              className="button"
+              onClick={() => {
+                if (state === false) {
+                  setClass(true);
+                } else {
+                  setClass(false);
+                }
+              }}
+            >
+              {buttonText}
+            </button>
+          </div>
         </div>
       </div>
     </div>
