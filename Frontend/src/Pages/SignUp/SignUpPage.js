@@ -1,23 +1,15 @@
 
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./styles.css";
-
-import Input from "../../components/Input";
+import $ from "jquery";
+//import Input from "../../components/Input";
 import Cart from "../../components/Cart";
+import { musicContext } from "../../context";
 
 function SignUpPage() {
-  const [data, setData] = useState({
-    name:"",
-    email:"",
-    password:""
-  })
-function handleChange(e){
-  console.log(e.target.name)
-    // setData({
-    //   ...data
 
-    // })
-}
+  const { handleChangeNewUser, dataSend } = useContext(musicContext);
+  
   return (
     <main>
       <Cart />
@@ -27,51 +19,40 @@ function handleChange(e){
         </div>
         <hr />
         <div className="mb-3">
-          <form>
+          <form  onSubmit={dataSend}>
             <div className="row">
               <div className="col-6">
                 <div className="mb-3">
-                  <Input
+                  <input
                     name="name"
                     type="text"
                     label="Full Name:"
-                    id="name"
-                    // value={formik.values.address}
+                    defaultValue=""
                     placeholder="Introduce your full name"
-                    onChange={handleChange}
-                    // handleBlur={formik.handleBlur}
-                    // hasErrorMessage={formik.touched.address}
-                    // errorMessage={formik.errors.address}
+                    onChange={handleChangeNewUser}
+                    
                   />
                 </div>
                 <div className="mb-3">
-                  <Input
+                  <input
                     name="email"
                     type="text"
                     label="Email:"
-                    id="email"
-                    // value={formik.values.address}
-                    onChange={handleChange}
+                    defaultValue=""
+                    onChange={handleChangeNewUser}
                     placeholder="Ex: useremail@gmail.com"
-                    // handleChange={formik.handleChange}
-                    // handleBlur={formik.handleBlur}
-                    // hasErrorMessage={formik.touched.address}
-                    // errorMessage={formik.errors.address}
+
                   />
                 </div>
                 <div className="mb-3">
-                  <Input
+                  <input
                     name="password"
                     type="text"
                     label="Password:"
-                    id="password"
-                    // value={formik.values.address}
-                    onChange={handleChange}
+                    defaultValue=""
+                    onChange={handleChangeNewUser}
                     placeholder="******"
-                    // handleChange={formik.handleChange}
-                    // handleBlur={formik.handleBlur}
-                    // hasErrorMessage={formik.touched.address}
-                    // errorMessage={formik.errors.address}
+
                   />
                 </div>
                 {/* <div className="mb-3">
@@ -146,6 +127,9 @@ function handleChange(e){
                 </div>*/}
               </div>
             </div>
+            <button type="submit" className="btn btn-primary">
+                  Sign up
+                </button>
           </form>
         </div>
       </section>

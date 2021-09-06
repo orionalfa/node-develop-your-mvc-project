@@ -6,17 +6,21 @@ import "../styles.css";
 import CheckoutFooter from "../../../components/CheckoutFooter";
 import CheckoutResume from "../../../components/CheckoutResume";
 
-import { checkoutContext, shoppingCart } from "../../../context";
+import { checkoutContext } from "../../../context";
 
 export default function ShippingMethod() {
-  const { shippingMethod, setShippingMethod } = useContext(checkoutContext);
-  const { cartProducts } = useContext(shoppingCart);
-  // const reducer = (accumulator, currentValue) => accumulator + currentValue;
-  var totalAmount = 0;
+  const {
+    shippingAddress,
+    shippingMethod,
+    paymentData,
+    setShippingAddress,
+    setShippingMethod,
+    setPaymentData,
+    updateShippingData,
+    getShippingData,
+    sendOrder,
+  } = useContext(checkoutContext);
 
-  cartProducts.forEach((product) => {
-    totalAmount += product.price;
-  });
   const handleChange = (e) => {
     setShippingMethod(e.target.value);
     // console.log(shippingMethod);

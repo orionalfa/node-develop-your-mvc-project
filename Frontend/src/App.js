@@ -11,6 +11,7 @@ import "./App.css";
 
 import NavBar from "./components/NavBar";
 import ProductDashboard from "./Pages/ProductDashboard";
+import UsersDashboard from "./Pages/UsersDashboard";
 import Home from "./Pages/Home";
 import ProductPage from "./Pages/Products";
 import SignUpPage from "./Pages/SignUp";
@@ -50,16 +51,49 @@ function App() {
   const [paymentData, setPaymentData] = useState({});
 
   const [products, setProducts] = useState([]);
+  const [users, setUsers] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
-
+  const [newUserData, setNewUserData] = useState({
+    name:"",
+    email:"",
+    password:""
+  })
   useEffect(() => {
     getAllProducts();
+    getAllUsers();
   }, []);
+ 
 
   function showCart() {
     showShoppingCart ? setShowShoppingCart(false) : setShowShoppingCart(true);
   }
 
+
+function handleChangeNewUser(e){
+  setNewUserData({
+    ...newUserData,
+    [e.target.name] : e.target.value
+  })
+  
+}
+function dataSend(e){
+  e.preventDefault();
+  $.ajax({
+    url: "http://localhost:4000/users/",
+    type: "POST",
+    contentType: "application/json; charset=utf-8",
+    data: JSON.stringify({
+      //newUserData
+      name:newUserData.name,
+      email:newUserData.email,
+      pass:newUserData.password
+    }),
+      success: (res) => {
+        console.log(res);
+        
+      },
+    });
+  }
   function getAllProducts() {
     return $.ajax({
       url: "http://localhost:4000/products",
@@ -71,12 +105,36 @@ function App() {
     });
   }
 
+  function getAllUsers() {
+    return $.ajax({
+      url: "http://localhost:4000/users",
+      type: "GET",
+      success: (res) => {
+        setUsers(res.data);
+        console.log(res.data);
+        setIsLoaded(true);
+      },
+    });
+  }
+
   async function removeProduct(product) {
     $.ajax({
       url: `http://localhost:4000/products/${product._id}`,
       type: "DELETE",
       success: (res) => {
         //getAllProducts();
+        //window.location.reload();
+      },
+    });
+  }
+
+  async function removeUser(user) {
+    console.log(user._id);
+    $.ajax({
+      url: `http://localhost:4000/users/${user._id}`,
+      type: "DELETE",
+      success: (res) => {
+        getAllUsers();
         //window.location.reload();
       },
     });
@@ -176,10 +234,14 @@ function App() {
             showShoppingCart: showShoppingCart,
             hola: "holaketal",
             products: products,
+            users:users,
             isLoaded: isLoaded,
             removeProduct: removeProduct,
+            removeUser:removeUser,
             updateProduct: updateProduct,
-            getAllProducts: getAllProducts,
+            getAllProducts: getAllProducts, 
+            handleChangeNewUser:handleChangeNewUser,
+            dataSend:dataSend
           }}
         >
           <shoppingCart.Provider
@@ -194,6 +256,7 @@ function App() {
               <Route path="/user-pwd-change" component={ChangePasswordPage} />
               <Route path="/sign-up" render={() => <SignUpPage />} />
               <Route path="/product-dashboard" component={ProductDashboard} />
+              <Route path="/users-dashboard" component={UsersDashboard} />
               <checkoutContext.Provider
                 value={{
                   shippingAddress: shippingAddress,
