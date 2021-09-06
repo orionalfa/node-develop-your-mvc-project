@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import $ from "jquery";
 import { musicContext, shoppingCart } from "../../context";
 import { v4 as uuidv4 } from "uuid";
+import { Link } from "react-router-dom";
 
 import "./styles.css";
 
@@ -47,9 +48,14 @@ function Cart() {
         )}
       </ul>
       <div className="checkout-button">
-        <button className="button" disabled={isCheckoutDisabled} onClick={test}>
+        <Link
+          to="/shipping-info"
+          className={isCheckoutDisabled ? "button" : "button button-active"}
+          disabled={isCheckoutDisabled}
+          onClick={test}
+        >
           Checkout
-        </button>
+        </Link>
       </div>
     </div>
   );
