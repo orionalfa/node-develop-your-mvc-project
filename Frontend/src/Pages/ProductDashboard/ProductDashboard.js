@@ -1,64 +1,70 @@
-import React, { useContext, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
+import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import { Grid } from "@material-ui/core/";
-//import $ from "jquery";
+import { v4 as uuidv4 } from "uuid";
+import { musicContext } from "../../context";
 import "./styles.css";
-import { musicContext, shoppingCart } from "../../context";
-
-// async function updateProduct(product) {
-//   console.log(product._id);
-//   console.log(product.title);
-// }
 
 export default function ProductDashboard() {
-  const { products, removeProduct, updateProduct, getAllProducts } =
-    useContext(musicContext);
+  const { products, removeProduct } = useContext(musicContext);
 
-  if (!products) return null;
-
-  const productList = products.map((product, index) => (
-    <tr key={uuidv4()}>
-      <td key={uuidv4()}>{product.title}</td>
-      <td key={uuidv4()}>{product.description}</td>
-      <td key={uuidv4()}>{product.models[0].name}</td>
-      <td key={uuidv4()}>{product.models[0].price}</td>
-      <td key={uuidv4()}>{product.models[0].modelDescription}</td>
-      <td key={uuidv4()}>{product.models[0].unitsStock}</td>
-      <td key={uuidv4()}>{product.models[0].images}</td>
-      <td key={uuidv4()}>
-        <button onClick={() => updateProduct(product)}>Update</button>
-      </td>
-      <td key={uuidv4()}>
-        <button
-          onClick={() => {
-            removeProduct(product);
-            getAllProducts();
-          }}
-        >
-          Remove
-        </button>
-      </td>
-    </tr>
-  ));
+  if (!products)
+    return (
+      <main>
+        <div>There aren't products</div>
+      </main>
+    );
 
   return (
     <main>
       <Grid item xs={12} sm={12} md={12}>
         <div className="grid-container">
-          <table>
-            <thead>
-              <tr>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Model description</th>
-                <th>Units in stock</th>
-                <th>Images</th>
-              </tr>
-            </thead>
-            <tbody>{productList}</tbody>
-          </table>
+          {products.map((product) => (
+            <div className="product-table border border-secondary rounded mb-4">
+              <div className="product-header">
+                <div className="product-title ms-3">
+                  {product.title} - {product.description}
+                </div>
+                <div>
+                  <Link
+                    to={`/product-formulary/${product._id}`}
+                    className="button me-4"
+                  >
+                    Update
+                  </Link>
+                  <button
+                    type="button"
+                    className="button"
+                    onClick={() => {
+                      removeProduct(product._id);
+                    }}
+                  >
+                    Remove
+                  </button>
+                </div>
+              </div>
+              <table>
+                <thead className="border-top">
+                  <tr key={uuidv4()}>
+                    <th key={uuidv4()}>Model Name</th>
+                    <th key={uuidv4()}>Description</th>
+                    <th key={uuidv4()}>Price</th>
+                    <th key={uuidv4()}>Units</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {product.models.map((model) => (
+                    <tr key={uuidv4()}>
+                      <td key={uuidv4()}>{model.name}</td>
+                      <td key={uuidv4()}>{model.modelDescription}</td>
+                      <td key={uuidv4()}>{model.price}</td>
+                      <td key={uuidv4()}>{model.unitsStock}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ))}
         </div>
       </Grid>
     </main>

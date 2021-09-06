@@ -4,6 +4,8 @@ import { Grid } from "@material-ui/core/";
 import "../styles.css";
 
 import CheckoutFooter from "../../../components/CheckoutFooter";
+import CheckoutResume from "../../../components/CheckoutResume";
+
 import { checkoutContext } from "../../../context";
 
 export default function ShippingMethod() {
@@ -39,6 +41,7 @@ export default function ShippingMethod() {
                     name="shipping"
                     value="cheapest"
                     onChange={handleChange}
+                    checked={shippingMethod == "cheapest" ? "checked" : ""}
                   />
                   <label>
                     <div className="radio-info">
@@ -55,6 +58,7 @@ export default function ShippingMethod() {
                     name="shipping"
                     value="standard"
                     onChange={handleChange}
+                    checked={shippingMethod == "standard" ? "checked" : ""}
                   />
                   <label>
                     <div className="radio-info">
@@ -71,6 +75,7 @@ export default function ShippingMethod() {
                     name="shipping"
                     value="premium"
                     onChange={handleChange}
+                    checked={shippingMethod == "premium" ? "checked" : ""}
                   />
                   <label>
                     <div className="radio-info">
@@ -87,6 +92,7 @@ export default function ShippingMethod() {
                     name="shipping"
                     value="express"
                     onChange={handleChange}
+                    checked={shippingMethod == "express" ? "checked" : ""}
                   />
                   <label>
                     <div className="radio-info">
@@ -106,7 +112,7 @@ export default function ShippingMethod() {
               md={3}
               className="right-container"
             >
-              <div>Resume</div>
+              <CheckoutResume />
             </Grid>
             <CheckoutFooter back="shipping-info" next="payment-method" />
           </Grid>

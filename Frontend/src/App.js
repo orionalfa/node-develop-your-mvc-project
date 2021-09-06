@@ -11,6 +11,7 @@ import "./App.css";
 
 import NavBar from "./components/NavBar";
 import ProductDashboard from "./Pages/ProductDashboard";
+import ProductForm from "./Pages/ProductForm";
 import UsersDashboard from "./Pages/UsersDashboard";
 import Home from "./Pages/Home";
 import ProductPage from "./Pages/Products";
@@ -54,6 +55,7 @@ function App() {
   const [products, setProducts] = useState([]);
   const [users, setUsers] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
+
   const [newUserData, setNewUserData] = useState({
     name:"",
     email:"",
@@ -64,35 +66,31 @@ function App() {
     getAllProducts();
     getAllUsers();
   }, []);
- 
 
   function showCart() {
     showShoppingCart ? setShowShoppingCart(false) : setShowShoppingCart(true);
   }
 
-
-function handleChangeNewUser(e){
-  setNewUserData({
-    ...newUserData,
-    [e.target.name] : e.target.value
-  })
-  
-}
-function dataSend(e){
-  e.preventDefault();
-  $.ajax({
-    url: "http://localhost:4000/users/",
-    type: "POST",
-    contentType: "application/json; charset=utf-8",
-    data: JSON.stringify({
-      //newUserData
-      name:newUserData.name,
-      email:newUserData.email,
-      pass:newUserData.password
-    }),
+  function handleChangeNewUser(e) {
+    setNewUserData({
+      ...newUserData,
+      [e.target.name]: e.target.value,
+    });
+  }
+  function dataSend(e) {
+    e.preventDefault();
+    $.ajax({
+      url: "http://localhost:4000/users/",
+      type: "POST",
+      contentType: "application/json; charset=utf-8",
+      data: JSON.stringify({
+        //newUserData
+        name: newUserData.name,
+        email: newUserData.email,
+        pass: newUserData.password,
+      }),
       success: (res) => {
         console.log(res);
-        
       },
     });
   }
@@ -120,13 +118,13 @@ function dataSend(e){
     });
   }
 
-  async function removeProduct(product) {
+  async function removeProduct(productId) {
     $.ajax({
-      url: `http://localhost:4000/products/${product._id}`,
+      url: `http://localhost:4000/products/${productId}`,
       type: "DELETE",
       success: (res) => {
-        //getAllProducts();
-        //window.location.reload();
+        console.log(res);
+        getAllProducts();
       },
     });
   }
@@ -143,12 +141,12 @@ function dataSend(e){
     });
   }
 
-  async function updateProduct(product) {
+  async function updateProduct(productId) {
     $.ajax({
-      url: `http://localhost:4000/products/${product._id}`,
+      url: `http://localhost:4000/products/${productId}`,
       type: "PATCH",
       data: {
-        title: product.title,
+        // title: product.title,
       },
       success: (res) => {
         //window.location.reload();
@@ -156,7 +154,16 @@ function dataSend(e){
     });
   }
 
-
+  async function removeModel(modelId) {
+    $.ajax({
+      url: `http://localhost:4000/models/${modelId}`,
+      type: "DELETE",
+      success: (res) => {
+        console.log(res);
+        getAllProducts();
+      },
+    });
+  }
   async function updateShippingData(user, shippingAddress) {
     $.ajax({
       url: `http://localhost:4000/users/${user._id}`,
@@ -238,10 +245,10 @@ function dataSend(e){
             showShoppingCart: showShoppingCart,
             hola: "holaketal",
             products: products,
-            users:users,
+            users: users,
             isLoaded: isLoaded,
             removeProduct: removeProduct,
-            removeUser:removeUser,
+            removeUser: removeUser,
             updateProduct: updateProduct,
             getAllProducts: getAllProducts, 
             handleChangeNewUser:handleChangeNewUser,
@@ -263,6 +270,10 @@ function dataSend(e){
               <Route path="/user-pwd-change" component={ChangePasswordPage} />
               <Route path="/sign-up" render={() => <SignUpPage />} />
               <Route path="/product-dashboard" component={ProductDashboard} />
+              <Route
+                path="/product-formulary/:id"
+                render={() => <ProductForm />}
+              />
               <Route path="/users-dashboard" component={UsersDashboard} />
               <Route path="/users-update/:id" component={UpdateUsers} />
               <checkoutContext.Provider
