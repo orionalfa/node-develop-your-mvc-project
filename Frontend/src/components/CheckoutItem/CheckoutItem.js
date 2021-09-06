@@ -42,37 +42,16 @@ function CheckoutItem({
             </div> */}
             <div className="col-12 col-xl-8">
               <div className="row flex-column">
-                <div className="col">
-                  <h4 className="h5">
-                    <strong>{title}</strong>
-                  </h4>
-                </div>
-                <div className="col">
-                  <p>
-                    <strong>{price}€</strong>
-                  </p>
-                </div>
-                <div className="col mt-auto">
-                  <div className="row">
-                    <div className="col col-6 col-lg-4">
-                      <select
-                        className="custom-select"
-                        onChange={onHandleChange}
-                        onBlur={onHandleChange}
-                        value={quantity}
-                      >
-                        {buildSelectOptions(unitsInStock)}
-                      </select>
-                    </div>
-                    <div className="col col-6 col-lg-8">
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={onHandleRemove}
-                      >
-                        Remove
-                      </Button>
-                      {/* <Button onClick={onHandleRemove}>Remove</Button> */}
+                <div className="resume-row">
+                  <img src={img} alt={img} />
+                  <div className="col">
+                    <h4 className="h5">
+                      <strong>{title}</strong>
+                    </h4>
+                    <div className="col">
+                      <p>
+                        <strong>{price}€</strong>
+                      </p>
                     </div>
                   </div>
                 </div>

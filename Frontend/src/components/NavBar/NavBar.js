@@ -48,7 +48,7 @@ function NavBar({ showCart }) {
                   UsersDashboard
                 </Link>
               </li>
-              <li className="nav-item navItem">
+              {/* <li className="nav-item navItem">
                 <div className="nav-link checkout">
                   ¡¡TMP!! - Checkout
                   <ul>
@@ -69,7 +69,7 @@ function NavBar({ showCart }) {
                     </li>
                   </ul>
                 </div>
-              </li>
+              </li> */}
             </ul>
             <LogIn />
             <button

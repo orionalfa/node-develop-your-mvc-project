@@ -6,3 +6,11 @@
   object-fit: cover;
   background-position: center;
 }
+
+.resume-row {
+  display: flex;
+}
+
+.resume-row > img {
+  max-width: 4rem;
+}
