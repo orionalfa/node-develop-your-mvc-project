@@ -1,8 +1,9 @@
-import "./styles.css";
+import "./stylesUser.css";
 import React, { useContext, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Grid } from "@material-ui/core/";
 import { musicContext, shoppingCart } from "../../context";
+import{Link} from "react-router-dom"
 
 export default function UserDashboard() {
   const { users, removeUser } = useContext(musicContext);
