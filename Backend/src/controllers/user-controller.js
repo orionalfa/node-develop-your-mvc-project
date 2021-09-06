@@ -89,11 +89,11 @@ async function userSignIn(req, res, next) {
 }
 
 async function createUser(req, res, next) {
-  // console.log(req.body);
+  //console.log(req.body);
+  
 
   var { pass, ...rest } = req.body;
   pass = await encryptString(pass);
-
   try {
     const dbResponse = await db.Users.create({ pass, ...rest });
     if (!dbResponse._id) {

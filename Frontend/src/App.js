@@ -4,13 +4,15 @@ import $ from "jquery";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { HunelProvider, HunelCreditCard } from "reactjs-credit-card";
 
-import { musicContext } from "./context";
+import { checkoutContext, musicContext } from "./context";
 import { shoppingCart } from "./context";
 
 import "./App.css";
 
 import NavBar from "./components/NavBar";
 import ProductDashboard from "./Pages/ProductDashboard";
+import ProductForm from "./Pages/ProductForm";
+import UsersDashboard from "./Pages/UsersDashboard";
 import Home from "./Pages/Home";
 import ProductPage from "./Pages/Products";
 import SignUpPage from "./Pages/SignUp";
@@ -39,18 +41,58 @@ function App() {
   const [showShoppingCart, setShowShoppingCart] = useState(false);
   const [cartProducts, setCartProducts] = useState([]);
   const [isCheckoutDisabled, setIsCheckoutDisabled] = useState(true);
+  const [shippingAddress, setShippingAddress] = useState({
+    country: "",
+    city: "",
+    postalCode: "",
+    streetAddress: "",
+    contactName: "",
+    contactPhone: "",
+  });
+  const [shippingMethod, setShippingMethod] = useState("");
+  const [paymentData, setPaymentData] = useState({});
 
   const [products, setProducts] = useState([]);
+  const [users, setUsers] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
+  const [newUserData, setNewUserData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
   useEffect(() => {
     getAllProducts();
+    getAllUsers();
   }, []);
 
   function showCart() {
     showShoppingCart ? setShowShoppingCart(false) : setShowShoppingCart(true);
   }
 
+  function handleChangeNewUser(e) {
+    setNewUserData({
+      ...newUserData,
+      [e.target.name]: e.target.value,
+    });
+  }
+  function dataSend(e) {
+    e.preventDefault();
+    $.ajax({
+      url: "http://localhost:4000/users/",
+      type: "POST",
+      contentType: "application/json; charset=utf-8",
+      data: JSON.stringify({
+        //newUserData
+        name: newUserData.name,
+        email: newUserData.email,
+        pass: newUserData.password,
+      }),
+      success: (res) => {
+        console.log(res);
+      },
+    });
+  }
   function getAllProducts() {
     return $.ajax({
       url: "http://localhost:4000/products",
@@ -62,24 +104,89 @@ function App() {
     });
   }
 
-  async function removeProduct(product) {
+  function getAllUsers() {
+    return $.ajax({
+      url: "http://localhost:4000/users",
+      type: "GET",
+      success: (res) => {
+        setUsers(res.data);
+        console.log(res.data);
+        setIsLoaded(true);
+      },
+    });
+  }
+
+  async function removeProduct(productId) {
     $.ajax({
-      url: `http://localhost:4000/products/${product._id}`,
+      url: `http://localhost:4000/products/${productId}`,
       type: "DELETE",
       success: (res) => {
-        //getAllProducts();
+        console.log(res);
+        getAllProducts();
+      },
+    });
+  }
+
+  async function removeUser(user) {
+    console.log(user._id);
+    $.ajax({
+      url: `http://localhost:4000/users/${user._id}`,
+      type: "DELETE",
+      success: (res) => {
+        getAllUsers();
         //window.location.reload();
       },
     });
   }
 
-  async function updateProduct(product) {
+  async function updateProduct(productId) {
     $.ajax({
-      url: `http://localhost:4000/products/${product._id}`,
+      url: `http://localhost:4000/products/${productId}`,
       type: "PATCH",
       data: {
-        title: product.title,
+        // title: product.title,
       },
+      success: (res) => {
+        //window.location.reload();
+      },
+    });
+  }
+
+  async function removeModel(modelId) {
+    $.ajax({
+      url: `http://localhost:4000/models/${modelId}`,
+      type: "DELETE",
+      success: (res) => {
+        console.log(res);
+        getAllProducts();
+      },
+    });
+  }
+  async function updateShippingData(user, shippingAddress) {
+    $.ajax({
+      url: `http://localhost:4000/users/${user._id}`,
+      type: "PATCH",
+      data: shippingAddress,
+      success: (res) => {},
+    });
+  }
+
+  async function getShippingData(user) {
+    $.ajax({
+      url: `http://localhost:4000/users/${user._id}`,
+      type: "GET",
+      data: "",
+      success: (res) => {
+        setShippingAddress(res.shippingAddress);
+      },
+    });
+  }
+
+  async function sendOrder(user, order) {
+    $.ajax({
+      url: `http://localhost:4000/users/${user._id}`,
+      type: "PATCH",
+      data: order,
       success: (res) => {
         //window.location.reload();
       },
@@ -176,10 +283,14 @@ function App() {
             showShoppingCart: showShoppingCart,
             hola: "holaketal",
             products: products,
+            users: users,
             isLoaded: isLoaded,
             removeProduct: removeProduct,
+            removeUser: removeUser,
             updateProduct: updateProduct,
             getAllProducts: getAllProducts,
+            handleChangeNewUser: handleChangeNewUser,
+            dataSend: dataSend,
           }}
         >
           <shoppingCart.Provider
@@ -197,19 +308,38 @@ function App() {
               <Route path="/user-pwd-change" component={ChangePasswordPage} />
               <Route path="/sign-up" render={() => <SignUpPage />} />
               <Route path="/product-dashboard" component={ProductDashboard} />
-              <Route path="/shipping-info" render={() => <ShippingInfo />} />
               <Route
-                path="/shipping-method"
-                render={() => <ShippingMethod />}
+                path="/product-formulary/:id"
+                render={() => <ProductForm />}
               />
-              <HunelProvider config={hunel}>
+              <Route path="/users-dashboard" component={UsersDashboard} />
+              <checkoutContext.Provider
+                value={{
+                  shippingAddress: shippingAddress,
+                  shippingMethod: shippingMethod,
+                  paymentData: paymentData,
+                  setShippingAddress: setShippingAddress,
+                  setShippingMethod: setShippingMethod,
+                  setPaymentData: setPaymentData,
+                  updateShippingData: updateShippingData,
+                  getShippingData: getShippingData,
+                  sendOrder: sendOrder,
+                }}
+              >
+                <Route path="/shipping-info" render={() => <ShippingInfo />} />
                 <Route
-                  path="/payment-method"
-                  render={() => <PaymentMethod />}
+                  path="/shipping-method"
+                  render={() => <ShippingMethod />}
                 />
-              </HunelProvider>
-              <Route path="/preview-order" render={() => <PreviewOrder />} />
-              <Route path="/confirm-order" render={() => <ConfirmOrder />} />
+                <HunelProvider config={hunel}>
+                  <Route
+                    path="/payment-method"
+                    render={() => <PaymentMethod />}
+                  />
+                </HunelProvider>
+                <Route path="/preview-order" render={() => <PreviewOrder />} />
+                <Route path="/confirm-order" render={() => <ConfirmOrder />} />
+              </checkoutContext.Provider>
             </Switch>
           </shoppingCart.Provider>
         </musicContext.Provider>

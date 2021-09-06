@@ -1,0 +1,8 @@
+.checkoutItemImg {
+  width: 50%;
+  min-width: 4rem;
+  height: 50%;
+  border-radius: 4px;
+  object-fit: cover;
+  background-position: center;
+}

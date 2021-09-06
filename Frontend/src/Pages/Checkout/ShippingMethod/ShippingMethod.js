@@ -1,11 +1,31 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Grid } from "@material-ui/core/";
 
 import "../styles.css";
 
 import CheckoutFooter from "../../../components/CheckoutFooter";
+import CheckoutResume from "../../../components/CheckoutResume";
+
+import { checkoutContext } from "../../../context";
 
 export default function ShippingMethod() {
+  const {
+    shippingAddress,
+    shippingMethod,
+    paymentData,
+    setShippingAddress,
+    setShippingMethod,
+    setPaymentData,
+    updateShippingData,
+    getShippingData,
+    sendOrder,
+  } = useContext(checkoutContext);
+
+  const handleChange = (e) => {
+    setShippingMethod(e.target.value);
+    // console.log(shippingMethod);
+  };
+
   return (
     <main>
       <form>
@@ -20,6 +40,8 @@ export default function ShippingMethod() {
                     id="cheapest"
                     name="shipping"
                     value="cheapest"
+                    onChange={handleChange}
+                    checked={shippingMethod == "cheapest" ? "checked" : ""}
                   />
                   <label>
                     <div className="radio-info">
@@ -35,6 +57,8 @@ export default function ShippingMethod() {
                     id="standard"
                     name="shipping"
                     value="standard"
+                    onChange={handleChange}
+                    checked={shippingMethod == "standard" ? "checked" : ""}
                   />
                   <label>
                     <div className="radio-info">
@@ -47,13 +71,15 @@ export default function ShippingMethod() {
                 <div className="shipping-method-radio">
                   <input
                     type="radio"
-                    id="premiun"
+                    id="premium"
                     name="shipping"
-                    value="premiun"
+                    value="premium"
+                    onChange={handleChange}
+                    checked={shippingMethod == "premium" ? "checked" : ""}
                   />
                   <label>
                     <div className="radio-info">
-                      <h5>Premiun</h5>
+                      <h5>Premium</h5>
                       <div>Between 3-5 working days</div>
                     </div>
                     <div className="radio-price">19,99€</div>
@@ -65,6 +91,8 @@ export default function ShippingMethod() {
                     id="express"
                     name="shipping"
                     value="express"
+                    onChange={handleChange}
+                    checked={shippingMethod == "express" ? "checked" : ""}
                   />
                   <label>
                     <div className="radio-info">
@@ -84,7 +112,7 @@ export default function ShippingMethod() {
               md={3}
               className="right-container"
             >
-              <div>Resume</div>
+              <CheckoutResume />
             </Grid>
             <CheckoutFooter back="shipping-info" next="payment-method" />
           </Grid>
