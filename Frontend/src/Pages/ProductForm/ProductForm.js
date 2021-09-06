@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import $ from "jquery";
 import "./styles.css";
-import musicContext from "../../context";
+import { musicContext } from "../../context";
 
 export default function ProductForm() {
   // get productId through URL params using useParams hook
@@ -24,7 +24,7 @@ export default function ProductForm() {
     });
   }
 
-  // Update request by id 
+  // Update request by id
   async function updateProduct() {
     $.ajax({
       url: `http://localhost:4000/products/${productToUpdate._id}`,
