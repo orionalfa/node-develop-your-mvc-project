@@ -1,4 +1,4 @@
-import "./styles.css";
+import "./stylesUser.css";
 import React, { useContext, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Grid } from "@material-ui/core/";
@@ -13,10 +13,10 @@ export default function UserDashboard() {
   if (!users) return null;
 
   const usersList = users.map((user, index) => (
-    <tr key={uuidv4()}>
+    <tr  key={uuidv4()}>
       <td key={uuidv4()}>{user.name}</td>
       <td key={uuidv4()}>{user.email}</td>
-      <td key={uuidv4()}>{
+      <td  key={uuidv4()}>{
       <div key={uuidv4()}> 
       {
       user.products.map((product=>{
@@ -37,7 +37,7 @@ export default function UserDashboard() {
       <td key={uuidv4()}>{users.models[0].modelDescription}</td>
       <td key={uuidv4()}>{users.models[0].unitsStock}</td>
       <td key={uuidv4()}>{users.models[0].images}</td> */}
-      <td key={uuidv4()}>
+      <td  key={uuidv4()}>
         <Link 
        
         to={`users-update/${user._id}`}>

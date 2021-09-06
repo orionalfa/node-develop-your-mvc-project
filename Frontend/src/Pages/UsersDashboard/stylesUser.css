@@ -1,23 +1,23 @@
 .grid-container {
     width: 100%;
     display: flex;
-    justify-content: left;
+    justify-content: center;
     padding-top: 1rem;
   }
   
   table {
     width: 95%;
     border: none;
-    text-align: left;
+    text-align: center;
     margin:0% 10% 0% 10%
   }
   
-  th {
+   th {
     border: none;
     border-bottom: 3px solid black;
   }
   
-  td {
+   td {
     border: none;
     border-bottom: 1px solid black;
   }
