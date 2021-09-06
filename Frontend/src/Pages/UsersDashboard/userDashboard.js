@@ -4,34 +4,46 @@ import { v4 as uuidv4 } from "uuid";
 import { Grid } from "@material-ui/core/";
 import { musicContext, shoppingCart } from "../../context";
 
-// async function updateProduct(product) {
-//   console.log(product._id);
-//   console.log(product.title);
-// }
-
 export default function UserDashboard() {
-  const { users, removeUser, updateProduct } =
-    useContext(musicContext);
-
+  const { users, removeUser } = useContext(musicContext);
+ 
   if (!users) return null;
 
   const usersList = users.map((user, index) => (
     <tr key={uuidv4()}>
       <td key={uuidv4()}>{user.name}</td>
       <td key={uuidv4()}>{user.email}</td>
-      <td key={uuidv4()}>{user.cart[0]}</td>
+      <td key={uuidv4()}>
+        {
+          <div key={uuidv4()}>
+            {user.products.map((product) => {
+              {
+                return (
+                  <div className="products_content" key={uuidv4()}>
+                    <p key={uuidv4()}>{product.title}</p>
+                  </div>
+                );
+              }
+            })}
+          </div>
+        }
+      </td>
+
       {/* <td key={uuidv4()}>{users.models[0].name}</td>
       <td key={uuidv4()}>{users.models[0].price}</td>
       <td key={uuidv4()}>{users.models[0].modelDescription}</td>
       <td key={uuidv4()}>{users.models[0].unitsStock}</td>
       <td key={uuidv4()}>{users.models[0].images}</td> */}
       <td key={uuidv4()}>
-        <button onClick={() => updateProduct(user)}>Update</button>
+        <Link to={`users-update/${user._id}`}>
+          <button className="userButton btn-success">Update</button>
+        </Link>
       </td>
       <td key={uuidv4()}>
         <button
+          className="userButton btn-danger"
           onClick={() => {
-            removeUser(user);           
+            removeUser(user);
           }}
         >
           Remove
@@ -50,7 +62,6 @@ export default function UserDashboard() {
                 <th>Name</th>
                 <th>email</th>
                 <th>ShoppingCart</th>
-                
               </tr>
             </thead>
             <tbody>{usersList}</tbody>
