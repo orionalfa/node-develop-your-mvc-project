@@ -150,6 +150,7 @@ async function deleteUser(req, res, next) {
 }
 
 async function updateUser(req, res, next) {
+  console.log(req.body)
   try {
     var { pass, ...bodyReq } = req.body;
     if (pass) {

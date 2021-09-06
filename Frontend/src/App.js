@@ -59,6 +59,7 @@ function App() {
     email:"",
     password:""
   })
+
   useEffect(() => {
     getAllProducts();
     getAllUsers();
@@ -155,6 +156,7 @@ function dataSend(e){
     });
   }
 
+
   async function updateShippingData(user, shippingAddress) {
     $.ajax({
       url: `http://localhost:4000/users/${user._id}`,
@@ -243,7 +245,9 @@ function dataSend(e){
             updateProduct: updateProduct,
             getAllProducts: getAllProducts, 
             handleChangeNewUser:handleChangeNewUser,
-            dataSend:dataSend
+            dataSend:dataSend,
+            
+
            
           }}
         >
