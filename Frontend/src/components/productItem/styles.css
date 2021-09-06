@@ -13,10 +13,9 @@
 
 .productDetails {
   width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
   gap: 5px;
   height: 400px;
+  padding: 0.5rem;
 }
 
 .productDetails_hide {
@@ -25,6 +24,13 @@
 
 .productDetails-data {
   background-color: rgb(201, 198, 198);
+}
+
+.product-data-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  background-color: red;
 }
 
 h1.productDetails-data {
