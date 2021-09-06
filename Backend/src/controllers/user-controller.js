@@ -1,6 +1,7 @@
 const db = require("../models");
 const { encryptString } = require("../utils/encrypt");
 const { generateResponse } = require("../utils/generate-response");
+const { compareEncrypted } = require("../utils/encrypt");
 
 async function getAllUsers(req, res, next) {
   try {
@@ -47,12 +48,52 @@ async function getUserById(req, res, next) {
     next(error);
   }
 }
+
+async function userSignIn(req, res, next) {
+  const { email, pass } = req.body;
+  console.log(req.body);
+  try {
+    const foundUser = await db.Users.findOne({ email: email });
+    if (foundUser === null) {
+      return res.status(400).send(`User does not exist`);
+    } else {
+      const matchPassword = await compareEncrypted({
+        plainData: pass,
+        encryptedData: foundUser.pass,
+      });
+      if (matchPassword) {
+        // generate the access token
+        // const accessToken = generateAccessToken({ foundUser });
+
+        // generating random refresh token and storing it
+        // in the session data key.
+        // const refreshToken = randToken.generate(256);
+        // sessionData.refreshTokens[refreshToken] = foundUser.email;
+
+        // return response
+        return res.status(200).send({
+          message: `Welcome ${foundUser.name}`,
+          // accessToken: accessToken,
+          // refreshToken: refreshToken,
+          id: foundUser._id,
+        });
+      } else if (!matchPassword) {
+        return res.status(400).send(`Wrong password`);
+      }
+    }
+  } catch (err) {
+    return res.status(500).send({
+      error: err.message,
+    });
+  }
+}
+
 async function createUser(req, res, next) {
-  // console.log(req.body);
+  //console.log(req.body);
+  
 
   var { pass, ...rest } = req.body;
   pass = await encryptString(pass);
-
   try {
     const dbResponse = await db.Users.create({ pass, ...rest });
     if (!dbResponse._id) {
@@ -154,4 +195,5 @@ module.exports = {
   createUser: createUser,
   deleteUser: deleteUser,
   updateUser: updateUser,
+  userSignIn: userSignIn,
 };

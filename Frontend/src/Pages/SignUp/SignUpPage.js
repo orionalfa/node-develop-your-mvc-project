@@ -1,63 +1,61 @@
-import React from "react";
 
+import React, { useState, useContext } from "react";
 import "./styles.css";
-
-import Input from "../../components/Input";
+import $ from "jquery";
+//import Input from "../../components/Input";
 import Cart from "../../components/Cart";
+import { musicContext } from "../../context";
 
 function SignUpPage() {
+
+  const { handleChangeNewUser, dataSend } = useContext(musicContext);
+  
   return (
     <main>
       <Cart />
-      <section className="container">
+      <section className="containerOmega">
         <div className="headerPage mt-3">
           <h2>Create User Account</h2>
         </div>
         <hr />
         <div className="mb-3">
-          <form>
+          <form  onSubmit={dataSend}>
             <div className="row">
               <div className="col-6">
                 <div className="mb-3">
-                  <Input
+                  <input
+                    name="name"
                     type="text"
                     label="Full Name:"
-                    id="name"
-                    // value={formik.values.address}
+                    defaultValue=""
                     placeholder="Introduce your full name"
-                    // handleChange={formik.handleChange}
-                    // handleBlur={formik.handleBlur}
-                    // hasErrorMessage={formik.touched.address}
-                    // errorMessage={formik.errors.address}
+                    onChange={handleChangeNewUser}
+                    
                   />
                 </div>
                 <div className="mb-3">
-                  <Input
+                  <input
+                    name="email"
                     type="text"
                     label="Email:"
-                    id="email"
-                    // value={formik.values.address}
+                    defaultValue=""
+                    onChange={handleChangeNewUser}
                     placeholder="Ex: useremail@gmail.com"
-                    // handleChange={formik.handleChange}
-                    // handleBlur={formik.handleBlur}
-                    // hasErrorMessage={formik.touched.address}
-                    // errorMessage={formik.errors.address}
+
                   />
                 </div>
                 <div className="mb-3">
-                  <Input
+                  <input
+                    name="password"
                     type="text"
                     label="Password:"
-                    id="password"
-                    // value={formik.values.address}
+                    defaultValue=""
+                    onChange={handleChangeNewUser}
                     placeholder="******"
-                    // handleChange={formik.handleChange}
-                    // handleBlur={formik.handleBlur}
-                    // hasErrorMessage={formik.touched.address}
-                    // errorMessage={formik.errors.address}
+
                   />
                 </div>
-                <div className="mb-3">
+                {/* <div className="mb-3">
                   <Input
                     type="text"
                     label="Country:"
@@ -125,10 +123,13 @@ function SignUpPage() {
                     // handleBlur={formik.handleBlur}
                     // hasErrorMessage={formik.touched.address}
                     // errorMessage={formik.errors.address}
-                  />
-                </div>
+                  /> 
+                </div>*/}
               </div>
             </div>
+            <button type="submit" className="btn btn-primary">
+                  Sign up
+                </button>
           </form>
         </div>
       </section>

@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Grid } from "@material-ui/core/";
 import { v4 as uuidv4 } from "uuid";
-import musicContext from "../../context";
+import { musicContext } from "../../context";
 import "./styles.css";
 
 export default function ProductDashboard() {
@@ -17,7 +17,7 @@ export default function ProductDashboard() {
 
   return (
     <main>
-      <Grid container xs={12} sm={12} md={12}>
+      <Grid item xs={12} sm={12} md={12}>
         <div className="grid-container">
           {products.map((product) => (
             <div className="product-table border border-secondary rounded mb-4">

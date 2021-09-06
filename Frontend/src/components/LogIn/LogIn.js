@@ -1,46 +1,99 @@
 import React, { useState } from "react";
 import $ from "jquery";
+import { Link } from "react-router-dom";
 
 import "./styles.css";
 
 export default function LogIn(showLogin) {
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const [userExistData, setuserExistData ]=useState({
+    email:"",
+    pass:""
+  })
+  const [isLoggedin, setisLoggedin] = useState(true);
 
   function showLogin() {
     showLoginModal ? setShowLoginModal(false) : setShowLoginModal(true);
   }
+  function handleChangeExistingUser(e){
+    setuserExistData({
+      ...userExistData,
+      [e.target.name] : e.target.value
+    })
+  }
+  function LogInMethod(e) {
+    e.preventDefault();
+    $.ajax({
+      url: "http://localhost:4000/users/sign-in",
+      type: "POST",
+      contentType: "application/json; charset=utf-8",
+      data: JSON.stringify({
+        email: userExistData.email,
+        pass: userExistData.pass,
+      }),
+      success: (res) => {
+        console.log(res);
+        setisLoggedin(false);
+      },
+    });
+  }
 
   if (showLoginModal) {
-    console.log("mostrar");
     $("#login-modal").css("display", "block");
   } else {
-    console.log("ocultar");
     $("#login-modal").css("display", "none");
   }
 
+  // const isLoggedin = true;
+
   return (
+    
     <div className="login-main-container">
-      <a className="login-button" href="/sign-up">
-        Register
-      </a>
+    {isLoggedin ? (
+      <>
+    <Link className="login-button" to="/sign-up">
+            Register
+          </Link>
       <div>
         <a id="login-button" className="login-button" onClick={showLogin}>
           LogIn
         </a>
+
         <div id="login-modal" className="login-container">
-          <div className="login-field">Username:</div>
+          <form onSubmit={LogInMethod}>
+          <div className="login-field">Email:</div>
           <div className="login-field">
-            <input type="text" />
+            <input 
+            name="email"
+            defaultValue=""
+            type="text" 
+            onChange={handleChangeExistingUser} 
+            />
           </div>
           <div className="login-field">Password:</div>
           <div className="login-field">
-            <input type="text" />
+            <input 
+            name="pass"
+            defaultValue=""
+            type="text" 
+            onChange={handleChangeExistingUser} 
+            />
           </div>
           <div className="login-field login-buttons">
-            <a href="#">Login</a>
+            <button type="submit" className="btn btn-primary">Login</button>
+
           </div>
+          </form>
         </div>
       </div>
+      </>
+      
+      ) : (
+        <Link className="login-button" to="/logout">
+          Logout
+        </Link>
+       
+      )}
     </div>
   );
 }

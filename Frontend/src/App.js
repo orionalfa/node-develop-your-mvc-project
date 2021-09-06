@@ -1,14 +1,18 @@
 import "./App.css";
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useState, useEffect } from "react";
 import $ from "jquery";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
-import musicContext from "./context";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { HunelProvider, HunelCreditCard } from "reactjs-credit-card";
+
+import { checkoutContext, musicContext } from "./context";
+import { shoppingCart } from "./context";
 
 import "./App.css";
 
 import NavBar from "./components/NavBar";
 import ProductDashboard from "./Pages/ProductDashboard";
 import ProductForm from "./Pages/ProductForm";
+import UsersDashboard from "./Pages/UsersDashboard";
 import Home from "./Pages/Home";
 import ProductPage from "./Pages/Products";
 import SignUpPage from "./Pages/SignUp";
@@ -18,6 +22,8 @@ import ShippingMethod from "./Pages/Checkout/ShippingMethod";
 import PaymentMethod from "./Pages/Checkout/PaymentMethod";
 import PreviewOrder from "./Pages/Checkout/PreviewOrder";
 import ConfirmOrder from "./Pages/Checkout/ConfirmOrder";
+
+const hunel = new HunelCreditCard();
 // const SHOW_SHOPPINGCART="SHOW_SHOPPINGCART";
 // function reducer(state, action){
 //   switch (action.type){
@@ -33,22 +39,77 @@ import ConfirmOrder from "./Pages/Checkout/ConfirmOrder";
 function App() {
   // const [state, dispatch] = useReducer(reducer);
   const [showShoppingCart, setShowShoppingCart] = useState(false);
+  const [cartProducts, setCartProducts] = useState([]);
+  const [shippingAddress, setShippingAddress] = useState({
+    country: "",
+    city: "",
+    postalCode: "",
+    streetAddress: "",
+    contactName: "",
+    contactPhone: "",
+  });
+  const [shippingMethod, setShippingMethod] = useState("");
+  const [paymentData, setPaymentData] = useState({});
+
   const [products, setProducts] = useState([]);
+  const [users, setUsers] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
+  const [newUserData, setNewUserData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
   useEffect(() => {
     getAllProducts();
+    getAllUsers();
   }, []);
 
   function showCart() {
     showShoppingCart ? setShowShoppingCart(false) : setShowShoppingCart(true);
   }
-  function getAllProducts() {
+
+  function handleChangeNewUser(e) {
+    setNewUserData({
+      ...newUserData,
+      [e.target.name]: e.target.value,
+    });
+  }
+  function dataSend(e) {
+    e.preventDefault();
     $.ajax({
+      url: "http://localhost:4000/users/",
+      type: "POST",
+      contentType: "application/json; charset=utf-8",
+      data: JSON.stringify({
+        //newUserData
+        name: newUserData.name,
+        email: newUserData.email,
+        pass: newUserData.password,
+      }),
+      success: (res) => {
+        console.log(res);
+      },
+    });
+  }
+  function getAllProducts() {
+    return $.ajax({
       url: "http://localhost:4000/products",
       type: "GET",
       success: (res) => {
         setProducts(res.data);
+        setIsLoaded(true);
+      },
+    });
+  }
+
+  function getAllUsers() {
+    return $.ajax({
+      url: "http://localhost:4000/users",
+      type: "GET",
+      success: (res) => {
+        setUsers(res.data);
+        console.log(res.data);
         setIsLoaded(true);
       },
     });
@@ -65,6 +126,18 @@ function App() {
     });
   }
 
+  async function removeUser(user) {
+    console.log(user._id);
+    $.ajax({
+      url: `http://localhost:4000/users/${user._id}`,
+      type: "DELETE",
+      success: (res) => {
+        getAllUsers();
+        //window.location.reload();
+      },
+    });
+  }
+
   async function updateProduct(productId) {
     $.ajax({
       url: `http://localhost:4000/products/${productId}`,
@@ -73,7 +146,7 @@ function App() {
         // title: product.title,
       },
       success: (res) => {
-        console.log(res);
+        //window.location.reload();
       },
     });
   }
@@ -88,46 +161,145 @@ function App() {
       },
     });
   }
+  async function updateShippingData(user, shippingAddress) {
+    $.ajax({
+      url: `http://localhost:4000/users/${user._id}`,
+      type: "PATCH",
+      data: shippingAddress,
+      success: (res) => {},
+    });
+  }
+
+  async function getShippingData(user) {
+    $.ajax({
+      url: `http://localhost:4000/users/${user._id}`,
+      type: "GET",
+      data: "",
+      success: (res) => {
+        setShippingAddress(res.shippingAddress);
+      },
+    });
+  }
+
+  async function sendOrder(user, order) {
+    $.ajax({
+      url: `http://localhost:4000/users/${user._id}`,
+      type: "PATCH",
+      data: order,
+      success: (res) => {
+        //window.location.reload();
+      },
+    });
+  }
+
+  function buildNewCartItem(product) {
+    return {
+      _id: product._id,
+      title: product.title,
+      price: product.models[0].price,
+      images: product.models[0].images[0],
+      quantity: 0,
+    };
+  }
+
+  function addToCart(productId) {
+    const prevCartItem = cartProducts.find(
+      (product) => product._id === productId,
+    );
+    const foundProduct = products.find((product) => product._id === productId);
+
+    if (prevCartItem) {
+      const updatedCartItems = cartProducts.map((item) => {
+        if (item.id !== productId) {
+          return item;
+        }
+
+        return {
+          ...item,
+          quantity: item.quantity + 1,
+        };
+      });
+
+      setCartProducts(updatedCartItems);
+      console.log(cartProducts);
+      return;
+    }
+
+    const updatedProduct = buildNewCartItem(foundProduct);
+
+    setCartProducts((prevState) => [...prevState, updatedProduct]);
+    console.log(cartProducts);
+  }
 
   return (
     <>
-      <header>
-        <NavBar showCart={showCart} />
-      </header>
-      <musicContext.Provider
-        value={{
-          showShoppingCart: showShoppingCart,
-          hola: "holaketal",
-          products: products,
-          isLoaded: isLoaded,
-          removeProduct: removeProduct,
-          updateProduct: updateProduct,
-          getAllProducts: getAllProducts,
-          removeModel: removeModel,
-        }}
-      >
-        <BrowserRouter>
-          <Switch>
-            <Route path="/" exact component={Home} />
-            <Route path="/products" render={() => <ProductPage />} />
-            <Route path="/user-pwd-change" component={ChangePasswordPage} />
-            <Route path="/sign-up" render={() => <SignUpPage />} />
-            <Route
-              path="/product-dashboard"
-              render={() => <ProductDashboard />}
-            />
-            <Route
-              path="/product-formulary/:id"
-              render={() => <ProductForm />}
-            />
-            <Route path="/shipping-info" render={() => <ShippingInfo />} />
-            <Route path="/shipping-method" render={() => <ShippingMethod />} />
-            <Route path="/payment-method" render={() => <PaymentMethod />} />
-            <Route path="/preview-order" render={() => <PreviewOrder />} />
-            <Route path="/confirm-order" render={() => <ConfirmOrder />} />
-          </Switch>
-        </BrowserRouter>
-      </musicContext.Provider>
+      <Router>
+        <header>
+          <NavBar showCart={showCart} />
+        </header>
+        <musicContext.Provider
+          value={{
+            showShoppingCart: showShoppingCart,
+            hola: "holaketal",
+            products: products,
+            users: users,
+            isLoaded: isLoaded,
+            removeProduct: removeProduct,
+            removeUser: removeUser,
+            updateProduct: updateProduct,
+            getAllProducts: getAllProducts,
+            handleChangeNewUser: handleChangeNewUser,
+            dataSend: dataSend,
+          }}
+        >
+          <shoppingCart.Provider
+            value={{
+              cartProducts: cartProducts,
+              addToCart: addToCart,
+            }}
+          >
+            <Switch>
+              <Route path="/" exact render={() => <Home />} />
+              <Route path="/products" render={() => <ProductPage />} />
+              <Route path="/user-pwd-change" component={ChangePasswordPage} />
+              <Route path="/sign-up" render={() => <SignUpPage />} />
+              <Route path="/product-dashboard" component={ProductDashboard} />
+              <Route
+                path="/product-formulary/:id"
+                render={() => <ProductForm />}
+              />
+              <Route path="/users-dashboard" component={UsersDashboard} />
+              <checkoutContext.Provider
+                value={{
+                  shippingAddress: shippingAddress,
+                  shippingMethod: shippingMethod,
+                  paymentData: paymentData,
+                  setShippingAddress: setShippingAddress,
+                  setShippingMethod: setShippingMethod,
+                  setPaymentData: setPaymentData,
+                  updateShippingData: updateShippingData,
+                  getShippingData: getShippingData,
+                  sendOrder: sendOrder,
+                }}
+              >
+                <Route path="/shipping-info" render={() => <ShippingInfo />} />
+                <Route
+                  path="/shipping-method"
+                  render={() => <ShippingMethod />}
+                />
+                <HunelProvider config={hunel}>
+                  <Route
+                    path="/payment-method"
+                    render={() => <PaymentMethod />}
+                  />
+                </HunelProvider>
+                <Route path="/preview-order" render={() => <PreviewOrder />} />
+                <Route path="/confirm-order" render={() => <ConfirmOrder />} />
+              </checkoutContext.Provider>
+            </Switch>
+          </shoppingCart.Provider>
+        </musicContext.Provider>
+      </Router>
     </>
   );
 }

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import "./styles.css";
 
@@ -11,9 +12,9 @@ function NavBar({ showCart }) {
       <nav className="navbar navbar-expand-lg navbar-light bg-light border sticky-top personalized-navbar-style">
         <div className="container-fluid">
           <img className="logotype-Invert" src="./img/logotype.png"></img>
-          <a className="navbar-brand logo" href="#">
+          <Link to="/" className="navbar-brand logo">
             NotE
-          </a>
+          </Link>
           <button
             className="navbar-toggler"
             type="button"
@@ -28,38 +29,43 @@ function NavBar({ showCart }) {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item navItem">
-                <a className="nav-link active" aria-current="page" href="/">
+                <Link className="nav-link active" aria-current="page" to="/">
                   Home
-                </a>
+                </Link>
               </li>
               <li className="nav-item navItem">
-                <a className="nav-link" href="/products">
+                <Link className="nav-link" to="/products">
                   Products
-                </a>
+                </Link>
               </li>
               <li className="nav-item navItem">
-                <a className="nav-link" href="/product-dashboard">
+                <Link className="nav-link" to="/product-dashboard">
                   ProductDashboard
-                </a>
+                </Link>
               </li>
               <li className="nav-item navItem">
-                <div className="nav-link checkout" href="#">
+                <Link className="nav-link" to="/users-dashboard">
+                  UsersDashboard
+                </Link>
+              </li>
+              <li className="nav-item navItem">
+                <div className="nav-link checkout">
                   ¡¡TMP!! - Checkout
                   <ul>
                     <li>
-                      <a href="/shipping-info">ShippingInfo</a>
+                      <Link to="/shipping-info">ShippingInfo</Link>
                     </li>
                     <li>
-                      <a href="/shipping-method">ShippingMethod</a>
+                      <Link to="/shipping-method">ShippingMethod</Link>
                     </li>
                     <li>
-                      <a href="/payment-method">PaymentMethod</a>
+                      <Link to="/payment-method">PaymentMethod</Link>
                     </li>
                     <li>
-                      <a href="/preview-order">PreviewOrder</a>
+                      <Link to="/preview-order">PreviewOrder</Link>
                     </li>
                     <li>
-                      <a href="/confirm-order">ConfirmOrder</a>
+                      <Link to="/confirm-order">ConfirmOrder</Link>
                     </li>
                   </ul>
                 </div>

@@ -2,4 +2,8 @@ import { createContext } from "react";
 
 const musicContext = createContext({});
 
-export default musicContext;
+const shoppingCart = createContext([]);
+
+const checkoutContext = createContext({});
+
+export { musicContext, shoppingCart, checkoutContext };
